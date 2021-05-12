@@ -1,0 +1,42 @@
+#frontend Vue.js
+
+/frontend/PlantManager/.DS_Store
+/frontend/PlantManager/node_modules
+/frontend/PlantManager/dist
+
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+#backend Laravel
+
+/backend/PlantManager/node_modules
+/backend/PlantManager/public/hot
+/backend/PlantManager/public/storage
+/backend/PlantManager/storage/*.key
+/backend/PlantManager/vendor
+.env
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
