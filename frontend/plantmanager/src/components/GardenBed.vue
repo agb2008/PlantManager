@@ -15,6 +15,12 @@
                 </div>
                 <div class="garden-bed-table flex flex-wrap">
                     <div class="table-cell" v-for="item of (quantityRows * quantityColumns)" :key="item" v-on:click="markCell"></div>
+                    <div class="btn-increase increase-columns" v-on:click="increaseCells('col')">
+                        <p class="btn-increase-text">Increase columns</p>
+                    </div>
+                    <div class="btn-increase increase-rows" v-on:click="increaseCells('rows')">
+                        <p class="btn-increase-text">Increase rows</p>
+                    </div>
                 </div>
             </main>
         </div>
@@ -58,11 +64,26 @@ export default {
             }
             
         },
+
         markCell(event){
+            if(this.choseDoing === null) return;
+            
             for(let el of this.doingsArray){
                 if(el.name === this.choseDoing){
                     event.target.style.background = el.colour;
                 }
+            }
+        },
+
+        increaseCells(direction){
+            let el = document.querySelector(".garden-bed-table")
+            if(direction === "rows"){
+                el.style.height = el.clientHeight + 300 + "px";
+                this.quantityRows += 10;
+            }
+            else{
+                el.style.width = el.clientWidth + 300 + "px";
+                this.quantityColumns += 10;
             }
         }
     },
@@ -75,6 +96,10 @@ export default {
         writing-mode: vertical-rl;
         min-height: 100vh;
         text-align: center;
+    }
+
+    .main{
+        margin-bottom: 83px;
     }
 
     .garden-bed-panel{
@@ -107,12 +132,82 @@ export default {
     }
 
     .garden-bed-table{
+        position: relative;
         margin: 0 auto;
-        height: 600px;
         width: 900px;
-        max-height: 600px;
-        max-width: 900px;
-        border-collapse: collapse;
+        min-width: 900px;
+    }
+
+    .btn-increase{
+        cursor: pointer;
+        position: absolute;
+        font-size: 15px;
+        color: #fff;
+        background: rgb(165, 164, 164);
+        border: 2px solid rgb(150, 149, 149);
+        border-radius: 3px;
+    }
+
+    .btn-increase:hover{
+        background: rgb(165, 164, 164);
+        border: 2px solid rgb(81, 82, 81);
+        color: rgb(105, 105, 105);
+        box-shadow: none;
+    }
+
+    .btn-increase:active{
+        box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.25) inset;
+        color: rgb(82, 82, 82);
+        border: 2px solid rgb(81, 82, 81);
+    }
+
+    .increase-columns{
+        top: 44%;
+        left: 100%;
+        writing-mode: vertical-lr;
+        margin-left: 10px;
+        padding: 6px 5px;
+        box-shadow: -6px -6px 5px -6px rgba(34, 60, 80, 0.5);
+    }
+
+    .increase-rows{
+        top: 100%;
+        left: 46%;
+        margin-top: 10px;
+        padding: 5px 6px;
+        box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6);
+    }
+
+    .increase-rows::after{
+        content: "";
+        position: absolute;
+        top: 34px;
+        left: 37px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 9px 15px 0 15px;
+        border-color: rgb(150, 149, 149) transparent transparent transparent;
+    }
+
+    .increase-rows:hover::after{
+        border-color: rgb(81, 82, 81) transparent transparent transparent;
+    }
+
+    .increase-columns::after{
+        content: "";
+        position: absolute;
+        top: 50px;
+        left: 35px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 15px 0 15px 9px;
+        border-color: transparent transparent transparent rgb(150, 149, 149);
+    }
+
+    .increase-columns:hover::after{
+        border-color: transparent transparent transparent rgb(81, 82, 81);
     }
 
     .table-cell{
