@@ -1,7 +1,5 @@
 <template>
-  <div>
     <div id="ex3"></div>
-  </div>
 </template>
 
 <script>

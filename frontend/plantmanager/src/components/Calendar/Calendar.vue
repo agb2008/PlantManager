@@ -5,6 +5,7 @@
       :rows="2"
       :columns="$screens({ default: 1, lg: 2 })"
       :attributes="attributes"
+      class="v_calendar"
     />
     <lunar-calendar />
   </div>
@@ -14,7 +15,7 @@
 import VCalendar from "v-calendar/lib/components/calendar.umd";
 import LunarCalendar from './LunarCalendar.vue';
 // import DatePicker from 'v-calendar/lib/components/date-picker.umd';
-const lune = require("lune");
+// const lune = require("lune");
 
 export default {
   name: "Calendar",
@@ -33,21 +34,25 @@ export default {
       ],
     };
   },
-  methods: {
-    getPhase() {
-      const current_phase = lune.phase();
-      console.log(current_phase);
-    },
-    getPhasesAround() {
-      const some_date = new Date();
-      const some_date_phase = lune.phase_hunt(some_date);
-      console.log(some_date_phase);
-    },
-  },
-  beforeMount() {
-    this.getPhase();
-  },
+  // methods: {
+  //   getPhase() {
+  //     const current_phase = lune.phase();
+  //     console.log(current_phase);
+  //   },
+  //   getPhasesAround() {
+  //     const some_date = new Date();
+  //     const some_date_phase = lune.phase_hunt(some_date);
+  //     console.log(some_date_phase);
+  //   },
+  // },
+  // beforeMount() {
+  //   this.getPhase();
+  // },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+/* .v_calendar {
+  max-width: 50%;
+} */
+</style>
