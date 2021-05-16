@@ -38,6 +38,7 @@ export default {
       xmlhttp.send();
     },
     example_3(moon) {
+        console.log(moon);
       let lunar_day = 0;
       let i = 0;
       let inc = 0;
@@ -48,9 +49,12 @@ export default {
         moon.nameDay.unshift(moon.nameDay.pop());
       }
       const empty_initial_boxes = Number(moon.phase[1].dayWeek) + inc;
+
       const number_days_month = Number(moon.daysMonth);
+
       const total_boxes =
         Math.ceil((empty_initial_boxes + number_days_month) / 7) * 7;
+
       let html =
         "<div>" +
         '<button value="-1" class="buttonCalendar">\u276E</button>' +
@@ -61,10 +65,13 @@ export default {
         "</div>" +
         '<button value="1" class="buttonCalendar">\u276F</button>' +
         "</div>";
+
       for (i = 0; i < 7; i++) {
         html += '<div class="name_day">' + moon.nameDay[i] + "</div>";
       }
+
       containsCalendar.innerHTML = html;
+
       for (i = 0; i < total_boxes; i++) {
         const day = i - empty_initial_boxes;
         const box = document.createElement("DIV");
@@ -75,8 +82,10 @@ export default {
             moon.year == new Date().getFullYear() &&
             moon.month == new Date().getMonth() + 1 &&
             lunar_day == new Date().getDate()
-          )
+          ) {
             box.id = "isToDay";
+          }
+
           box.innerHTML =
             "<div>" +
             "<span>" +
@@ -86,6 +95,7 @@ export default {
             moon.phase[lunar_day].svg +
             "</div>" +
             "</div>";
+
           if (moon.phase[lunar_day].isPhaseLimit) {
             const url =
               "data:image/svg+xml;utf8, " + moon.phase[lunar_day].svgMini;
@@ -96,29 +106,32 @@ export default {
         containsCalendar.appendChild(box);
       }
 
-      document.querySelectorAll(".buttonCalendar").forEach(function(button) {
-        button.onclick = function() {
+      document.querySelectorAll(".buttonCalendar").forEach((button) => {
+        button.onclick = () => {
           const date_to_show = new Date(
             moon.year,
-            moon.month + Number(this.getAttribute("value") - 1),
+            moon.month + Number(button.getAttribute("value") - 1),
             1
           );
-          const configMoon = moon.receivedconstiables;
-          configMoon.month = date_to_show.getMonth() + 1;
-          configMoon.year = date_to_show.getFullYear();
-          this.load_moon_phases(configMoon, this.example_3);
-          this.style.visibility = "hidden";
+        //   const configMoon = moon.receivedconstiables;
+          this.configMoon.month = date_to_show.getMonth() + 1;
+          this.configMoon.year = date_to_show.getFullYear();
+          this.render();
+          button.style.visibility = "hidden";
         };
       });
     },
+    render() {
+        this.load_moon_phases(this.configMoon, this.example_3);
+    },
   },
   beforeMount() {
-    this.load_moon_phases(this.configMoon, this.example_3);
+    this.render();
   },
 };
 </script>
 
-<style scoped>
+<style>
 #ex3 {
   max-width: 700px;
   margin: 20px auto;
