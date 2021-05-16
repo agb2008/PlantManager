@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "lune": "^0.4.0",
     "v-calendar": "^2.3.0",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-i18n": "^8.24.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
