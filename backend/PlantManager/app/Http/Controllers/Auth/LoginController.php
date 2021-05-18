@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Socialite\Facades\Socialite;
+use SocialiteProviders\Manager\OAuth2\User as OA;
+use Illuminate\Support\Facades\Auth;
+use App\Adaptors\UserAdaptor;
 
 class LoginController extends Controller
 {
@@ -36,5 +40,25 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function socLogin($name)
+    {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
+        return Socialite::driver($name)->redirect();
+    }
+
+    public function socResponse(UserAdaptor $userAdaptor, $name)
+    {
+        if (!Auth::check()) {
+            $name = ($name == 'vk')  ? 'vkontakte' : $name;
+            $user = Socialite::driver($name)->user();
+
+            $userInSystem = $userAdaptor->getUserBySocId($user, $name);
+            Auth::login($userInSystem);
+        }
+        return redirect()->route('home');
     }
 }
