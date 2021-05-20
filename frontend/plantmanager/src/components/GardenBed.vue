@@ -38,16 +38,42 @@ export default {
                 {name: "deviding", img: "./images/deviding.jpg", colour: "#5a5a5a"},
                 {name: "clean", img: "./images/kisclean.jpg", colour: "none"}
             ],
-            quantityRows: 20,
-            quantityColumns: 30,
+            quantityRows: 5,
+            quantityColumns: 5,
             choseDoing: null,
-            previousChoseDoing: null
+            previousChoseDoing: null,
+            userGarden: []
         }
     },
     props: {
     
     },
     methods: {
+        markCell(event){
+            let userPlants = {}
+            if(this.choseDoing === null) return;
+            
+            for(let el of this.doingsArray){
+                if(el.name === this.choseDoing){
+                    event.target.style.background = el.colour;
+                    userPlants.id = event.target.id;
+                    userPlants.name = el.name;
+                    userPlants.colour = el.colour
+                }
+            }
+
+            this.userGarden.push(userPlants)
+
+            for (let i = this.userGarden.length; i--;) {
+                if (this.userGarden[i].colour  === "none") {
+                    this.userGarden.splice(i, 1);
+                }
+            }
+
+
+            console.log(this.userGarden)
+        },
+
         chooseIconDoing(iconName, event){
             if(iconName !== this.choseDoing){
                 this.choseDoing = iconName;
@@ -65,25 +91,15 @@ export default {
             
         },
 
-        markCell(event){
-            if(this.choseDoing === null) return;
-            
-            for(let el of this.doingsArray){
-                if(el.name === this.choseDoing){
-                    event.target.style.background = el.colour;
-                }
-            }
-        },
-
         increaseCells(direction){
             let el = document.querySelector(".garden-bed-table")
             if(direction === "rows"){
-                el.style.height = el.clientHeight + 300 + "px";
-                this.quantityRows += 10;
+                el.style.height = el.clientHeight + 1 + "px";
+                this.quantityRows += 1;
             }
             else{
-                el.style.width = el.clientWidth + 300 + "px";
-                this.quantityColumns += 10;
+                el.style.width = el.clientWidth + 1 + "px";
+                this.quantityColumns += 1;
             }
         }
     },
