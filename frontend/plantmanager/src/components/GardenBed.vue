@@ -77,16 +77,16 @@ export default {
                     event.target.style.background = el.colour;
 
                     if(this.choseDoing !== "clean")
-                        this.addCellInfoToArray(event, el);
+                        this.addCellInfoToSet(event, el);
                     else{
-                        this.removeCellInfoToArray(event);
+                        this.removeCellInfoFromSet(event);
                     }
                 }
             }
             console.log(this.dataCellsSet);
         },
 
-        addCellInfoToArray(e, doing){
+        addCellInfoToSet(e, doing){
             if(!this.dataCellsSetHasId(e.target.id)){
                 let obj = {};
                 obj.coordinate = e.target.id;
@@ -97,7 +97,7 @@ export default {
             }
         },
 
-        removeCellInfoToArray(e){
+        removeCellInfoFromSet(e){
             for(let el of this.dataCellsSet){
                 if(el.coordinate === e.target.id){
                     this.dataCellsSet.delete(el);
