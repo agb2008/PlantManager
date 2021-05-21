@@ -13,8 +13,11 @@
                         <img :src="item.img" alt="" class="icon-img">
                     </div>
                 </div>
-                <div class="garden-bed-table flex flex-wrap">
-                    <div class="table-cell" v-for="item of (quantityRows * quantityColumns)" :key="item" v-on:click="markCell"></div>
+                <div class="garden-bed-table flex flex-col">
+                    <div class="tabel-row flex" v-for="r of quantityRows" :key="r">
+                        <div class="table-cell" v-for="c of quantityColumns" :style="getBackground(c)"
+                        :key="c" :id="r + '/' + c" v-on:click="markCell"></div>
+                    </div>
                     <div class="btn-increase increase-columns" v-on:click="increaseCells('col')">
                         <p class="btn-increase-text">Increase columns</p>
                     </div>
@@ -38,6 +41,7 @@ export default {
                 {name: "deviding", img: "./images/deviding.jpg", colour: "#5a5a5a"},
                 {name: "clean", img: "./images/kisclean.jpg", colour: "none"}
             ],
+            dataCellsSet: new Set(),
             quantityRows: 20,
             quantityColumns: 30,
             choseDoing: null,
@@ -71,19 +75,60 @@ export default {
             for(let el of this.doingsArray){
                 if(el.name === this.choseDoing){
                     event.target.style.background = el.colour;
+
+                    if(this.choseDoing !== "clean")
+                        this.addCellInfoToArray(event, el);
+                    else{
+                        this.removeCellInfoToArray(event);
+                    }
                 }
             }
+            console.log(this.dataCellsSet);
+        },
+
+        addCellInfoToArray(e, doing){
+            if(!this.dataCellsSetHasId(e.target.id)){
+                let obj = {};
+                obj.coordinate = e.target.id;
+                obj.name = doing.name;
+                obj.background = doing.colour;
+                //возможно потом добавятся другие поля
+                this.dataCellsSet.add(obj);
+            }
+        },
+
+        removeCellInfoToArray(e){
+            for(let el of this.dataCellsSet){
+                if(el.coordinate === e.target.id){
+                    this.dataCellsSet.delete(el);
+                }
+            }
+        },
+
+        dataCellsSetHasId(id){
+            let existenceId = 0;
+            for(let el of this.dataCellsSet){
+                if(el.coordinate === id) existenceId = 1;
+            }
+            return existenceId;
         },
 
         increaseCells(direction){
             let el = document.querySelector(".garden-bed-table")
             if(direction === "rows"){
-                el.style.height = el.clientHeight + 300 + "px";
-                this.quantityRows += 10;
+                this.quantityRows += 5;
+                el.style.height = el.clientHeight + 150 + "px";
             }
             else{
-                el.style.width = el.clientWidth + 300 + "px";
-                this.quantityColumns += 10;
+                this.quantityColumns += 5;
+                el.style.width = el.clientWidth + 150 + "px";
+            }
+        },
+
+        getBackground(id){
+            let el = Array.from(this.dataCellsSet).filter(el => el.coordinate === id)
+            if(el){
+                return `background: ${el.background}`;
             }
         }
     },
@@ -162,7 +207,7 @@ export default {
     }
 
     .increase-columns{
-        top: 44%;
+        top: 42%;
         left: 100%;
         writing-mode: vertical-lr;
         margin-left: 10px;
@@ -198,11 +243,11 @@ export default {
         content: "";
         position: absolute;
         top: 50px;
-        left: 35px;
+        left: 34px;
         width: 0;
         height: 0;
         border-style: solid;
-        border-width: 15px 0 15px 9px;
+        border-width: 15px 0 15px 10px;
         border-color: transparent transparent transparent rgb(150, 149, 149);
     }
 
