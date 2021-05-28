@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="flex items-center justify-center px-3 py-2 text-gray-700 border-gray-400 bg-gray-200 cursor-pointer hover:bg-gray-300 hover:text-gray-900"
+		<div class="flex items-center justify-center px-3 py-2 text-gray-700 border-gray-400 bg-gray-300 cursor-pointer hover:bg-gray-400 hover:text-gray-900"
 					@click="openModal(true)">
 							<h3 class="px-3 py-2 text-gray-700 border-gray-300 cursor-pointer">{{ 'Добавить новый тип семян' }}</h3>
 							
