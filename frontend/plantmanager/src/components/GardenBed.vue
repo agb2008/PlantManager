@@ -15,7 +15,7 @@
                 </div>
                 <div class="garden-bed-table flex flex-col">
                     <div class="tabel-row flex" v-for="r of quantityRows" :key="r">
-                        <div class="table-cell" v-for="c of quantityColumns" :style="getBackground(c)"
+                        <div class="table-cell" v-for="c of quantityColumns" :style="getBackground(r + '/' + c)"
                         :key="c" :id="r + '/' + c" v-on:click="markCell"></div>
                     </div>
                     <div class="btn-increase increase-columns" v-on:click="increaseCells('col')">
@@ -36,16 +36,43 @@ export default {
     data(){
         return {
             doingsArray: [
-                {name: "tomato", img: "./images/tamato.jpg", colour: "rgb(240, 6, 6)"},
-                {name: "potato", img: "./images/potato.jpg", colour: "#9d6b39"},
-                {name: "deviding", img: "./images/deviding.jpg", colour: "#5a5a5a"},
-                {name: "clean", img: "./images/kisclean.jpg", colour: "none"}
+                {
+                    name: "tomato", 
+                    img: "./images/44_tomato_food-tomato.svg", 
+                },
+                {
+                    name: "bell_pepper", 
+                    img: "./images/30_bell_pepper.svg", 
+                },
+                {
+                    name: "cucumber", 
+                    img: "./images/8_cucumber-slice-publicdomainvectors.org.svg", 
+                },
+                {
+                    name: "chery_tomat", 
+                    img: "./images/173_cherryTomato-branch-publicdomainvectors.org.svg", 
+                },
+                {
+                    name: "blackberry", 
+                    img: "./images/221_blackberry.svg", 
+                },
+                {
+                    name: "deviding", 
+                    img: "./images/deviding.jpg", 
+                    background: "#5a5a5a", 
+                },
+                {
+                    name: "clean", 
+                    img: "./images/kisclean.jpg", 
+                    background: "none", 
+                }
             ],
             dataCellsSet: new Set(),
             quantityRows: 20,
             quantityColumns: 30,
             choseDoing: null,
-            previousChoseDoing: null
+            previousChoseDoing: null,
+            gardenBedTable: null
         }
     },
     props: {
@@ -71,19 +98,20 @@ export default {
 
         markCell(event){
             if(this.choseDoing === null) return;
-            
-            for(let el of this.doingsArray){
-                if(el.name === this.choseDoing){
-                    event.target.style.background = el.colour;
 
-                    if(this.choseDoing !== "clean")
-                        this.addCellInfoToSet(event, el);
-                    else{
-                        this.removeCellInfoFromSet(event);
-                    }
+            for(let el of this.doingsArray){
+                if(el.name === this.choseDoing && this.isCellClear(event.target.style.background)){
+                    event.target.style.background = el.background ? el.background :
+                        `center / contain no-repeat url(${el.img})`;
+
+                    this.addCellInfoToSet(event, el);
+                    return;
+                } else if(this.choseDoing === "clean"){
+                    this.removeCellInfoFromSet(event);
+                    event.target.style.background = "none";
+                    return;
                 }
             }
-            console.log(this.dataCellsSet);
         },
 
         addCellInfoToSet(e, doing){
@@ -91,10 +119,11 @@ export default {
                 let obj = {};
                 obj.coordinate = e.target.id;
                 obj.name = doing.name;
-                obj.background = doing.colour;
+                obj.background = doing.background ? doing.background : doing.img;
                 //возможно потом добавятся другие поля
                 this.dataCellsSet.add(obj);
             }
+            console.log(this.dataCellsSet);
         },
 
         removeCellInfoFromSet(e){
@@ -103,6 +132,14 @@ export default {
                     this.dataCellsSet.delete(el);
                 }
             }
+            console.log(this.dataCellsSet);
+        },
+
+        isCellClear(targetBackground){
+            if(targetBackground === "" || targetBackground === "none"){
+                return true;
+            }
+            return false;
         },
 
         dataCellsSetHasId(id){
@@ -114,24 +151,27 @@ export default {
         },
 
         increaseCells(direction){
-            let el = document.querySelector(".garden-bed-table")
             if(direction === "rows"){
                 this.quantityRows += 5;
-                el.style.height = el.clientHeight + 150 + "px";
+                this.gardenBedTable.style.height = this.gardenBedTable.clientHeight + 150 + "px";
             }
             else{
                 this.quantityColumns += 5;
-                el.style.width = el.clientWidth + 150 + "px";
+                this.gardenBedTable.style.width = this.gardenBedTable.clientWidth + 150 + "px";
             }
         },
 
         getBackground(id){
             let el = Array.from(this.dataCellsSet).filter(el => el.coordinate === id)
             if(el){
-                return `background: ${el.background}`;
+                return `background: center / contain no-repeat ${el.background}`;
             }
         }
     },
+
+    mounted(){
+        this.gardenBedTable = document.querySelector(".garden-bed-table");
+    }
 
 }
 </script>
@@ -161,6 +201,7 @@ export default {
     .icon-img{
         border: 2px solid #000;
         max-width: 40px;
+        width: 40px;
         height: 40px;
         max-height: 40px;
         border-radius: 50%;
