@@ -28,17 +28,18 @@
 				<p class="card__date">Срок годности: {{ seedPack.expirDate }}</p>
 				<p class="card__date">{{ seedPack.harvestYear }}</p>
 			</div>
-			<div class="w-full border-2 rounded p-1">
-				<p :title="manufacturer.title">Производитель: {{ manufacturer.name }}</p>
-				<p>Адрес: {{ manufacturer.address }}</p>
-				<p>Email: {{ manufacturer.email }}</p>
-				<p>Phone: {{ manufacturer.phone }}</p>
-				<a class="cursor-pointer underline" :href="manufacturer.website">Вебсайт</a>
+			<div class="w-full border-2 rounded p-1"
+			:title="seedsManufacturerOfType.notes">
+				<p>Производитель: {{ manufacturer.name }}</p>
+				<p>Адрес: {{ seedsManufacturerOfType.address }}</p>
+				<p>Email: {{ seedsManufacturerOfType.email }}</p>
+				<p>Phone: {{ seedsManufacturerOfType.phone }}</p>
+				<a class="cursor-pointer underline" :href="seedsManufacturerOfType.website">Вебсайт</a>
 			</div>
 		</div>
 		<div class="w-full border-2 rounded p-1">
-			<p class="card__string" :title="family.notes">Семейство: {{ family.name }}</p>
-			<p class="card__string" :title="species.notes">Разновидность: {{ species.name }}</p>
+			<p class="card__string" :title="seedsFamilyOfType.notes">Семейство: {{ seedsFamilyOfType.name }}</p>
+			<p class="card__string" :title="seedsSpeciesOfType.notes">Разновидность: {{ seedsSpeciesOfType.name }}</p>
 		</div>
 	</div>
 </template>
@@ -53,9 +54,10 @@ export default {
 	
 	props: {
 		seedPack: Object,
-		family: Object,
-		species: Object,
-		manufacturer: Object,
+		plantType: Object,
+		family: Array,
+		species: Array,
+		manufacturer: Array,
 		changeAmount: Function,
 	},
 
@@ -66,7 +68,17 @@ export default {
 	},
 
 	computed: {
-		
+		seedsFamilyOfType() {
+			//let familyId = this.plantTypeList.find( item => item.id === this.selectedPlantOfSeeds).familyId;
+			return this.family.find( item => item.id === this.plantType.familyId);
+		},
+		seedsSpeciesOfType() {
+			//let speciesId = this.plantTypeList.find( item => item.id === this.selectedPlantOfSeeds).speciesId;
+			return this.species.find( item => item.id === this.plantType.speciesId);
+		},
+		seedsManufacturerOfType() {
+			return this.manufacturer.find( item => item.id === this.seedPack.manufacturerId);
+		},
 	},
 
 	methods: {

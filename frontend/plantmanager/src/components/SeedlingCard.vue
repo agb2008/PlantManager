@@ -10,7 +10,7 @@
 							class="pt-3 pb-2 pl-5 block  px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200 cursor-pointer"
 							@click.stop=""
 							@change="changeQuant"
-							v-model="packAmount"
+							v-model="seedlingAmount"
 							/>
 							<div class="absolute top-0 left-0 mt-3 ml-1 text-gray-400"></div>
 							<label for="money" class="absolute duration-300 top-5 left-5 -z-1 origin-0 text-gray-500">Кол-во:</label>
@@ -27,17 +27,18 @@
 				<p class="card__date">Дата приобретения: {{ seedling.purchaseDate }}</p>
 				<p class="card__date">Дата посадки сем: {{ seedling.plantDate }}</p>
 			</div>
-			<div class="w-full border-2 rounded p-1">
-				<p :title="manufacturer.title">Производитель: {{ manufacturer.name }}</p>
-				<p>Адрес: {{ manufacturer.address }}</p>
-				<p>Email: {{ manufacturer.email }}</p>
-				<p>Phone: {{ manufacturer.phone }}</p>
-				<a class="cursor-pointer underline" :href="manufacturer.website">Вебсайт</a>
+			<div class="w-full border-2 rounded p-1"
+			:title="seedlingManufacturerOfType.notes">
+				<p>Производитель: {{ seedlingManufacturerOfType.name }}</p>
+				<p>Адрес: {{ seedlingManufacturerOfType.address }}</p>
+				<p>Email: {{ seedlingManufacturerOfType.email }}</p>
+				<p>Phone: {{ seedlingManufacturerOfType.phone }}</p>
+				<a class="cursor-pointer underline" :href="seedlingManufacturerOfType.website">Вебсайт</a>
 			</div>
 		</div>
 		<div class="w-full border-2 rounded p-1">
-			<p class="card__string" :title="family.notes">Семейство: {{ family.name }}</p>
-			<p class="card__string" :title="species.notes">Разновидность: {{ species.name }}</p>
+			<p class="card__string" :title="seedlingFamilyOfType.notes">Семейство: {{ seedlingFamilyOfType.name }}</p>
+			<p class="card__string" :title="seedlingSpeciesOfType.notes">Разновидность: {{ seedlingSpeciesOfType.name }}</p>
 		</div>
 	</div>
 </template>
@@ -52,31 +53,40 @@ export default {
 	
 	props: {
 		seedling: Object,
-		family: Object,
-		species: Object,
-		manufacturer: Object,
+		plantType: Object,
+		family: Array,
+		species: Array,
+		manufacturer: Array,
 		changeAmount: Function,
 	},
 
 	data() {
 		return {
-			packAmount: undefined,
+			seedlingAmount: undefined,
 		};
 	},
 
 	computed: {
-		
+		seedlingFamilyOfType() {
+			return this.family.find( item => item.id === this.plantType.familyId);
+		},
+		seedlingSpeciesOfType() {
+			return this.species.find( item => item.id === this.plantType.speciesId);
+		},
+		seedlingManufacturerOfType() {
+			return this.manufacturer.find( item => item.id === this.seedling.manufacturerId);
+		},
 	},
 
 	methods: {
 		changeQuant() {
-			this.seedling.amount = this.packAmount
+			this.seedling.amount = this.seedlingAmount
 			this.changeAmount(this.seedling);
 		}
 	},
 
 	mounted() {
-		this.packAmount = this.seedling.amount;
+		this.seedlingAmount = this.seedling.amount;
 	}
 }
 </script>
