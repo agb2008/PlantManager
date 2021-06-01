@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Manufacturer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\ManufacturerResource;
+use App\Http\Requests\StoreManufacturerRequest;
 
 class ManufacturerController extends Controller
 {
@@ -14,7 +17,8 @@ class ManufacturerController extends Controller
      */
     public function index()
     {
-        //
+//        $manufacturer = Manufacturer::orderByDesc('id')->all();
+        return ManufacturerResource::collection(Manufacturer::all());
     }
 
     /**
@@ -23,9 +27,28 @@ class ManufacturerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreManufacturerRequest $request)
     {
-        //
+//        $user = Auth::user();
+//        $manufacturer = new Manufacturer(['body' => $request->body]); // TODO - update !!!
+//        $user->manufacturer()->save($manufacturer);
+//
+//        $manufacturers = Manufacturer::orderByDesc('id')->all();
+//        return ManufacturerResource::collection($manufacturers);
+
+        //Todo - Добавить проверку на авторизацию пользователя и наличия у него статуса is_admin
+
+          $man = new Manufacturer([
+              'name' => $request->name,
+              'address' => $request->address,
+              'email' => $request->email,
+              'phone' => $request->phone,
+              'website' => $request->website,
+              'notes' => $request->notes,
+              ]);
+          $man->save();
+
+          return ManufacturerResource::collection(Manufacturer::all());
     }
 
     /**

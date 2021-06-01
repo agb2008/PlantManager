@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Family;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\FamilyResource;
+use App\Http\Requests\StoreFamilyRequest;
 
 class FamilyController extends Controller
 {
@@ -14,7 +18,7 @@ class FamilyController extends Controller
      */
     public function index()
     {
-        //
+        return FamilyResource::collection(Family::all());
     }
 
     /**
@@ -23,9 +27,17 @@ class FamilyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFamilyRequest $request)
     {
-        //
+        //Todo - Добавить проверку на авторизацию пользователя и наличия у него статуса is_admin
+
+        $fam = new Family([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+        $fam->save();
+
+        return FamilyResource::collection(Family::all());
     }
 
     /**

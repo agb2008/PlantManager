@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\PlantType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\PlantTypeResource;
+use App\Http\Requests\StorePlantTypeRequest;
 
 class PlantTypeController extends Controller
 {
@@ -14,7 +17,7 @@ class PlantTypeController extends Controller
      */
     public function index()
     {
-        //
+        return PlantTypeResource::collection(PlantType::all());
     }
 
     /**
@@ -23,9 +26,19 @@ class PlantTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePlantTypeRequest $request)
     {
-        //
+        //Todo - Добавить проверку на авторизацию пользователя и наличия у него статуса is_admin
+
+        $planttp = new PlantType([
+            'name' => $request->name,
+            'family_id' => $request->family_id,
+            'species_id' => $request->species_id,
+            'notes' => $request->notes,
+        ]);
+        $planttp->save();
+
+        return PlantTypeResource::collection(PlantType::all());
     }
 
     /**

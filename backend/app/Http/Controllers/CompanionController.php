@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Companion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\CompanionResource;
+use App\Http\Requests\StoreCompanionRequest;
 
 class CompanionController extends Controller
 {
@@ -14,7 +17,7 @@ class CompanionController extends Controller
      */
     public function index()
     {
-        //
+        return CompanionResource::collection(Companion::all());
     }
 
     /**
@@ -23,9 +26,19 @@ class CompanionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCompanionRequest $request)
     {
-        //
+        //Todo - Добавить проверку на авторизацию пользователя и наличия у него статуса is_admin
+
+        $man = new Companion([
+            'species_id' => $request->species_id,
+            'companion_id' => $request->companion_id,
+            'type' => $request->type,
+            'description' => $request->description,
+        ]);
+        $man->save();
+
+        return CompanionResource::collection(Companion::all());
     }
 
     /**
