@@ -24,39 +24,11 @@
       0 => 'Fruitcake\\Cors\\CorsServiceProvider',
     ),
   ),
-  'infureal/artisan-gui' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Infureal\\Providers\\GuiServiceProvider',
-    ),
-  ),
-  'laravel/fortify' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Fortify\\FortifyServiceProvider',
-    ),
-  ),
   'laravel/sail' => 
   array (
     'providers' => 
     array (
       0 => 'Laravel\\Sail\\SailServiceProvider',
-    ),
-  ),
-  'laravel/sanctum' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Sanctum\\SanctumServiceProvider',
-    ),
-  ),
-  'laravel/telescope' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Telescope\\TelescopeServiceProvider',
     ),
   ),
   'laravel/tinker' => 
@@ -78,13 +50,6 @@
     'providers' => 
     array (
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    ),
-  ),
-  'spatie/laravel-ray' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Spatie\\LaravelRay\\RayServiceProvider',
     ),
   ),
 );

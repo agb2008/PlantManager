@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
-//Временное решение - редирект на основную страницу фронтенда.
 Route::get('/{any}', function () {
-    return redirect("http://localhost:8080");
+    return view('app');
 })->where('any', '.*');

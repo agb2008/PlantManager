@@ -1,11 +1,11 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\TokenController;
-use App\Http\Controllers\AvatarController;
-use App\Http\Controllers\MessageController;
+use App\Http\Controllers\admin\SeedsController;
+use App\Http\Controllers\admin\FamiliesController;
+use App\Http\Controllers\admin\ManufacturersController;
+use App\Http\Controllers\admin\CompanionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,15 +18,16 @@ use App\Http\Controllers\MessageController;
 |
 */
 
-Route::post('/sanctum/token', TokenController::class);
-
-Route::middleware(['auth:sanctum'])->group(function () {
-  Route::get('/users/auth', AuthController::class);
-  Route::get('/users/{user}', [UserController::class, 'show']);
-  Route::get('/users', [UserController::class, 'index']);
-
-  Route::post('/users/auth/avatar', [AvatarController::class, 'store']);
-
-  Route::post('/messages', [MessageController::class, 'store']);
-  Route::get('/messages', [MessageController::class, 'index']);
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
 });
+
+Route::name('admin.')
+    ->prefix('admin')
+    ->group(function() {
+        Route::apiResources(['seeds' => SeedsController::class]);
+        Route::apiResources(['families' => FamiliesController::class]);
+        Route::apiResources(['manufacturers' => ManufacturersController::class]);
+        Route::apiResources(['companions' => CompanionsController::class]);
+    });
+
