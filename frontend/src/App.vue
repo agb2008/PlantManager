@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <inventory-list user="user1"></inventory-list>
+    <Inventory user="user1"></Inventory>
   </div>
 </template>
 
 <script>
 
-import InventoryList from './components/InventoryList.vue'
+import Inventory from './views/Inventory.vue'
 
 export default {
   name: 'App',
   components: {
-    InventoryList
+    Inventory
   }
 }
 </script>

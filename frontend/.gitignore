@@ -1,8 +1,8 @@
 #frontend Vue.js
 
-/frontend/PlantManager/.DS_Store
-/frontend/PlantManager/node_modules
-/frontend/PlantManager/dist
+/frontend/.DS_Store
+/frontend/node_modules
+/frontend/dist
 
 
 # local env files
@@ -26,11 +26,11 @@ pnpm-debug.log*
 
 #backend Laravel
 
-/backend/PlantManager/node_modules
-/backend/PlantManager/public/hot
-/backend/PlantManager/public/storage
-/backend/PlantManager/storage/*.key
-/backend/PlantManager/vendor
+/backend/node_modules
+/backend/public/hot
+/backend/public/storage
+/backend/storage/*.key
+/backend/vendor
 .env
 .env.backup
 .phpunit.result.cache

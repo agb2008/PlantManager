@@ -23,18 +23,6 @@
 			<div class="border-b border-gray-200 mb-8">
 			<h1 class="text-2xl font-bold mb-8">Form With Floating Labels</h1>
 			</div>
-			<span>
-					<svg
-						class="fill-current h-4 w-4 transform group-hover:-rotate-180
-						transition duration-150 ease-in-out"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20"
-					>
-						<path
-						d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-						/>
-					</svg>
-				</span>
 			<!-- body -->
 			<div class="relative z-0 w-full mb-5">
 				<select
@@ -53,19 +41,13 @@
 				<label for="select" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Выберите тип растения</label>
 				<span class="text-sm text-red-600 hidden" id="error">Option has to be selected</span>
 			</div>
-			<div class="relative z-0 w-full mb-5">
-				<input
-				v-model="plantName"
+			<base-input
 				type="text"
+				label="Введите название"
 				name="name"
-				placeholder=" "
-				required
-				class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black 
-				border-gray-200"
-				/>
-				<label for="name" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Введите название</label>
-				<span class="text-sm text-red-600 hidden" id="error">Name is required</span>
-			</div>
+				v-model="plantName"
+				class="mb-2"
+			/>			
 			<div class="relative z-0 w-full mb-5">
 				<select
 				v-model="manufacturerId"
@@ -83,6 +65,13 @@
 				<label for="select" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Выберите производителя</label>
 				<span class="text-sm text-red-600 hidden" id="error">Option has to be selected</span>
 			</div>
+			<base-input
+				type="date"
+				label="Дата упаковки семян"
+				name="date"
+				v-model="prodDate"
+				class="mb-2"
+			/>
 			<div class="relative z-0 w-full mb-5">
 				<input
 					v-model="prodDate"
@@ -197,65 +186,69 @@
 
 <script>
 
+import BaseInput from "./BaseInput"
 
 export default {
-props: {
-	newData: Function,
-	plantTypeList: Array,
-	manufacturerList: Array
+	components: {
+		BaseInput
+	},
+	props: {
+		newData: Function,
+		plantTypeList: Array,
+		manufacturerList: Array
 
-},
-
-data() {
-	return {
-		isOverlayShow: false, 
-		isModalShow: false,
-		selectedPlant: undefined,
-		plantName: undefined,
-		numberOfSeeds: undefined,
-		amount: undefined,
-		price: undefined,
-		prodDate: undefined,
-		expirDate: undefined,
-		harvestYear: undefined,
-		manufacturerId: undefined,
-	}
-},
-
-methods: {
-	openModal(value) {
-		if(value) {
-			this.isOverlayShow = value;
-			setTimeout(() => {
-			this.isModalShow = value
-			}, 100);
-		} else {
-			setTimeout(() => {
-				this.isModalShow = value
-			}, 100);
-			setTimeout(() => this.isOverlayShow = value, 300);
-		}		
 	},
 
-	saveData() {
-		this.newData({'id': 19, 'name': this.plantName, 'typePlant': this.selectedPlant, 'numberOfSeeds': this.numberOfSeeds, 'amount': this.amount, 'price': this.price, 'manufacturerId': this.manufacturerId, 'prodDate': this.prodDate, 'expirDate': this.expirDate, 'harvestYear': this.harvestYear});
-		this.openModal(false);
-
-	}
-},
-
-computed: {
-	modalClassObj() {
+	data() {
 		return {
-			'opacity-0': !this.isModalShow,
-			'-translate-y-full': !this.isModalShow,
-			'scale-150': !this.isModalShow
-			}	
+			isOverlayShow: false, 
+			isModalShow: false,
+			selectedPlant: undefined,
+			plantName: undefined,
+			numberOfSeeds: undefined,
+			amount: undefined,
+			price: undefined,
+			prodDate: undefined,
+			expirDate: undefined,
+			harvestYear: undefined,
+			manufacturerId: undefined,
+		}
+	},
+
+	methods: {
+		openModal(value) {
+			if(value) {
+				this.isOverlayShow = value;
+				setTimeout(() => {
+				this.isModalShow = value
+				}, 100);
+			} else {
+				setTimeout(() => {
+					this.isModalShow = value
+				}, 100);
+				setTimeout(() => this.isOverlayShow = value, 300);
+			}		
+		},
+
+		saveData() {
+			this.newData({'id': 19, 'name': this.plantName, 'typePlant': this.selectedPlant, 'numberOfSeeds': this.numberOfSeeds, 'amount': this.amount, 'price': this.price, 'manufacturerId': this.manufacturerId, 'prodDate': this.prodDate, 'expirDate': this.expirDate, 'harvestYear': this.harvestYear});
+			this.openModal(false);
+
+		}
+	},
+
+	computed: {
+		modalClassObj() {
+			return {
+				'opacity-0': !this.isModalShow,
+				'-translate-y-full': !this.isModalShow,
+				'scale-150': !this.isModalShow
+				}	
+		}
 	}
-}
 
 
-}
+	}
 </script>
 
 <style>

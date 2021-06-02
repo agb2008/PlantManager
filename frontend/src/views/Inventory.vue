@@ -105,10 +105,10 @@
 </template>
 
 <script>
-import SeedPackCard from './SeedPackCard.vue'
-import SeedlingCard from './SeedlingCard.vue'
-import NewSeedForm from './NewSeedForm.vue'
-import NewSeedlingForm from './NewSeedlingForm.vue'
+import SeedPackCard from '../components/SeedPackCard.vue'
+import SeedlingCard from '../components/SeedlingCard.vue'
+import NewSeedForm from '../components/NewSeedForm.vue'
+import NewSeedlingForm from '../components/NewSeedlingForm.vue'
 
  
 export default {
