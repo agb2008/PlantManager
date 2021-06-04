@@ -19,11 +19,19 @@
         >
       </p>
     </article>
+
+    <!-- тест, убрать при слиянии -->
+    <Inventory />
   </div>
 </template>
 
 <script>
+import Inventory from "./Inventory";
+
 export default {
   name: "Home",
+  components: {
+    Inventory,
+  },
 };
 </script>
