@@ -3,7 +3,7 @@
     <h1 class="text-3xl">Инвентарь пользователя {{ user }}</h1>
     <div class="inventory flex flex-wrap p-4 mx-auto lg:mt-24">
       <!-- Семена -->
-      <div class="seeds w-auto" style="width: 33.33333% sm: width: 80%">
+      <div class="seeds sm: width: 100%" style="width: 100%">
         <div class="p-2 bg-white border rounded shadow">
           <h2
             class="px-3 py-2 mx-3 mb-2 mt-3 font-bold text-gray-800 bg-green-400 rounded-md"
@@ -15,32 +15,50 @@
               v-for="plantType in listOfType(seedsData.seeds)"
               :key="plantType.id"
               @click="seedsPlantTypeSelect(plantType.id)"
-              class="px-3 py-2 text-gray-700 border-gray-300 border-b rounded cursor-pointer hover:bg-green-200 hover:text-gray-900"
-              :class="{ 'bg-green-200': selectedPlantOfSeeds === plantType.id }"
+              class="mt-1"
               :title="plantType.notes"
+              :class="{
+                'border rounded border-green-200':
+                  selectedPlantOfSeeds === plantType.id,
+              }"
             >
-              <h3 class="">{{ plantType.name }}</h3>
+              <h3
+                class="px-3 py-2 text-gray-700 rounded cursor-pointer hover:bg-green-200"
+                :class="{
+                  'bg-white border-green-200':
+                    selectedPlantOfSeeds != plantType.id,
+                  'bg-green-200 rounded-b-none':
+                    selectedPlantOfSeeds === plantType.id,
+                }"
+              >
+                {{ plantType.name }}
+              </h3>
               <ul
                 :class="{ active: selectedPlantOfSeeds === plantType.id }"
                 v-if="selectedPlantOfSeeds === plantType.id"
-                class="bg-gray-100"
+                class="p-2"
               >
                 <li
                   v-for="seedsPack in seedsOfType"
                   :key="seedsPack.id"
                   @click.stop="seedItemSelect(seedsPack.id)"
                   class=""
+                  :class="{
+                    'border-2 rounded border-green-400':
+                      selectedSeedPack === seedsPack.id,
+                  }"
                 >
                   <div
-                    class="flex justify-between items-center px-3 py-2 text-gray-700 border-gray-400 cursor-pointer hover:bg-gray-200 hover:text-gray-900"
+                    class="flex justify-between items-center px-3 py-2 text-gray-700 cursor-pointer hover:bg-green-100"
                     :class="{
-                      'bg-gray-300 hover:bg-gray-300 hover:text-gray-900':
-                        selectedSeedPack === seedsPack.id,
+                      'bg-green-100': selectedSeedPack === seedsPack.id,
                     }"
                   >
-                    <h4 class="font-mono text-sm">{{ seedsPack.name }}</h4>
+                    <h4 class="font-mono text-sm">
+                      {{ seedsPack.name }}
+                    </h4>
 
-                    <div class="items-center px-1 py-0.5 rounded bg-gray-50">
+                    <div class="items-center px-1 py-0.5 rounded">
                       Всего семян:{{
                         seedsPack.numberOfSeeds * seedsPack.amount
                       }}

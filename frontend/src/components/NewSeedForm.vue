@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="flex items-center justify-center px-3 py-2 text-gray-700 border-gray-400 rounded bg-gray-300 cursor-pointer hover:bg-gray-400 hover:text-gray-900"
+      class="flex items-center justify-center px-3 py-2 text-gray-700 border-green-400 rounded bg-green-300 cursor-pointer hover:bg-green-400 hover:text-gray-900"
       @click="openModal(true)"
     >
       <h3 class="px-3 py-2 text-gray-700 border-gray-300 cursor-pointer">
@@ -16,7 +16,7 @@
       <!-- modal -->
       <div
         id="modal"
-        class="transform relative w-10/12 md:w-1/2 h-1/2 md:h-3/4 px-6 py-12 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
+        class="transform relative w-10/12 md:w-1/2 h-auto md:h-3/4 px-6 py-12 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
         :class="modalClassObj"
       >
         <!-- button close -->
@@ -229,13 +229,6 @@
             <li class="rounded-sm px-3 py-1 hover:bg-gray-100">DevOps</li>
             <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100"></li>
           </ul>
-        </div>
-
-        <div class="w-full p-3">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores,
-          quis tempora! Similique, explicabo quaerat maxime corrupti tenetur
-          blanditiis voluptas molestias totam? Quaerat laboriosam suscipit
-          repellat aliquam blanditiis eum quos nihil.
         </div>
 
         <!-- footer -->

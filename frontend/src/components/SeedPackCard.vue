@@ -1,12 +1,12 @@
 <template>
-  <div class="card border-b-2 cursor-auto" @click.stop="">
+  <div class="card p-2 cursor-auto bg-white" @click.stop="">
     <div class="flex w-full">
       <div class="relative z-0 w-full mb-2">
         <input
           type="number"
           name="money"
           placeholder=" "
-          class="pt-3 pb-2 pl-5 block px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200 cursor-pointer"
+          class="pt-3 pb-2 pl-5 block px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black cursor-pointer"
           @click.stop=""
           @change="changeQuant"
           v-model="packAmount"
@@ -27,13 +27,13 @@
     </div>
 
     <div class="flex w-full">
-      <div class="w-full border-2 rounded p-1">
+      <div class="w-full border-2 border-green-300 rounded p-1 mr-1">
         <p class="card__date">Дата проиводства: {{ seedPack.prodDate }}</p>
         <p class="card__date">Срок годности: {{ seedPack.expirDate }}</p>
         <p class="card__date">{{ seedPack.harvestYear }}</p>
       </div>
       <div
-        class="w-full border-2 rounded p-1"
+        class="w-full border-2 border-green-300 rounded p-1"
         :title="seedsManufacturerOfType.notes"
       >
         <p>Производитель: {{ manufacturer.name }}</p>
@@ -47,7 +47,7 @@
         >
       </div>
     </div>
-    <div class="w-full border-2 rounded p-1">
+    <div class="w-full border-2 border-green-300 rounded p-1 mt-1">
       <p class="card__string" :title="seedsFamilyOfType.notes">
         Семейство: {{ seedsFamilyOfType.name }}
       </p>
