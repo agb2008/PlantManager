@@ -148,6 +148,36 @@ export const mutations = {
   SET_USERS(state, users) {
     state.users = users;
   },
+  ADD_NEW_SEED_PACK(state, seedPack) {
+    state.seedsList.push(seedPack);
+  },
+  DELETE_SEED_PACK(state, seedPackId) {
+    const seedPackInd = state.seedsList.findIndex(
+      (item) => item.id === seedPackId
+    );
+    state.seedsList.splice(seedPackInd, 1);
+  },
+  CHANGE_SEED_PACK_AMOUNT(state, payload) {
+    state.seedsList.find(
+      (item) => item.id === payload.id
+    ).amount = +payload.newAmount;
+  },
+
+  ADD_NEW_SEEDLING(state, newSeedling) {
+    state.seedlingsList.push(newSeedling);
+  },
+  DELETE_SEEDLING(state, seedlingId) {
+    const seedlingInd = state.seedlingsList.findIndex(
+      (item) => item.id === seedlingId
+    );
+    state.seedlingsList.splice(seedlingInd, 1);
+  },
+  CHANGE_SEEDLING_AMOUNT(state, payload) {
+    state.seedlingsList.find(
+      (item) => item.id === payload.id
+    ).amount = +payload.newAmount;
+  },
+
   SET_META(state, meta) {
     state.meta = meta;
   },
@@ -162,7 +192,60 @@ export const mutations = {
   },
 };
 
-export const actions = {};
+export const actions = {
+  addNewSeedsPack({ commit, state }, newPack) {
+    // eslint-disable-next-line no-constant-condition
+    if (true) {
+      newPack.id = state.seedsList.length + 1;
+      commit("ADD_NEW_SEED_PACK", newPack);
+    }
+  },
+  changingSeedsPack({ commit }, payload) {
+    const action = payload.newAmount - payload.seedPack.amount;
+    window.console.log(typeof payload.seedPack.amount);
+
+    if (payload.seedPack.amount + action <= 0) {
+      // eslint-disable-next-line no-constant-condition
+      if (true) {
+        commit("DELETE_SEEDLING", payload.seedPack.id);
+      }
+    } else {
+      // eslint-disable-next-line no-constant-condition
+      if (true) {
+        commit("CHANGE_SEED_PACK_AMOUNT", {
+          id: payload.seedPack.id,
+          newAmount: payload.newAmount,
+        });
+      }
+    }
+  },
+
+  addNewSeedling({ commit, state }, newSeedling) {
+    // eslint-disable-next-line no-constant-condition
+    if (true) {
+      newSeedling.id = state.seedlingsList.length + 1;
+      commit("ADD_NEW_SEEDLING", newSeedling);
+    }
+  },
+  changingSeedling({ commit }, payload) {
+    const action = payload.newAmount - payload.seedling.amount;
+
+    if (payload.seedling.amount + action <= 0) {
+      // eslint-disable-next-line no-constant-condition
+      if (true) {
+        commit("DELETE_SEEDLING", payload.seedling.id);
+      }
+    } else {
+      // eslint-disable-next-line no-constant-condition
+      if (true) {
+        commit("CHANGE_SEEDLING_AMOUNT", {
+          id: payload.seedling.id,
+          newAmount: payload.newAmount,
+        });
+      }
+    }
+  },
+};
 
 export const getters = {
   seedsList: (state) => {

@@ -92,7 +92,10 @@ export default {
 
   methods: {
     changeQuant() {
-      this.changeAmount(this.seedling, this.seedlingAmount);
+      this.changeAmount({
+        seedling: this.seedling,
+        newAmount: this.seedlingAmount,
+      });
     },
   },
 

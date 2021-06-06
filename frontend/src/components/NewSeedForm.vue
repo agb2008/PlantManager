@@ -299,7 +299,7 @@ export default {
 
     saveData() {
       this.newData({
-        id: 19,
+        id: undefined,
         name: this.plantName,
         typePlant: this.selectedPlant,
         numberOfSeeds: this.numberOfSeeds,

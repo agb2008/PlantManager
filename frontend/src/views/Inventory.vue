@@ -176,6 +176,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 import SeedPackCard from "../components/SeedPackCard.vue";
 import SeedlingCard from "../components/SeedlingCard.vue";
@@ -208,6 +209,12 @@ export default {
   },
 
   methods: {
+    ...mapActions("inventory", [
+      "addNewSeedsPack",
+      "changingSeedsPack",
+      "addNewSeedling",
+      "changingSeedling",
+    ]),
     listOfType(itemsList) {
       let typesIdList = itemsList.map((item) => item.typePlant);
       return this.plantTypeList.filter((item) => typesIdList.includes(item.id));
@@ -227,62 +234,6 @@ export default {
     seedlingItemSelect(itemId) {
       this.selectedSeedlingItem =
         this.selectedSeedlingItem === itemId ? null : itemId;
-    },
-    // методы изменения данных
-    addNewSeedsPack(newPack) {
-      if (this.response) {
-        newPack.id = this.seedsList.length + 1;
-        this.seedsList.push(newPack);
-        window.console.log(this.seedsList);
-      }
-    },
-    changingSeedsPack(item, newAmount) {
-      window.console.log(`${item.amount} ${newAmount}`);
-      let action = newAmount - item.amount;
-      let seedPackInd = this.seedsList.findIndex(
-        (seedPack) => seedPack.id === item.id
-      );
-      if (seedPackInd != -1) {
-        if (item.amount + action <= 0) {
-          if (this.response) {
-            this.seedsList.splice(seedPackInd, 1);
-            window.console.log(this.seedsList[seedPackInd]);
-          }
-        } else {
-          if (this.response) {
-            // вызвать мутацию в сторе
-            //this.seedsList.splice(seedPackInd,1,item);
-            this.seedsList[seedPackInd].amount = newAmount;
-            window.console.log(this.seedsList[seedPackInd]);
-          }
-        }
-      }
-    },
-
-    addNewSeedling(newItem) {
-      if (this.response) {
-        this.seedlingsList.push(newItem);
-        window.console.log(newItem);
-      }
-    },
-    changingSeedling(item, newAmount) {
-      let action = newAmount - item.amount;
-      let seedlingInd = this.seedlingsList.findIndex(
-        (seedlingsList) => seedlingsList.id === item.id
-      );
-      if (seedlingInd != -1) {
-        if (item.amount + action <= 0) {
-          if (this.response) {
-            this.seedlingsList.splice(seedlingInd, 1);
-          }
-        } else {
-          if (this.response) {
-            // вызвать мутацию в сторе
-            //this.seedlingsList.splice(seedlingInd,1,item);
-            this.seedlingsList[seedlingInd].amount = newAmount;
-          }
-        }
-      }
     },
   },
 
