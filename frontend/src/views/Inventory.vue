@@ -1,9 +1,9 @@
 <template>
   <div class="w-full p-5 m-auto">
     <h1 class="text-3xl">Инвентарь пользователя {{ user }}</h1>
-    <div class="inventory flex flex-wrap p-4 mx-auto lg:mt-24">
+    <div class="inventory flex flex-wrap justify-between p-4 mx-auto lg:mt-24">
       <!-- Семена -->
-      <div class="seeds sm: width: 100%" style="width: 100%">
+      <div class="seedsList w-full lg:w-3/6">
         <div class="p-2 bg-white border rounded shadow">
           <h2
             class="px-3 py-2 mx-3 mb-2 mt-3 font-bold text-gray-800 bg-green-400 rounded-md"
@@ -12,7 +12,7 @@
           </h2>
           <ul class="">
             <li
-              v-for="plantType in listOfType(seedsData.seeds)"
+              v-for="plantType in listOfType(seedsList)"
               :key="plantType.id"
               @click="seedsPlantTypeSelect(plantType.id)"
               class="mt-1"
@@ -89,52 +89,66 @@
         </div>
       </div>
       <!-- Рассада -->
-      <div class="seedlings w-auto" style="width: 33.3333%">
-        <div class="rounded-md bg-gray-100 pt-4 m-2 overflow-hidden">
+      <div class="seedlingsList w-full lg:w-3/6">
+        <div class="p-2 bg-white border rounded shadow">
           <h2
-            class="px-3 py-2 mx-3 mb-2 font-bold text-gray-800 bg-gray-200 rounded-md"
+            class="px-3 py-2 mx-3 mb-2 mt-3 font-bold text-gray-800 bg-green-400 rounded-md"
           >
             Рассада
           </h2>
           <ul>
             <li
-              v-for="plantType in listOfType(seedlingData.seedlings)"
+              v-for="plantType in listOfType(seedlingsList)"
               :key="plantType.id"
               @click="seedlingPlantTypeSelect(plantType.id)"
-              class="px-3 py-2 text-gray-700 border-gray-300 cursor-pointer hover:bg-gray-200 hover:text-gray-900"
+              class="mt-1"
               :class="{
-                'bg-gray-200': selectedPlantOfSeedlings === plantType.id,
+                'border rounded border-green-200':
+                  selectedPlantOfSeedlings === plantType.id,
               }"
               :title="plantType.notes"
             >
-              <h3 class="">{{ plantType.name }}</h3>
+              <h3
+                class="px-3 py-2 text-gray-700 rounded cursor-pointer hover:bg-green-200"
+                :class="{
+                  'bg-white border-green-200':
+                    selectedPlantOfSeedlings != plantType.id,
+                  'bg-green-200 rounded-b-none':
+                    selectedPlantOfSeedlings === plantType.id,
+                }"
+              >
+                {{ plantType.name }}
+              </h3>
 
               <ul
                 :class="{ active: selectedPlantOfSeedlings === plantType.id }"
                 v-if="selectedPlantOfSeedlings === plantType.id"
-                class="bg-gray-100"
+                class="p-2"
               >
                 <li
-                  v-for="seedlings in seedlingsOfType"
-                  :key="seedlings.id"
-                  @click.stop="seedlingItemSelect(seedlings.id)"
+                  v-for="seedlingsList in seedlingsOfType"
+                  :key="seedlingsList.id"
+                  @click.stop="seedlingItemSelect(seedlingsList.id)"
                   class=""
+                  :class="{
+                    'border-2 rounded border-green-400':
+                      selectedSeedlingItem === seedlingsList.id,
+                  }"
                 >
                   <div
-                    class="flex justify-between items-center px-3 py-2 text-gray-700 border-gray-400 cursor-pointer hover:bg-gray-200 hover:text-gray-900"
+                    class="flex justify-between items-center px-3 py-2 text-gray-700 cursor-pointer hover:bg-green-100"
                     :class="{
-                      'bg-gray-300 hover:bg-gray-300 hover:text-gray-900':
-                        selectedSeedlingItem === seedlings.id,
+                      'bg-green-100': selectedSeedlingItem === seedlingsList.id,
                     }"
                   >
-                    <h4 class="font-mono text-sm">{{ seedlings.name }}</h4>
-                    <div class="items-center px-1 py-0.5 rounded bg-gray-50">
-                      Всего саженцев:{{ seedlings.amount }}
+                    <h4 class="font-mono text-sm">{{ seedlingsList.name }}</h4>
+                    <div class="items-center px-1 py-0.5 rounded">
+                      Всего саженцев:{{ seedlingsList.amount }}
                     </div>
                   </div>
-                  <div v-if="selectedSeedlingItem === seedlings.id">
+                  <div v-if="selectedSeedlingItem === seedlingsList.id">
                     <SeedlingCard
-                      :seedling="seedlings"
+                      :seedling="seedlingsList"
                       :plantType="plantType"
                       :family="familyList"
                       :species="speciesList"
@@ -146,7 +160,7 @@
                 </li>
               </ul>
             </li>
-            <li>
+            <li class="my-1">
               <NewSeedlingForm
                 :newData="addNewSeedling"
                 :plantTypeList="plantTypeList"
@@ -161,6 +175,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import SeedPackCard from "../components/SeedPackCard.vue";
 import SeedlingCard from "../components/SeedlingCard.vue";
 import NewSeedForm from "../components/NewSeedForm.vue";
@@ -175,158 +191,13 @@ export default {
   },
 
   props: {
-    user: { String, required: true },
-    // seeds: Object,
-    seedlings: Object,
+    // user: { String, required: true },
+    // seedsList: Object,
   },
 
   data() {
     return {
-      plantTypeList: [
-        {
-          id: 5,
-          name: "морковь",
-          familyId: 1,
-          speciesId: 1,
-          notes: "морковь однолетнее растение",
-        },
-        {
-          id: 8,
-          name: "свекла",
-          familyId: 2,
-          speciesId: 2,
-          notes: "свекла mоднолетнее растение",
-        },
-        {
-          id: 1,
-          name: "кукуруза",
-          familyId: 1,
-          speciesId: 3,
-          notes: "кукуруза однолетнее растение",
-        },
-        {
-          id: 2,
-          name: "огурец",
-          familyId: 2,
-          speciesId: 4,
-          notes: "огурец mоднолетнее растение",
-        },
-      ],
-      familyList: [
-        { id: 1, name: "однолетнее", notes: " однолетнее растение" },
-        { id: 2, name: "многолетнее", notes: " mоднолетнее растение" },
-      ],
-      speciesList: [
-        { id: 1, name: "морковные", notes: "семейство морковные" },
-        { id: 2, name: "свекловные", notes: "семейство свекловные" },
-        { id: 3, name: "кукурузновые", notes: "семейство кукурузновые" },
-        { id: 4, name: "огурецовые", notes: "семейство огурецовые" },
-      ],
-      manufacturerList: [
-        {
-          id: 1,
-          name: "агроФ",
-          address: "lorem ipsum",
-          email: "lorem ipsum@lorem",
-          phone: "2384238",
-          website: "lorem ipsum",
-          notes: "бла бла бла бла",
-        },
-        {
-          id: 2,
-          name: "агроE",
-          address: "lorem ipsum",
-          email: "lorem ipsum@lorem",
-          phone: "2384238",
-          website: "lorem ipsum",
-          notes: "бла бла бла бла",
-        },
-        {
-          id: 3,
-          name: "агроS",
-          address: "lorem ipsum",
-          email: "lorem ipsum@lorem",
-          phone: "2384238",
-          website: "lorem ipsum",
-          notes: "бла бла бла бла",
-        },
-      ],
-      seedsData: {
-        seeds: [
-          {
-            id: 1,
-            name: "carrot",
-            typePlant: 5,
-            numberOfSeeds: 100,
-            amount: 2,
-            price: 100,
-            manufacturerId: 1,
-            prodDate: "2020.03.11",
-            expirDate: "2020.03.12",
-            harvestYear: "2020.02.12",
-          },
-          {
-            id: 2,
-            name: "carrotca",
-            typePlant: 5,
-            numberOfSeeds: 50,
-            amount: 5,
-            price: 100,
-            manufacturerId: 3,
-            prodDate: "2020.03.11",
-            expirDate: "2020.03.12",
-            harvestYear: "2020.02.12",
-          },
-          {
-            id: 3,
-            name: "tomato",
-            typePlant: 8,
-            numberOfSeeds: 99,
-            amount: 3,
-            price: 100,
-            manufacturerId: 2,
-            prodDate: "2020.03.11",
-            expirDate: "2020.03.12",
-            harvestYear: "2020.02.12",
-          },
-        ],
-      },
-
-      seedlingData: {
-        seedlings: [
-          {
-            id: 1,
-            name: "corn",
-            typePlant: 1,
-            amount: 2,
-            price: 100,
-            manufacturerId: 1,
-            purchaseDate: "2020.03.11",
-            plantDate: "2020.03.12",
-          },
-          {
-            id: 2,
-            name: "cornotca",
-            typePlant: 1,
-            amount: 5,
-            price: 100,
-            manufacturerId: 3,
-            purchaseDate: "2020.03.11",
-            plantDate: "2020.03.12",
-          },
-          {
-            id: 3,
-            name: "cyber cucumber",
-            typePlant: 2,
-            amount: 3,
-            price: 100,
-            manufacturerId: 2,
-            purchaseDate: "2020.03.11",
-            plantDate: "2020.03.12",
-          },
-        ],
-      },
-
+      user: "user1",
       selectedPlantOfSeeds: null,
       selectedPlantOfSeedlings: null,
       selectedSeedPack: null,
@@ -360,29 +231,29 @@ export default {
     // методы изменения данных
     addNewSeedsPack(newPack) {
       if (this.response) {
-        newPack.id = this.seedsData.seeds.length + 1;
-        this.seedsData.seeds.push(newPack);
-        window.console.log(this.seedsData.seeds);
+        newPack.id = this.seedsList.length + 1;
+        this.seedsList.push(newPack);
+        window.console.log(this.seedsList);
       }
     },
     changingSeedsPack(item, newAmount) {
       window.console.log(`${item.amount} ${newAmount}`);
       let action = newAmount - item.amount;
-      let seedPackInd = this.seedsData.seeds.findIndex(
+      let seedPackInd = this.seedsList.findIndex(
         (seedPack) => seedPack.id === item.id
       );
       if (seedPackInd != -1) {
         if (item.amount + action <= 0) {
           if (this.response) {
-            this.seedsData.seeds.splice(seedPackInd, 1);
-            window.console.log(this.seedsData.seeds[seedPackInd]);
+            this.seedsList.splice(seedPackInd, 1);
+            window.console.log(this.seedsList[seedPackInd]);
           }
         } else {
           if (this.response) {
             // вызвать мутацию в сторе
-            //this.seedsData.seeds.splice(seedPackInd,1,item);
-            this.seedsData.seeds[seedPackInd].amount = newAmount;
-            window.console.log(this.seedsData.seeds[seedPackInd]);
+            //this.seedsList.splice(seedPackInd,1,item);
+            this.seedsList[seedPackInd].amount = newAmount;
+            window.console.log(this.seedsList[seedPackInd]);
           }
         }
       }
@@ -390,25 +261,25 @@ export default {
 
     addNewSeedling(newItem) {
       if (this.response) {
-        this.seedlingData.seedlings.push(newItem);
+        this.seedlingsList.push(newItem);
         window.console.log(newItem);
       }
     },
     changingSeedling(item, newAmount) {
       let action = newAmount - item.amount;
-      let seedlingInd = this.seedlingData.seedlings.findIndex(
-        (seedlings) => seedlings.id === item.id
+      let seedlingInd = this.seedlingsList.findIndex(
+        (seedlingsList) => seedlingsList.id === item.id
       );
       if (seedlingInd != -1) {
         if (item.amount + action <= 0) {
           if (this.response) {
-            this.seedlingData.seedlings.splice(seedlingInd, 1);
+            this.seedlingsList.splice(seedlingInd, 1);
           }
         } else {
           if (this.response) {
             // вызвать мутацию в сторе
-            //this.seedlingData.seedlings.splice(seedlingInd,1,item);
-            this.seedlingData.seedlings[seedlingInd].amount = newAmount;
+            //this.seedlingsList.splice(seedlingInd,1,item);
+            this.seedlingsList[seedlingInd].amount = newAmount;
           }
         }
       }
@@ -416,13 +287,24 @@ export default {
   },
 
   computed: {
+    ...mapGetters("inventory", [
+      "loading",
+      "error",
+      "seedsList",
+      "seedlingsList",
+      "plantTypeList",
+      "familyList",
+      "speciesList",
+      "manufacturerList",
+    ]),
+
     seedsOfType() {
-      return this.seedsData.seeds.filter(
+      return this.seedsList.filter(
         (item) => item.typePlant === this.selectedPlantOfSeeds
       );
     },
     seedlingsOfType() {
-      return this.seedlingData.seedlings.filter(
+      return this.seedlingsList.filter(
         (item) => item.typePlant === this.selectedPlantOfSeedlings
       );
     },
