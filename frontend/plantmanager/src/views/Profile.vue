@@ -1,10 +1,10 @@
 <template>
-  <div class="grid grid-flow-col grid-rows-4 grid-cols-3 gap-3">
-    <div class="col-start-1 col-span-3 bg-green-300">
+  <div class="container mx-auto grid grid-flow-col grid-rows-4 grid-cols-3 gap-3">
+    <div class="col-start-1 col-span-3">
       <Nav/>
     </div>
-    <div class="col-start-1 bg-green-200">
-      Weather
+    <div class="col-start-1">
+      <Weather />
     </div>
     <div class="col-start-2">
       <h4>Список задач на ближайщие 5 (пять) дней:</h4>
@@ -23,13 +23,13 @@
       Calendar
       <Calendar/>
     </div>
-    <div class="row-start-3 col-start-1 bg-orange-200">
+    <div class="row-start-3 col-start-1">
       <SideBar />
     </div>
-    <div class="row-start-3 col-start-2 col-span-2 bg-red-700">
+    <div class="row-start-3 col-start-2 col-span-2 bg-blue-100">
       ?
     </div>
-    <div class="row-start-4 col-start-1 col-span-3 bg-green-600">
+    <div class="row-start-4 col-start-1 col-span-3 bg-green-100">
       Footer
     </div>
   </div>
@@ -41,6 +41,7 @@ import Nav from '@/components/Nav'
 import SideBar from "@/components/SideBar";
 import Loader from "@/components/Loader";
 import Calendar from '@/components/Calendar'
+import Weather from '@/components/Weather'
 import router from "../router";
 
 export default {
@@ -87,8 +88,15 @@ export default {
     SideBar,
     Loader,
     Calendar,
-    Nav
+    Nav,
+    Weather,
   },
   router
 };
 </script>
+
+<style scoped>
+.container {
+  grid-template-rows: max-content;
+}
+</style>

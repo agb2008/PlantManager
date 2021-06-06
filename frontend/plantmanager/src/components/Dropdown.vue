@@ -1,15 +1,15 @@
 <template>
-  <div class="menu-item" @click="isOpen = !isOpen">
+  <div class="menu-item flex text-red-800 font-bold px-4 py-2 rounded-md" @click="isOpen = !isOpen">
     <a href="#">{{ title }}</a>
     <svg
       viewBox="0 0 20 20">
       <path
         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-        fill="#fff"/>
+        fill="#7e0000"/>
     </svg>
     <transition name="fade" appear>
-    <div class="sub-menu" v-if="isOpen">
-      <div v-for="(item, i) in items" :key="i" class="menu-item">
+    <div class="sub-menu rounded-md" v-if="isOpen">
+      <div v-for="(item, i) in items" :key="i" class="menu-item block px-4 py-2 rounded-md">
         <a :href="item.link">{{ item.title }}</a>
       </div>
     </div>
@@ -36,7 +36,7 @@ nav .menu-item svg {
 
 nav .menu-item .sub-menu {
   position: absolute;
-  background-color: #222;
+  background-color: #FFF9D0;
   top: calc(100% + 18px);
   left: 50%;
   transform:translateX(-50%);
