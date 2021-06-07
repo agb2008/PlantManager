@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
 
-class CompanionsResource extends JsonResource
+class CompanionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

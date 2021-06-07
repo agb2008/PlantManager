@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\SpeciesResource;
 use App\Http\Requests\StoreSpeciesRequest;
+use Illuminate\Http\JsonResponse;
 
 class SpeciesController extends Controller
 {
@@ -51,7 +52,7 @@ class SpeciesController extends Controller
      */
     public function show(Species $species)
     {
-        //
+        return new SpeciesResource($species);
     }
 
     /**
@@ -72,8 +73,12 @@ class SpeciesController extends Controller
      * @param  \App\Models\Species  $species
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Species $species)
+    public function destroy(Species $species) : JsonResponse
     {
-        //
+        if($species->delete()){
+            return  response()->json(["message" => "Запись успешно удалена"], 200);
+        } else {
+            return  response()->json(["message" => "Ошибка при удалении записи"], 400);
+        }
     }
 }

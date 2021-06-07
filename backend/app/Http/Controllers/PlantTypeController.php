@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PlantTypeResource;
 use App\Http\Requests\StorePlantTypeRequest;
+use Illuminate\Http\JsonResponse;
 
 class PlantTypeController extends Controller
 {
@@ -49,7 +50,7 @@ class PlantTypeController extends Controller
      */
     public function show(PlantType $plantType)
     {
-        //
+        return new PlantTypeResource($plantType);
     }
 
     /**
@@ -70,8 +71,12 @@ class PlantTypeController extends Controller
      * @param  \App\Models\PlantType  $plantType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PlantType $plantType)
+    public function destroy(PlantType $plantType) : JsonResponse
     {
-        //
+        if($plantType->delete()){
+            return  response()->json(["message" => "Запись успешно удалена"], 200);
+        } else {
+            return  response()->json(["message" => "Ошибка при удалении записи"], 400);
+        }
     }
 }

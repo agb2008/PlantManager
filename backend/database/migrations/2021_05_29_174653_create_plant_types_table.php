@@ -13,7 +13,7 @@ class CreatePlantTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('plant_type', function (Blueprint $table) {
+        Schema::create('plant_types', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->foreignId('family_id');
@@ -40,6 +40,6 @@ class CreatePlantTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plant_type');
+        Schema::dropIfExists('plant_types');
     }
 }

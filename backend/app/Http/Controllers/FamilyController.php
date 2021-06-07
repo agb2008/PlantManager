@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Family;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\FamilyResource;
@@ -48,7 +49,7 @@ class FamilyController extends Controller
      */
     public function show(Family $family)
     {
-        //
+        return new FamilyResource($family);
     }
 
     /**
@@ -58,9 +59,17 @@ class FamilyController extends Controller
      * @param  \App\Models\Family  $family
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Family $family)
+    public function update(Request $request, Family $family) : JsonResponse
     {
-        //
+        // Todo: Доделать обновление данных - в текущем варианте не работает
+
+//        $family->update($request->all());
+//
+//        if($family->save()){
+//            return  response()->json(["message" => "Запись успешно обновлена"], 200);
+//        } else {
+//            return  response()->json(["message" => "Ошибка при обновлении записи"], 400);
+//        }
     }
 
     /**
@@ -69,8 +78,12 @@ class FamilyController extends Controller
      * @param  \App\Models\Family  $family
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Family $family)
+    public function destroy(Family $family)  : JsonResponse
     {
-        //
+        if($family->delete()){
+            return  response()->json(["message" => "Запись успешно удалена"], 200);
+        } else {
+            return  response()->json(["message" => "Ошибка при удалении записи"], 400);
+        }
     }
 }
