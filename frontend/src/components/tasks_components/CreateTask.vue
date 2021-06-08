@@ -51,7 +51,7 @@ export default {
 
     computed: {
         isDisabled(){
-            return this.title && this.desc ? false : "disabled"
+            return this.title ? false : "disabled"
         }
     }
 }
