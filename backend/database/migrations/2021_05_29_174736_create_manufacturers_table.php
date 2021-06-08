@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFamilyTable extends Migration
+class CreateManufacturerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateFamilyTable extends Migration
      */
     public function up()
     {
-        Schema::create('family', function (Blueprint $table) {
+        Schema::create('manufacturers', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->text('description');
+            $table->text('address');
+            $table->string('email')->nullable();;
+            $table->string('phone');
+            $table->string('website')->nullable();
+            $table->text('notes');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateFamilyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('family');
+        Schema::dropIfExists('manufacturers');
     }
 }

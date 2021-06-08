@@ -6,6 +6,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\CompanionController;
+use App\Http\Controllers\FamilyController;
+use App\Http\Controllers\PlantTypeController;
+use App\Http\Controllers\SpeciesController;
+use App\Http\Controllers\SeedsController;
+use App\Http\Controllers\SeedlingController;
+use App\Http\Controllers\PlantsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +36,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
   Route::post('/users/auth/avatar', [AvatarController::class, 'store']);
 
-  Route::post('/messages', [MessageController::class, 'store']);
-  Route::get('/messages', [MessageController::class, 'index']);
+  Route::apiResources([
+      'messages' => MessageController::class,
+      'manufacturer' => ManufacturerController::class,
+      'companion' => CompanionController::class,
+      'family' => FamilyController::class,
+      'plant_type' => PlantTypeController::class,
+      'species' => SpeciesController::class,
+      'seeds' => SeedsController::class,
+      'seedling' => SeedlingController::class,
+      'plants' => PlantsController::class,
+  ]);
+
 });
