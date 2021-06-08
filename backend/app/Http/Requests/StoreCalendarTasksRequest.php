@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCompanionsRequest extends FormRequest
+class StoreCalendarTasksRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreCompanionsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,10 +24,12 @@ class StoreCompanionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'species_id' => 'required',
-            'companion_id' => 'required',
-            'type' => 'required',
+            'title' => 'required|max:255',
             'description' => 'max:4096',
+            'due_date' => 'required',
+            'completed_date' => 'date',
+            'active' => 'boolean',
+            'user_id' => 'required',
         ];
     }
 }

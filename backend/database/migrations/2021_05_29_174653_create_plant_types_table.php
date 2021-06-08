@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlantTypeTable extends Migration
+class CreatePlantTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,7 +23,7 @@ class CreatePlantTypeTable extends Migration
 
             $table->foreign('family_id')
                 ->references('id')
-                ->on('family')
+                ->on('families')
                 ->onDelete('cascade');
 
             $table->foreign('species_id')

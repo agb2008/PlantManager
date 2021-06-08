@@ -36,12 +36,12 @@ class CreateSeedsTable extends Migration
 
             $table->foreign('type_id')
                 ->references('id')
-                ->on('plant_type')
+                ->on('plant_types')
                 ->onDelete('cascade');
 
             $table->foreign('manufacturer_id')
                 ->references('id')
-                ->on('manufacturer')
+                ->on('manufacturers')
                 ->onDelete('cascade');
         });
     }
