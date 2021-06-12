@@ -72,7 +72,13 @@ class ManufacturerController extends Controller
      */
     public function update(Request $request, Manufacturer $manufacturer)
     {
-        //
+        $manufacturer->update($request->all());
+
+        if($manufacturer->save()){
+            return  response()->json(["message" => "Запись успешно обновлена"], 200);
+        } else {
+            return  response()->json(["message" => "Ошибка при обновлении записи"], 400);
+        }
     }
 
     /**

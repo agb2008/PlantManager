@@ -18,7 +18,8 @@ class PlantsController extends Controller
      */
     public function index()
     {
-        return PlantsResource::collection(Plants::all());
+        // return SeedlingResource::collection(Seedling::all()->where('user_id',Auth::user()->id));
+        return PlantsResource::collection(Plants::all()->where('user_id',Auth::user()->id));
     }
 
     /**
@@ -44,7 +45,7 @@ class PlantsController extends Controller
         ]);
         $plant->save();
 
-        return PlantsResource::collection(Plants::all());
+        return PlantsResource::collection(Plants::all()->where('user_id',Auth::user()->id));
     }
 
     /**
@@ -67,7 +68,13 @@ class PlantsController extends Controller
      */
     public function update(Request $request, Plants $plants)
     {
-        //
+        $plants->update($request->all());
+
+        if($plants->save()){
+            return  response()->json(["message" => "Запись успешно обновлена"], 200);
+        } else {
+            return  response()->json(["message" => "Ошибка при обновлении записи"], 400);
+        }
     }
 
     /**

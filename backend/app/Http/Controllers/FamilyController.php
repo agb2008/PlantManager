@@ -20,6 +20,7 @@ class FamilyController extends Controller
     public function index()
     {
         return FamilyResource::collection(Family::all());
+        //return FamilyResource::collection(Family::all()->where('user_id',Auth::user()->id));
     }
 
     /**
@@ -61,15 +62,15 @@ class FamilyController extends Controller
      */
     public function update(Request $request, Family $family) : JsonResponse
     {
-        // Todo: Доделать обновление данных - в текущем варианте не работает
+        // Исходные данные должны быть в формате "Form URL Encoded"
 
-//        $family->update($request->all());
-//
-//        if($family->save()){
-//            return  response()->json(["message" => "Запись успешно обновлена"], 200);
-//        } else {
-//            return  response()->json(["message" => "Ошибка при обновлении записи"], 400);
-//        }
+        $family->update($request->all());
+
+        if($family->save()){
+            return  response()->json(["message" => "Запись успешно обновлена"], 200);
+        } else {
+            return  response()->json(["message" => "Ошибка при обновлении записи"], 400);
+        }
     }
 
     /**
