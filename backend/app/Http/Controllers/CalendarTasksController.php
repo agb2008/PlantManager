@@ -18,7 +18,8 @@ class CalendarTasksController extends Controller
      */
     public function index()
     {
-        return CalendarTasksResource::collection(CalendarTasks::all());
+        // return PlantsResource::collection(Plants::all()->where('user_id',Auth::user()->id));
+        return CalendarTasksResource::collection(CalendarTasks::all()->where('user_id',Auth::user()->id));
     }
 
     /**
@@ -39,7 +40,7 @@ class CalendarTasksController extends Controller
         ]);
         $task->save();
 
-        return CalendarTasksResource::collection(CalendarTasks::all());
+        return CalendarTasksResource::collection(CalendarTasks::all()->where('user_id',Auth::user()->id));
     }
 
     /**
@@ -62,7 +63,13 @@ class CalendarTasksController extends Controller
      */
     public function update(Request $request, CalendarTasks $calendarTasks)
     {
-        //
+        $calendarTasks->update($request->all());
+
+        if($calendarTasks->save()){
+            return  response()->json(["message" => "Запись успешно обновлена"], 200);
+        } else {
+            return  response()->json(["message" => "Ошибка при обновлении записи"], 400);
+        }
     }
 
     /**

@@ -18,7 +18,8 @@ class SeedsController extends Controller
      */
     public function index()
     {
-        return SeedsResource::collection(Seeds::all());
+        //return FamilyResource::collection(Family::all()->where('user_id',Auth::user()->id));
+        return SeedsResource::collection(Seeds::all()->where('user_id',Auth::user()->id));
     }
 
     /**
@@ -29,23 +30,30 @@ class SeedsController extends Controller
      */
     public function store(StoreSeedsRequest $request)
     {
-        $seed = new Seeds([
-            'name' => $request->name,
-            'number_of_seeds' => $request->number_of_seeds,
-            'amount' => $request->amount,
-            'type_id' => $request->type_id,
-            'manufacturer_id' => $request->manufacturer_id,
-            'production_date' => $request->production_date,
-            'expiration_date' => $request->expiration_date,
-            'harvest_date' => $request->harvest_date,
-            'notes' => $request->notes,
-            'price' => $request->price,
-            'img_id' => $request->img_id,
-            'user_id' => $request->user_id,
-        ]);
-        $seed->save();
+        // Добавлена проверка на соответствие записи id пользователя
+        if ($request->user_id == Auth::user()->id) {
 
-        return SeedsResource::collection(Seeds::all());
+            $seed = new Seeds([
+                'name' => $request->name,
+                'number_of_seeds' => $request->number_of_seeds,
+                'amount' => $request->amount,
+                'type_id' => $request->type_id,
+                'manufacturer_id' => $request->manufacturer_id,
+                'production_date' => $request->production_date,
+                'expiration_date' => $request->expiration_date,
+                'harvest_date' => $request->harvest_date,
+                'notes' => $request->notes,
+                'price' => $request->price,
+                'img_id' => $request->img_id,
+                'user_id' => $request->user_id,
+            ]);
+            $seed->save();
+
+            // return SeedsResource::collection(Seeds::all());
+            return SeedsResource::collection(Seeds::all()->where('user_id', Auth::user()->id));
+
+        }
+        return  response()->json(["message" => "Forbidden"], 403);
     }
 
     /**
@@ -68,7 +76,15 @@ class SeedsController extends Controller
      */
     public function update(Request $request, Seeds $seeds)
     {
-        //
+        // Исходные данные должны быть в формате "Form URL Encoded"
+
+        $seeds->update($request->all());
+
+        if($seeds->save()){
+            return  response()->json(["message" => "Запись успешно обновлена"], 200);
+        } else {
+            return  response()->json(["message" => "Ошибка при обновлении записи"], 400);
+        }
     }
 
     /**
