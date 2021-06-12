@@ -36,13 +36,25 @@ export default {
                 id: this.objectTasks.size,
                 title: this.title,
                 desc: this.desc,
+                comolete: false, 
                 date: this.date
             })
             this.title = "";
             this.desc = "";
             this.$refs.date.date = new Date();
-            console.log(this.objectTasks)
         },
+
+        // Перенести в компонент ОДНОЙ задачи
+
+        removeTask(task){
+            this.objectTasks.delete(task);
+        },
+
+        isTaskCompleted(task){
+            task.comolete = !task.comolete;
+        },
+
+        //////////////
 
         setDate(date){
             this.date = date;
@@ -51,7 +63,7 @@ export default {
 
     computed: {
         isDisabled(){
-            return this.title ? false : "disabled"
+            return this.title ? false : "disabled";
         }
     }
 }

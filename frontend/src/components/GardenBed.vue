@@ -1,32 +1,24 @@
 <template>
-    <div class="my-container flex">
-        <div class="side-panel">
-            Какая-то панель
-        </div>
-        <div class="wrapper-for-header-and-main flex-grow">
-            <header class="header text-center">
-                Header
-            </header>
-            <main class="main">
-                <div class="garden-bed-panel">
-                    <div class="icon-doing" v-for="(item, k) of doingsArray" :key="k" v-on:click="chooseIconDoing(item.name, $event)">
-                        <img :src="item.img" alt="" class="icon-img">
-                    </div>
+    <div class="my-container">
+        <main class="main">
+            <div class="garden-bed-panel">
+                <div class="icon-doing" v-for="(item, k) of doingsArray" :key="k" v-on:click="chooseIconDoing(item.name, $event)">
+                    <img :src="item.img" alt="" class="icon-img">
                 </div>
-                <div class="garden-bed-table flex flex-col">
-                    <div class="tabel-row flex" v-for="r of quantityRows" :key="r">
-                        <div class="table-cell" v-for="c of quantityColumns" :style="getBackground(r + '/' + c)"
-                        :key="c" :id="r + '/' + c" v-on:click="markCell"></div>
-                    </div>
-                    <div class="btn-increase increase-columns" v-on:click="increaseCells('col')">
-                        <p class="btn-increase-text">Increase columns</p>
-                    </div>
-                    <div class="btn-increase increase-rows" v-on:click="increaseCells('rows')">
-                        <p class="btn-increase-text">Increase rows</p>
-                    </div>
+            </div>
+            <div class="garden-bed-table flex flex-col">
+                <div class="tabel-row flex" v-for="r of quantityRows" :key="r">
+                    <div class="table-cell" v-for="c of quantityColumns" :style="getBackground(r + '/' + c)"
+                    :key="c" :id="r + '/' + c" v-on:click="markCell"></div>
                 </div>
-            </main>
-        </div>
+                <div class="btn-increase increase-columns" v-on:click="increaseCells('col')">
+                    <p class="btn-increase-text">Добавить колонны</p>
+                </div>
+                <div class="btn-increase increase-rows" v-on:click="increaseCells('rows')">
+                    <p class="btn-increase-text">Добавить строки</p>
+                </div>
+            </div>
+        </main>
     </div>
 </template>
 
@@ -147,12 +139,6 @@ export default {
 </script>
 
 <style scoped>
-    .side-panel{
-        writing-mode: vertical-rl;
-        min-height: 100vh;
-        text-align: center;
-    }
-
     .main{
         margin-bottom: 83px;
     }
@@ -218,7 +204,7 @@ export default {
     }
 
     .increase-columns{
-        top: 42%;
+        top: 39%;
         left: 100%;
         writing-mode: vertical-lr;
         margin-left: 10px;
@@ -228,7 +214,7 @@ export default {
 
     .increase-rows{
         top: 100%;
-        left: 46%;
+        left: 44%;
         margin-top: 10px;
         padding: 5px 6px;
         box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6);
@@ -238,7 +224,7 @@ export default {
         content: "";
         position: absolute;
         top: 34px;
-        left: 37px;
+        left: 53px;
         width: 0;
         height: 0;
         border-style: solid;
@@ -253,7 +239,7 @@ export default {
     .increase-columns::after{
         content: "";
         position: absolute;
-        top: 50px;
+        top: 60px;
         left: 34px;
         width: 0;
         height: 0;
