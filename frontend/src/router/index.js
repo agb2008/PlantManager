@@ -9,6 +9,12 @@ import middlewarePipeline from "@/router/middlewarePipeline";
 Vue.use(VueRouter);
 
 const routes = [
+  { //В итоге это нужно удалить, создано для разработки...
+    path: "/testing",
+    name: "home",
+    meta: { middleware: [guest] },
+    component: () => import(/* webpackChunkName: "home" */ "../views/testing"),
+  },
   {
     path: "/",
     name: "home",
