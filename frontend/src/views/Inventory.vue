@@ -3,7 +3,7 @@
     <h1 class="text-3xl">Инвентарь пользователя unknownUser</h1>
     <div class="inventory flex flex-wrap justify-between p-4 mx-auto lg:mt-24">
       <!-- Семена -->
-      <div class="seedsList w-full lg:w-3/6">
+      <div class="seedsList w-full lg:w-3/6">````
         <div class="p-2 bg-white border rounded shadow">
           <h2
             class="px-3 py-2 mx-3 mb-2 mt-3 font-bold text-gray-800 bg-green-400 rounded-md"

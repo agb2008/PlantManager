@@ -4,6 +4,15 @@ import * as API from "@/services/API";
 
 export const namespaced = true;
 
+const storeApis = {
+  SET_SEEDS_LIST: "/seeds",
+  SET_SEEDLINGS_LIST: "/seedling",
+  SET_PLANTTYPE_LIST: "/plant_type",
+  SET_FAMILY_LIST: "/family",
+  SET_SPECIES_LIST: "/species",
+  SET_MANUFACTURER_LIST: "/manufacturer",
+}
+
 export const state = {
   seedsList: [
     {
@@ -212,32 +221,22 @@ export const mutations = {
 
 export const actions = {
   async getAllData({ commit }) {
-    commit("SET_LOADING", true);
-    try {
-      let response = await API.apiClient.get("/seeds");
-      commit("SET_SEEDS_LIST", response.data.data);
-      // let test = await API.apiClient.get("/seeds/2");
-      // console.log(test);
-      // response = await API.apiClient.get("/seedling");
-      // commit("SET_SEEDLINGS_LIST", response.data.data);
-      response = await API.apiClient.get("/plant_type");
-      commit("SET_PLANTTYPE_LIST", response.data.data);
-      response = await API.apiClient.get("/family");
-      commit("SET_FAMILY_LIST", response.data.data);
-      response = await API.apiClient.get("/species");
-      commit("SET_SPECIES_LIST", response.data.data);
-      response = await API.apiClient.get("/manufacturer");
-      commit("SET_MANUFACTURER_LIST", response.data.data);
-      commit("SET_LOADING", false);
-    } catch (error) {
-      commit("SET_LOADING", false);
-      commit("SET_ERROR", getError(error));
-    } 
+    for (const item of Object.entries(storeApis)) {
+      commit("SET_LOADING", true);
+      try {
+        const response = await InventoryService.getData(item[1]); 
+        commit(item[0], response.data.data);
+        commit("SET_LOADING", false);
+      } catch (error) {
+        commit("SET_LOADING", false);
+        commit("SET_ERROR", getError(error));
+      }
+    }
   },
-  async getSeedsList({ commit }, userId) {
+  async getSeedsList({ commit }) {
     commit("SET_LOADING", true);
     try {
-      const response = await InventoryService.getSeedsList(userId);
+      const response = await InventoryService.getData("/seeds");
       commit("SET_SEEDS_LIST", response.data.data);
       console.log(response.data.data);
       commit("SET_LOADING", false);
@@ -276,8 +275,8 @@ export const actions = {
   async addNewSeedsPack({ commit }, payload) {
     commit("SET_LOADING", true);
     try {
-      await InventoryService.postSeedPack(payload);
-      commit("ADD_NEW_SEED_PACK", payload.newPack);
+      const response = await InventoryService.postData("/seeds", payload);
+      commit("SET_SEEDS_LIST", response.data.data);
       commit("SET_LOADING", false);
     } catch (error) {
       commit("SET_LOADING", false);
@@ -302,8 +301,8 @@ export const actions = {
       try {
         let newPack = Object.assign({}, payload.seedPack);
         newPack.amount = payload.newAmount;
-        //test
-        const response = await InventoryService.changeData("/seeds", payload.seedPack.id, `amount=${payload.newAmount}`);
+        //test`amount=${payload.newAmount}?price=399`
+        const response = await InventoryService.changeData("/seeds", {amount: newPack.amount}, payload.seedPack.id);
         console.log(response);
         commit("CHANGE_SEED_PACK_AMOUNT", {
           id: payload.seedPack.id,
@@ -317,11 +316,15 @@ export const actions = {
     }
   },
 
-  addNewSeedling({ commit, state }, newSeedling) {
-    // eslint-disable-next-line no-constant-condition
-    if (true) {
-      newSeedling.id = state.seedlingsList.length + 1;
-      commit("ADD_NEW_SEEDLING", newSeedling);
+  async addNewSeedling({ commit }, payload) {
+    commit("SET_LOADING", true);
+    try {
+      const response = await InventoryService.postData("/seedling", payload);
+      commit("SET_SEEDLINGS_LIST", response.data.data);
+      commit("SET_LOADING", false);
+    } catch (error) {
+      commit("SET_LOADING", false);
+      commit("SET_ERROR", getError(error));
     }
   },
   changingSeedling({ commit }, payload) {

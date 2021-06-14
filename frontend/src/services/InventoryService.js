@@ -1,13 +1,13 @@
 import * as API from "@/services/API";
 
 export default {
-  getSeedsList() {
-    return API.apiClient.get(`/seeds`);
+  getData(api) {
+    return API.apiClient.get(api);
   },
-  postSeedPack(payload) {
-    return API.apiClient.post(`/seeds`, payload.newPack);
+  postData(api, payload) {
+    return API.apiClient.post(api, payload);
   },
-  changeData(api, id, payload) {
+  changeData(api, payload, id) {
     console.log(payload);
     return API.apiClient.patch(`${api}/${id}`, payload);
   },

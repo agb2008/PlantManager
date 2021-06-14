@@ -279,14 +279,17 @@ export default {
 
     saveData() {
       this.newData({
-        id: 19,
         name: this.plantName,
-        typePlant: this.selectedPlant,
+        type_id: this.selectedPlant,
+        manufacturer_id: this.manufacturerId,
         amount: this.amount,
+        img_id: 1,
+        notes: "lalfjsalf",
         price: this.price,
-        manufacturerId: this.manufacturerId,
-        purchaseDate: this.purchaseDate,
-        plantDate: this.plantDate,
+        purchase_date: this.purchaseDate,
+        plant_date: this.plantDate,
+        seeds_id: 1,
+        user_id: 1,
       });
       this.openModal(false);
     },

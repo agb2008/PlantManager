@@ -10,13 +10,13 @@
     </div>
     <div
       id="modal_overlay"
-      class="absolute inset-0 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0"
+      class="fixed inset-0 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0"
       :class="{ hidden: !isOverlayShow }"
     >
       <!-- modal -->
       <div
         id="modal"
-        class="transform relative w-10/12 md:w-1/2 h-auto md:h-3/4 px-6 py-12 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
+        class="transform relative w-10/12 px-3 py-6 md:w-1/2 h-auto md:h-3/4 md:px-6 md:py-12 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
         :class="modalClassObj"
       >
         <!-- button close -->
@@ -28,37 +28,66 @@
         </button>
 
         <!-- header -->
-        <div class="border-b border-gray-200 mb-8">
-          <h1 class="text-2xl font-bold mb-8">Form With Floating Labels</h1>
+        <div class="mb-2 md:mb-4">
+          <h1 class="text-2xl font-bold mb-3 md:mb-8">Новые семена</h1>
         </div>
         <!-- body -->
-        <div class="relative z-0 w-full mb-5">
-          <select
-            v-model="selectedPlant"
-            name="select"
-            value=""
-            type="number"
-            onclick="this.setAttribute('value', this.value);"
-            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-          >
-            <option value="" selected disabled hidden></option>
-            <option
-              v-for="itemType in plantTypeList"
-              :key="itemType.id"
-              :value="itemType.id"
+        <div class="md:flex justify-around">
+          <div class="relative z-0 w-full mb-5">
+            <select
+              v-model="selectedPlant"
+              name="select"
+              value=""
+              type="number"
+              onclick="this.setAttribute('value', this.value);"
+              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             >
-              {{ itemType.name }}
-            </option>
-          </select>
-          <label
-            for="select"
-            class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            >Выберите тип растения</label
-          >
-          <span class="text-sm text-red-600 hidden" id="error"
-            >Option has to be selected</span
-          >
+              <option value="" selected disabled hidden></option>
+              <option
+                v-for="itemType in plantTypeList"
+                :key="itemType.id"
+                :value="itemType.id"
+              >
+                {{ itemType.name }}
+              </option>
+            </select>
+            <label
+              for="select"
+              class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+              >Выберите тип растения</label
+            >
+            <span class="text-sm text-red-600 hidden" id="error"
+              >Option has to be selected</span
+            >
+          </div>
+          <div class="relative z-0 w-full mb-5">
+            <select
+              v-model="manufacturerId"
+              name="select"
+              value=""
+              type="number"
+              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            >
+              <option value="" selected disabled hidden></option>
+              <option
+                v-for="itemManufact in manufacturerList"
+                :key="itemManufact.id"
+                :value="itemManufact.id"
+              >
+                {{ itemManufact.name }}
+              </option>
+            </select>
+            <label
+              for="select"
+              class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+              >Выберите производителя</label
+            >
+            <span class="text-sm text-red-600 hidden" id="error"
+              >Option has to be selected</span
+            >
+          </div>
         </div>
+
         <base-input
           type="text"
           label="Введите название"
@@ -66,151 +95,54 @@
           v-model="plantName"
           class="mb-2"
         />
-        <div class="relative z-0 w-full mb-5">
-          <select
-            v-model="manufacturerId"
-            name="select"
-            value=""
-            type="number"
-            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-          >
-            <option value="" selected disabled hidden></option>
-            <option
-              v-for="itemManufact in manufacturerList"
-              :key="itemManufact.id"
-              :value="itemManufact.id"
-            >
-              {{ itemManufact.name }}
-            </option>
-          </select>
-          <label
-            for="select"
-            class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            >Выберите производителя</label
-          >
-          <span class="text-sm text-red-600 hidden" id="error"
-            >Option has to be selected</span
-          >
-        </div>
-        <base-input
-          type="date"
-          label="Дата упаковки семян"
-          name="date"
-          v-model="prodDate"
-          class="mb-2"
-        />
-        <div class="relative z-0 w-full mb-5">
-          <input
+
+        <div class="lg:flex justify-around">
+          <base-input
+            type="date"
+            label="Дата упаковки семян"
+            name="date"
+            v-model="prodDate"
+            class="mb-2"
+          />
+          <base-input
+            type="date"
+            label="Дата сбора семян"
+            name="date"
             v-model="harvestYear"
-            type="text"
-            name="date"
-            placeholder=" "
-            onclick="this.setAttribute('type', 'date');"
-            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            class="mb-2"
           />
-          <label
-            for="date"
-            class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            >Дата сбора семян</label
-          >
-          <span class="text-sm text-red-600 hidden" id="error"
-            >Date is required</span
-          >
-        </div>
-        <div class="relative z-0 w-full mb-5">
-          <input
+          <base-input
+            type="date"
+            label="Срок годности до"
+            name="date"
             v-model="expirDate"
-            type="text"
-            name="date"
-            placeholder=" "
-            onclick="this.setAttribute('type', 'date');"
-            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            class="mb-2"
           />
-          <label
-            for="date"
-            class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            >Срок годности до</label
-          >
-          <span class="text-sm text-red-600 hidden" id="error"
-            >Date is required</span
-          >
         </div>
-        <div class="relative z-0 w-full mb-5">
-          <input
+        <div class="lg:flex justify-around">
+          <base-input
+            type="number"
+            label="Цена за пачку"
+            name="money"
             v-model="numberOfSeeds"
-            type="number"
-            name="money"
-            placeholder=" "
-            class="pt-3 pb-2 pl-5 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            class="mb-2"
           />
-          <div class="absolute top-0 left-0 mt-3 ml-1 text-gray-400"></div>
-          <label
-            for="money"
-            class="absolute duration-300 top-3 left-5 -z-1 origin-0 text-gray-500"
-            >Количество семян в пачке</label
-          >
-          <span class="text-sm text-red-600 hidden" id="error"
-            >Amount is required</span
-          >
-        </div>
-        <div class="relative z-0 w-full mb-5">
-          <input
+
+          <base-input
+            type="number"
+            label="Количество пачек"
+            name="money"
             v-model="amount"
-            type="number"
-            name="money"
-            placeholder=" "
-            class="pt-3 pb-2 pl-5 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            class="mb-2"
           />
-          <div class="absolute top-0 left-0 mt-3 ml-1 text-gray-400"></div>
-          <label
-            for="money"
-            class="absolute duration-300 top-3 left-5 -z-1 origin-0 text-gray-500"
-            >Количество пачек</label
-          >
-          <span class="text-sm text-red-600 hidden" id="error"
-            >Amount is required</span
-          >
-        </div>
-        <div class="relative z-0 w-full mb-5">
-          <input
-            v-model="price"
+
+          <base-input
             type="number"
-            name="money"
-            placeholder=" "
-            class="pt-3 pb-2 pl-5 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-          />
-          <div class="absolute top-0 left-0 mt-3 ml-1 text-gray-400"></div>
-          <label
-            for="money"
-            class="absolute duration-300 top-3 left-5 -z-1 origin-0 text-gray-500"
-            >Цена за пачку</label
-          >
-          <span class="text-sm text-red-600 hidden" id="error"
-            >Amount is required</span
-          >
-        </div>
-        <div
-          class="group inline-block empty relative h-10 input-component mb-5"
-        >
-          <input
-            id="name"
-            type="text"
+            label="Цена за пачку"
             name="name"
-            class="h-full w-10/12 border-gray-300 px-2 transition-all border-blue rounded-sm"
+            v-model="price"
+            class="mb-2"
           />
-          <label
-            for="name"
-            class="absolute left-2 transition-all bg-white px-1"
-          >
-            Выберите тип растения
-          </label>
-          <ul
-            class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32"
-          >
-            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Programming</li>
-            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">DevOps</li>
-            <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100"></li>
-          </ul>
         </div>
 
         <!-- footer -->
@@ -281,21 +213,18 @@ export default {
 
     saveData() {
       this.newData({
-        userId: 1,
-        newPack: {
-          name: this.plantName,
-          type_id: this.selectedPlant,
-          number_of_seeds: this.numberOfSeeds,
-          amount: this.amount,
-          price: this.price,
-          notes: "lkjljljl",
-          img_id: 1,
-          user_id:1,
-          manufacturer_id: this.manufacturerId,
-          production_date: this.prodDate,
-          expiration_date: this.expirDate,
-          harvest_date: this.harvestYear,
-        }
+        name: this.plantName,
+        type_id: this.selectedPlant,
+        number_of_seeds: this.numberOfSeeds,
+        amount: this.amount,
+        price: this.price,
+        notes: "lkjljlj",
+        img_id: 1,
+        user_id: 1,
+        manufacturer_id: this.manufacturerId,
+        production_date: this.prodDate,
+        expiration_date: this.expirDate,
+        harvest_date: this.harvestYear,
       });
       this.openModal(false);
     },
@@ -349,7 +278,6 @@ select:focus ~ label {
   color: rgba(0, 0, 0, var(--tw-text-opacity));
   left: 0px;
 }
-
 label {
   top: 0%;
   transform: translateY(-50%);

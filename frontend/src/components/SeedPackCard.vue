@@ -95,7 +95,6 @@ export default {
 
   methods: {
     changeQuant() {
-      //this.seedPack.amount = this.packAmount;
       this.changeAmount({
         seedPack: this.seedPack,
         newAmount: this.packAmount,
