@@ -4,7 +4,7 @@
     @click="logout"
     class="inline-flex items-center space-x-2"
   >
-    <span class="hidden sm:inline">Выход</span>
+    <span class="hidden font-bold sm:inline">Выход</span>
     <LogoutIcon class="w-6 h-6 text-white" />
   </button>
 </template>
