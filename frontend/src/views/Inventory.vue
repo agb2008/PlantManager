@@ -1,6 +1,6 @@
 <template>
   <div class="w-full p-5 m-auto">
-    <h1 class="text-3xl">Инвентарь пользователя {{ user }}</h1>
+    <h1 class="text-3xl">Инвентарь пользователя unknownUser</h1>
     <div class="inventory flex flex-wrap justify-between p-4 mx-auto lg:mt-24">
       <!-- Семена -->
       <div class="seedsList w-full lg:w-3/6">
@@ -60,7 +60,7 @@
 
                     <div class="items-center px-1 py-0.5 rounded">
                       Всего семян:{{
-                        seedsPack.numberOfSeeds * seedsPack.amount
+                        seedsPack.number_of_seeds * seedsPack.amount
                       }}
                     </div>
                   </div>
@@ -198,7 +198,6 @@ export default {
 
   data() {
     return {
-      user: "user1",
       selectedPlantOfSeeds: null,
       selectedPlantOfSeedlings: null,
       selectedSeedPack: null,
@@ -216,7 +215,7 @@ export default {
       "changingSeedling",
     ]),
     listOfType(itemsList) {
-      let typesIdList = itemsList.map((item) => item.typePlant);
+      let typesIdList = itemsList.map((item) => item.type_id);
       return this.plantTypeList.filter((item) => typesIdList.includes(item.id));
     },
     // методы управления выпадающим списком
@@ -248,17 +247,21 @@ export default {
       "speciesList",
       "manufacturerList",
     ]),
-
+    ...mapGetters("auth", ["authUser"]),
     seedsOfType() {
       return this.seedsList.filter(
-        (item) => item.typePlant === this.selectedPlantOfSeeds
+        (item) => item.type_id === this.selectedPlantOfSeeds
       );
     },
     seedlingsOfType() {
       return this.seedlingsList.filter(
-        (item) => item.typePlant === this.selectedPlantOfSeedlings
+        (item) => item.type_id === this.selectedPlantOfSeedlings
       );
     },
+  },
+
+  mounted() {
+    this.$store.dispatch("inventory/getAllData");
   },
 };
 </script>

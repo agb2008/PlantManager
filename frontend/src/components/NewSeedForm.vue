@@ -101,24 +101,6 @@
         />
         <div class="relative z-0 w-full mb-5">
           <input
-            v-model="prodDate"
-            type="text"
-            name="date"
-            placeholder=" "
-            onclick="this.setAttribute('type', 'date');"
-            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-          />
-          <label
-            for="date"
-            class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            >Дата упаковки семян</label
-          >
-          <span class="text-sm text-red-600 hidden" id="error"
-            >Date is required</span
-          >
-        </div>
-        <div class="relative z-0 w-full mb-5">
-          <input
             v-model="harvestYear"
             type="text"
             name="date"
@@ -299,16 +281,21 @@ export default {
 
     saveData() {
       this.newData({
-        id: undefined,
-        name: this.plantName,
-        typePlant: this.selectedPlant,
-        numberOfSeeds: this.numberOfSeeds,
-        amount: this.amount,
-        price: this.price,
-        manufacturerId: this.manufacturerId,
-        prodDate: this.prodDate,
-        expirDate: this.expirDate,
-        harvestYear: this.harvestYear,
+        userId: 1,
+        newPack: {
+          name: this.plantName,
+          type_id: this.selectedPlant,
+          number_of_seeds: this.numberOfSeeds,
+          amount: this.amount,
+          price: this.price,
+          notes: "lkjljljl",
+          img_id: 1,
+          user_id:1,
+          manufacturer_id: this.manufacturerId,
+          production_date: this.prodDate,
+          expiration_date: this.expirDate,
+          harvest_date: this.harvestYear,
+        }
       });
       this.openModal(false);
     },

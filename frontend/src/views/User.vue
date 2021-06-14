@@ -4,7 +4,7 @@
       <AuthUser class="p-5 bg-white border rounded shadow" />
       <AuthUserForm class="p-5 bg-white border rounded shadow" />
       <UpdatePassword class="p-5 bg-white border rounded shadow" />
-<!--      Загрузка аватарок временно отключена.-->
+      <!--      Загрузка аватарок временно отключена.-->
       <FileUpload
         label="Upload Avatar"
         :fileTypes="['image/*']"

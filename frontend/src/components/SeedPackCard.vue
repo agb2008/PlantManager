@@ -28,8 +28,8 @@
 
     <div class="flex w-full">
       <div class="w-full border-2 border-green-300 rounded p-1 mr-1">
-        <p class="card__date">Дата проиводства: {{ seedPack.prodDate }}</p>
-        <p class="card__date">Срок годности: {{ seedPack.expirDate }}</p>
+        <p class="card__date">Дата проиводства: {{ seedPack.production_date }}</p>
+        <p class="card__date">Срок годности: {{ seedPack.expiration_date }}</p>
         <p class="card__date">{{ seedPack.harvestYear }}</p>
       </div>
       <div
@@ -48,10 +48,10 @@
       </div>
     </div>
     <div class="w-full border-2 border-green-300 rounded p-1 mt-1">
-      <p class="card__string" :title="seedsFamilyOfType.notes">
+      <p class="card__string" :title="seedsFamilyOfType.description">
         Семейство: {{ seedsFamilyOfType.name }}
       </p>
-      <p class="card__string" :title="seedsSpeciesOfType.notes">
+      <p class="card__string" :title="seedsSpeciesOfType.description">
         Разновидность: {{ seedsSpeciesOfType.name }}
       </p>
     </div>
@@ -80,15 +80,15 @@ export default {
   computed: {
     seedsFamilyOfType() {
       //let familyId = this.plantTypeList.find( item => item.id === this.selectedPlantOfSeeds).familyId;
-      return this.family.find((item) => item.id === this.plantType.familyId);
+      return this.family.find((item) => item.id === this.plantType.family_id);
     },
     seedsSpeciesOfType() {
       //let speciesId = this.plantTypeList.find( item => item.id === this.selectedPlantOfSeeds).speciesId;
-      return this.species.find((item) => item.id === this.plantType.speciesId);
+      return this.species.find((item) => item.id === this.plantType.species_id);
     },
     seedsManufacturerOfType() {
       return this.manufacturer.find(
-        (item) => item.id === this.seedPack.manufacturerId
+        (item) => item.id === this.seedPack.manufacturer_id
       );
     },
   },

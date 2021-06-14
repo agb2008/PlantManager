@@ -1,4 +1,6 @@
-//import { getError } from "@/utils/helpers";
+import { getError } from "@/utils/helpers";
+import InventoryService from "../../services/InventoryService";
+import * as API from "@/services/API";
 
 export const namespaced = true;
 
@@ -142,11 +144,28 @@ export const state = {
       notes: "бла бла бла бла",
     },
   ],
+  loading: false,
+  error: null,
 };
 
 export const mutations = {
-  SET_USERS(state, users) {
-    state.users = users;
+  SET_SEEDS_LIST(state, seedsList) {
+    state.seedsList = seedsList;
+  },
+  SET_SEEDLINGS_LIST(state, seedlingsList) {
+    state.seedlingsList = seedlingsList;
+  },
+  SET_PLANTTYPE_LIST(state, plantTypeList) {
+    state.plantTypeList = plantTypeList;
+  },
+  SET_FAMILY_LIST(state, familyList) {
+    state.familyList = familyList;
+  },
+  SET_SPECIES_LIST(state, speciesList) {
+    state.speciesList = speciesList;
+  },
+  SET_MANUFACTURER_LIST(state, manufacturerList) {
+    state.manufacturerList = manufacturerList;
   },
   ADD_NEW_SEED_PACK(state, seedPack) {
     state.seedsList.push(seedPack);
@@ -177,7 +196,6 @@ export const mutations = {
       (item) => item.id === payload.id
     ).amount = +payload.newAmount;
   },
-
   SET_META(state, meta) {
     state.meta = meta;
   },
@@ -193,29 +211,108 @@ export const mutations = {
 };
 
 export const actions = {
-  addNewSeedsPack({ commit, state }, newPack) {
-    // eslint-disable-next-line no-constant-condition
-    if (true) {
-      newPack.id = state.seedsList.length + 1;
-      commit("ADD_NEW_SEED_PACK", newPack);
+  async getAllData({ commit }) {
+    commit("SET_LOADING", true);
+    try {
+      let response = await API.apiClient.get("/seeds");
+      commit("SET_SEEDS_LIST", response.data.data);
+      // let test = await API.apiClient.get("/seeds/2");
+      // console.log(test);
+      // response = await API.apiClient.get("/seedling");
+      // commit("SET_SEEDLINGS_LIST", response.data.data);
+      response = await API.apiClient.get("/plant_type");
+      commit("SET_PLANTTYPE_LIST", response.data.data);
+      response = await API.apiClient.get("/family");
+      commit("SET_FAMILY_LIST", response.data.data);
+      response = await API.apiClient.get("/species");
+      commit("SET_SPECIES_LIST", response.data.data);
+      response = await API.apiClient.get("/manufacturer");
+      commit("SET_MANUFACTURER_LIST", response.data.data);
+      commit("SET_LOADING", false);
+    } catch (error) {
+      commit("SET_LOADING", false);
+      commit("SET_ERROR", getError(error));
+    } 
+  },
+  async getSeedsList({ commit }, userId) {
+    commit("SET_LOADING", true);
+    try {
+      const response = await InventoryService.getSeedsList(userId);
+      commit("SET_SEEDS_LIST", response.data.data);
+      console.log(response.data.data);
+      commit("SET_LOADING", false);
+      return response.data.data;
+    } catch (error) {
+      commit("SET_LOADING", false);
+      console.log(error);
+      //commit("SET_SEEDS_LIST", null);
+      commit("SET_ERROR", getError(error));
     }
   },
-  changingSeedsPack({ commit }, payload) {
+  async getseedlingsList({ commit }, userId) {
+    commit("SET_LOADING", true);
+    try {
+      const response = await InventoryService.getseedlingsList(userId);
+      commit("SET_SEEDLINGS_LIST", response.data.data);
+      commit("SET_LOADING", false);
+      return response.data.data;
+    } catch (error) {
+      commit("SET_LOADING", false);
+      commit("SET_SEEDLINGS_LIST", null);
+      commit("SET_ERROR", getError(error));
+    }
+  },
+  async getPlantTypeList({ commit }) {
+    commit("SET_LOADING", true);
+    try {
+      const response = await API.apiClient.get("/plant_type");
+      commit("SET_PLANTTYPE_LIST", response.data.data);
+      commit("SET_LOADING", false);
+    } catch (error) {
+      commit("SET_LOADING", false);
+      commit("SET_ERROR", getError(error));
+    }
+  },
+  async addNewSeedsPack({ commit }, payload) {
+    commit("SET_LOADING", true);
+    try {
+      await InventoryService.postSeedPack(payload);
+      commit("ADD_NEW_SEED_PACK", payload.newPack);
+      commit("SET_LOADING", false);
+    } catch (error) {
+      commit("SET_LOADING", false);
+      commit("SET_ERROR", getError(error));
+    }
+    // newPack.id = state.seedsList.length + 1;
+  },
+  async changingSeedsPack({ commit }, payload) {
     const action = payload.newAmount - payload.seedPack.amount;
-    window.console.log(typeof payload.seedPack.amount);
-
     if (payload.seedPack.amount + action <= 0) {
-      // eslint-disable-next-line no-constant-condition
-      if (true) {
-        commit("DELETE_SEEDLING", payload.seedPack.id);
+      commit("SET_LOADING", true);
+      try {
+        await InventoryService.deleteData("/seeds",payload.seedPack.id);
+        commit("DELETE_SEED_PACK", payload.seedPack.id);
+        commit("SET_LOADING", false);
+      } catch (error) {
+        commit("SET_LOADING", false);
+        commit("SET_ERROR", getError(error));
       }
     } else {
-      // eslint-disable-next-line no-constant-condition
-      if (true) {
+      commit("SET_LOADING", true);
+      try {
+        let newPack = Object.assign({}, payload.seedPack);
+        newPack.amount = payload.newAmount;
+        //test
+        const response = await InventoryService.changeData("/seeds", payload.seedPack.id, `amount=${payload.newAmount}`);
+        console.log(response);
         commit("CHANGE_SEED_PACK_AMOUNT", {
           id: payload.seedPack.id,
           newAmount: payload.newAmount,
         });
+        commit("SET_LOADING", false);
+      } catch (error) {
+        commit("SET_LOADING", false);
+        commit("SET_ERROR", getError(error));
       }
     }
   },
@@ -245,6 +342,7 @@ export const actions = {
       }
     }
   },
+  
 };
 
 export const getters = {
