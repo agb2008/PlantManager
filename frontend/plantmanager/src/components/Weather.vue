@@ -22,7 +22,7 @@
           <div
             class="mt-6 text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400 h-24 w-24"
           >
-            <!-- <img src="../assets/icons/{{ weatherIcon }}.png" alt="icon"> -->
+            <!-- <img :src="`./components/icons/${weatherIcon}.png`" alt="icon"> -->
           </div>
           <div class="flex flex-row items-center justify-center mt-6">
             <div class="font-medium text-6xl">
@@ -73,7 +73,7 @@ export default {
       weather: {
         citySearch: "",
         cityName: "---",
-        weatherIcon: "-",
+        weatherIcon: "",
         temperature: "-",
         description: "-",
         highTemp: "-",
@@ -102,6 +102,7 @@ export default {
       this.weather.lowTemp = Math.round(data.list[0].main.temp_min);
       this.weather.wind = data.list[0].wind.speed;
       this.weather.humidity = data.list[0].main.humidity;
+      this.weatherIcon = data.list[0].weather[0].icon
 
       this.visible = true
       this.notCityFound = false
