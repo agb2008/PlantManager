@@ -17,22 +17,22 @@ class CreatePositionsTable extends Migration
             $table->id();
             $table->integer('posX');
             $table->integer('posY');
-            $table->foreignId('plant_id');
-            $table->foreignId('user_id');
+            $table->foreignId('plant_id')->constrained('plant_types');
+            $table->foreignId('user_id')->constrained('users');
             $table->integer('img_id');
-            $table->text('notes');
-            $table->date('date');
+            $table->text('notes')->nullable();
+            $table->date('date')->nullable();
             $table->timestamps();
 
-            $table->foreign('plant_id')
-                ->references('id')
-                ->on('plants')
-                ->onDelete('cascade');
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+//            $table->foreign('plant_id')
+//                ->references('id')
+//                ->on('plants')
+//                ->onDelete('cascade');
+//
+//            $table->foreign('user_id')
+//                ->references('id')
+//                ->on('users')
+//                ->onDelete('cascade');
         });
     }
 

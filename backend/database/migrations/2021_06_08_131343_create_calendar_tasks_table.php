@@ -16,17 +16,17 @@ class CreateCalendarTasksTable extends Migration
         Schema::create('calendar_tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->date('due_date');
-            $table->date('completed_date');
+            $table->date('completed_date')->nullable();
             $table->boolean('active');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+//            $table->foreign('user_id')
+//                ->references('id')
+//                ->on('users')
+//                ->onDelete('cascade');
         });
     }
 

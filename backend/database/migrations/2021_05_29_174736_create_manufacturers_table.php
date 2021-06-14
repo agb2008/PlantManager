@@ -20,7 +20,7 @@ class CreateManufacturersTable extends Migration
             $table->string('email')->nullable();;
             $table->string('phone');
             $table->string('website')->nullable();
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
