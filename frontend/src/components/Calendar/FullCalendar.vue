@@ -1,12 +1,3 @@
-<template>
-  <div>
-    <h2>Calendar</h2>
-    <button @click="addNewEvent">Add event</button>
-    <FullCalendar :options="calendarOptions" id="fullcalendar" />
-    <lunar-calendar />
-  </div>
-</template>
-
 <script>
 import "@fullcalendar/core/vdom"; // solves problem with Vite
 import FullCalendar from "@fullcalendar/vue";
@@ -14,27 +5,12 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import ruLocale from "@fullcalendar/core/locales/ru";
 
-import LunarCalendar from "./LunarCalendar.vue";
-
 export default {
-  name: "Calendar",
   components: {
-    FullCalendar,
-    LunarCalendar,
+    FullCalendar, // make the <FullCalendar> tag available
   },
   data() {
-    const todos = [
-      {
-        id: Math.random() * 10,
-        description: "Take Noah to basketball practice.",
-        isComplete: false,
-        dates: { weekdays: 6 }, // Every Friday
-        color: "red",
-      },
-    ];
     return {
-      todos,
-      dayClicked: true,
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: "dayGridMonth",
@@ -68,11 +44,15 @@ export default {
   },
 };
 </script>
+<template>
+  <div>
+    <button @click="addNewEvent">Add event</button>
+    <FullCalendar :options="calendarOptions" id="fullcalendar" />
+  </div>
+</template>
 
 <style>
-
 #fullcalendar {
   width: 80%;
 }
-
 </style>
