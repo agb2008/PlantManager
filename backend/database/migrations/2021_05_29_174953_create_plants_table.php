@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeedsTable extends Migration
+class CreatePlantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,18 @@ class CreateSeedsTable extends Migration
      */
     public function up()
     {
-        Schema::create('seeds', function (Blueprint $table) {
+        Schema::create('plants', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->integer('number_of_seeds');
-            $table->integer('amount');
             $table->foreignId('type_id')->constrained('plant_types');
             $table->foreignId('manufacturer_id')->constrained('manufacturers');
-            $table->date('production_date');
-            $table->date('expiration_date');
-            $table->date('harvest_date');
-            $table->text('notes')->nullable();
-            $table->double('price');
+            $table->integer('amount');
             $table->integer('img_id');
+            $table->text('notes');
+            $table->double('price')->nullable();;
+            $table->date('purchase_date');
+            $table->date('plant_date');
+            $table->foreignId('seeds_id')->nullable()->constrained('seeds');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
@@ -38,6 +37,6 @@ class CreateSeedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seeds');
+        Schema::dropIfExists('plants');
     }
 }
