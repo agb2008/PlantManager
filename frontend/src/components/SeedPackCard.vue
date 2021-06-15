@@ -1,34 +1,23 @@
 <template>
   <div class="card p-2 cursor-auto bg-white" @click.stop="">
-    <div class="flex w-full">
-      <div class="relative z-0 w-full mb-2">
-        <input
-          type="number"
-          name="money"
-          placeholder=" "
-          class="pt-3 pb-2 pl-5 block px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black cursor-pointer"
-          @click.stop=""
-          @change="changeQuant"
-          v-model="packAmount"
-        />
-        <div class="absolute top-0 left-0 mt-3 ml-1 text-gray-400"></div>
-        <label
-          for="money"
-          class="absolute duration-300 top-5 left-5 -z-1 origin-0 text-gray-500"
-          >Кол-во:</label
-        >
-        <span class="text-sm text-red-600 hidden" id="error"
-          >Amount is required</span
-        >
-      </div>
-      <div class="w-full p-1">
-        <p>Цена: {{ seedPack.price }}</p>
+    <div class="flex w-full justify-around">
+      <CustomInput
+        type="number"
+        label="Кол-во:"
+        name="money"
+        v-model="packAmount"
+        @change="changeQuant"
+        class="mb-2 w-full"
+      />
+      <div class="w-full pt-6">
+        <p class="text-center">Цена: {{ seedPack.price }}</p>
       </div>
     </div>
-
     <div class="flex w-full">
       <div class="w-full border-2 border-green-300 rounded p-1 mr-1">
-        <p class="card__date">Дата проиводства: {{ seedPack.production_date }}</p>
+        <p class="card__date">
+          Дата проиводства: {{ seedPack.production_date }}
+        </p>
         <p class="card__date">Срок годности: {{ seedPack.expiration_date }}</p>
         <p class="card__date">{{ seedPack.harvestYear }}</p>
       </div>
@@ -59,8 +48,12 @@
 </template>
 
 <script>
+import CustomInput from "./CustomInput";
+
 export default {
-  components: {},
+  components: {
+    CustomInput,
+  },
 
   props: {
     seedPack: Object,

@@ -16,7 +16,7 @@
       <!-- modal -->
       <div
         id="modal"
-        class="transform relative w-10/12 px-3 py-6 md:w-1/2 h-auto md:h-3/4 md:px-6 md:py-12 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
+        class="transform relative w-72 px-3 py-6 sm:w-1/2 h-auto md:px-6 md:py-12 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"
         :class="modalClassObj"
       >
         <!-- button close -->
@@ -29,66 +29,28 @@
 
         <!-- header -->
         <div class="mb-2 md:mb-4">
-          <h1 class="text-2xl font-bold mb-3 md:mb-8">Новые семена</h1>
+          <h1 class="text-2xl font-bold mb-3 md:mb-8 md:text-3xl">
+            Новые семена
+          </h1>
         </div>
         <!-- body -->
-        <div class="md:flex justify-around">
-          <div class="relative z-0 w-full mb-5">
-            <select
-              v-model="selectedPlant"
-              name="select"
-              value=""
-              type="number"
-              onclick="this.setAttribute('value', this.value);"
-              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-            >
-              <option value="" selected disabled hidden></option>
-              <option
-                v-for="itemType in plantTypeList"
-                :key="itemType.id"
-                :value="itemType.id"
-              >
-                {{ itemType.name }}
-              </option>
-            </select>
-            <label
-              for="select"
-              class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-              >Выберите тип растения</label
-            >
-            <span class="text-sm text-red-600 hidden" id="error"
-              >Option has to be selected</span
-            >
-          </div>
-          <div class="relative z-0 w-full mb-5">
-            <select
-              v-model="manufacturerId"
-              name="select"
-              value=""
-              type="number"
-              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-            >
-              <option value="" selected disabled hidden></option>
-              <option
-                v-for="itemManufact in manufacturerList"
-                :key="itemManufact.id"
-                :value="itemManufact.id"
-              >
-                {{ itemManufact.name }}
-              </option>
-            </select>
-            <label
-              for="select"
-              class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-              >Выберите производителя</label
-            >
-            <span class="text-sm text-red-600 hidden" id="error"
-              >Option has to be selected</span
-            >
-          </div>
+
+        <div class="lg:flex justify-around">
+          <BaseInputSelect
+            v-model="selectedPlant"
+            name="select"
+            label="Выберите тип растения"
+            :options="plantTypeList"
+          />
+          <BaseInputSelect
+            v-model="manufacturerId"
+            name="select"
+            label="Выберите производителя"
+            :options="manufacturerList"
+          />
         </div>
 
-        <base-input
+        <CustomInput
           type="text"
           label="Введите название"
           name="name"
@@ -97,21 +59,21 @@
         />
 
         <div class="lg:flex justify-around">
-          <base-input
+          <CustomInput
             type="date"
             label="Дата упаковки семян"
             name="date"
             v-model="prodDate"
             class="mb-2"
           />
-          <base-input
+          <CustomInput
             type="date"
             label="Дата сбора семян"
             name="date"
             v-model="harvestYear"
             class="mb-2"
           />
-          <base-input
+          <CustomInput
             type="date"
             label="Срок годности до"
             name="date"
@@ -119,24 +81,25 @@
             class="mb-2"
           />
         </div>
-        <div class="lg:flex justify-around">
-          <base-input
+
+        <div class="lg:flex justify-around mb-14">
+          <CustomInput
             type="number"
-            label="Цена за пачку"
+            label="Кол-во семян"
             name="money"
             v-model="numberOfSeeds"
-            class="mb-2"
+            class="mb-2 lg:mr-1"
           />
 
-          <base-input
+          <CustomInput
             type="number"
-            label="Количество пачек"
+            label="Кол-во пачек"
             name="money"
             v-model="amount"
-            class="mb-2"
+            class="mb-2 lg:mr-1"
           />
 
-          <base-input
+          <CustomInput
             type="number"
             label="Цена за пачку"
             name="name"
@@ -168,11 +131,14 @@
 </template>
 
 <script>
-import BaseInput from "./BaseInput";
+// import BaseInput from "./BaseInput";
+import CustomInput from "./CustomInput";
+import BaseInputSelect from "./BaseInputSelect";
 
 export default {
   components: {
-    BaseInput,
+    BaseInputSelect,
+    CustomInput,
   },
   props: {
     newData: Function,
@@ -218,7 +184,7 @@ export default {
         number_of_seeds: this.numberOfSeeds,
         amount: this.amount,
         price: this.price,
-        notes: "lkjljlj",
+        notes: "Описание",
         img_id: 1,
         user_id: 1,
         manufacturer_id: this.manufacturerId,
