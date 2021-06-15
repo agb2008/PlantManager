@@ -11,7 +11,7 @@ const storeApis = {
   SET_FAMILY_LIST: "/family",
   SET_SPECIES_LIST: "/species",
   SET_MANUFACTURER_LIST: "/manufacturer",
-}
+};
 
 export const state = {
   seedsList: [
@@ -153,6 +153,10 @@ export const state = {
       notes: "бла бла бла бла",
     },
   ],
+  selectedPlantOfSeeds: null,
+  selectedPlantOfSeedlings: null,
+  selectedSeedPack: null,
+  selectedSeedlingItem: null,
   loading: false,
   error: null,
 };
@@ -205,6 +209,20 @@ export const mutations = {
       (item) => item.id === payload.id
     ).amount = +payload.newAmount;
   },
+
+  SET_SELECTED_PLANT_SEEDS(state, newState) {
+    state.selectedPlantOfSeeds = newState;
+  },
+  SET_SELECTED_PLANT_SEEDLINGS(state, newState) {
+    state.selectedPlantOfSeedlings = newState;
+  },
+  SET_SELECTED_SEED_PACK(state, newState) {
+    state.selectedSeedPack = newState;
+  },
+  SET_SELECTED_SEEDLING_ITEM(state, newState) {
+    state.selectedSeedlingItem = newState;
+  },
+
   SET_META(state, meta) {
     state.meta = meta;
   },
@@ -224,7 +242,7 @@ export const actions = {
     for (const item of Object.entries(storeApis)) {
       commit("SET_LOADING", true);
       try {
-        const response = await InventoryService.getData(item[1]); 
+        const response = await InventoryService.getData(item[1]);
         commit(item[0], response.data.data);
         commit("SET_LOADING", false);
       } catch (error) {
@@ -282,16 +300,20 @@ export const actions = {
       commit("SET_LOADING", false);
       commit("SET_ERROR", getError(error));
     }
-    // newPack.id = state.seedsList.length + 1;
   },
-  async changingSeedsPack({ commit }, payload) {
-    const action = payload.newAmount - payload.seedPack.amount;
-    if (payload.seedPack.amount + action <= 0) {
+  async changingSeedsPack({ commit, getters }, payload) {
+    if (+payload.newAmount) {
       commit("SET_LOADING", true);
       try {
-        await InventoryService.deleteData("/seeds",payload.seedPack.id);
-        commit("DELETE_SEED_PACK", payload.seedPack.id);
-        commit("SET_LOADING", false);
+        await InventoryService.changeData(
+          "/seeds",
+          getters.selectedSeedPack,
+          `amount=${payload.newAmount}`
+        );
+        commit("CHANGE_SEED_PACK_AMOUNT", {
+          id: getters.selectedSeedPack,
+          newAmount: payload.newAmount,
+        });
       } catch (error) {
         commit("SET_LOADING", false);
         commit("SET_ERROR", getError(error));
@@ -299,15 +321,8 @@ export const actions = {
     } else {
       commit("SET_LOADING", true);
       try {
-        let newPack = Object.assign({}, payload.seedPack);
-        newPack.amount = payload.newAmount;
-        //test`amount=${payload.newAmount}?price=399`
-        const response = await InventoryService.changeData("/seeds", {amount: newPack.amount}, payload.seedPack.id);
-        console.log(response);
-        commit("CHANGE_SEED_PACK_AMOUNT", {
-          id: payload.seedPack.id,
-          newAmount: payload.newAmount,
-        });
+        await InventoryService.deleteData("/seeds", getters.selectedSeedPack);
+        commit("DELETE_SEED_PACK", getters.selectedSeedPack);
         commit("SET_LOADING", false);
       } catch (error) {
         commit("SET_LOADING", false);
@@ -327,25 +342,64 @@ export const actions = {
       commit("SET_ERROR", getError(error));
     }
   },
-  changingSeedling({ commit }, payload) {
-    const action = payload.newAmount - payload.seedling.amount;
-
-    if (payload.seedling.amount + action <= 0) {
-      // eslint-disable-next-line no-constant-condition
-      if (true) {
-        commit("DELETE_SEEDLING", payload.seedling.id);
-      }
-    } else {
-      // eslint-disable-next-line no-constant-condition
-      if (true) {
+  async changingSeedling({ commit, getters }, payload) {
+    if (+payload.newAmount) {
+      commit("SET_LOADING", true);
+      try {
+        console.log(typeof payload.newAmount);
+        await InventoryService.changeData(
+          "/seedling",
+          getters.selectedSeedlingItem,
+          `amount=${payload.newAmount}`
+        );
         commit("CHANGE_SEEDLING_AMOUNT", {
-          id: payload.seedling.id,
+          id: getters.selectedSeedlingItem,
           newAmount: payload.newAmount,
         });
+      } catch (error) {
+        commit("SET_LOADING", false);
+        commit("SET_ERROR", getError(error));
+      }
+    } else {
+      commit("SET_LOADING", true);
+      try {
+        console.log(typeof payload.newAmount);
+        await InventoryService.deleteData(
+          "/seedling",
+          getters.selectedSeedlingItem
+        );
+        commit("DELETE_SEEDLING", getters.selectedSeedlingItem);
+        commit("SET_LOADING", false);
+      } catch (error) {
+        commit("SET_LOADING", false);
+        commit("SET_ERROR", getError(error));
       }
     }
   },
-  
+  seedsPlantTypeSelect({ commit, getters }, itemId) {
+    commit(
+      "SET_SELECTED_PLANT_SEEDS",
+      getters.selectedPlantOfSeeds === itemId ? null : itemId
+    );
+  },
+  seedlingPlantTypeSelect({ commit, getters }, itemId) {
+    commit(
+      "SET_SELECTED_PLANT_SEEDLINGS",
+      getters.selectedPlantOfSeedlings === itemId ? null : itemId
+    );
+  },
+  seedItemSelect({ commit, getters }, itemId) {
+    commit(
+      "SET_SELECTED_SEED_PACK",
+      getters.selectedSeedPack === itemId ? null : itemId
+    );
+  },
+  seedlingItemSelect({ commit, getters }, itemId) {
+    commit(
+      "SET_SELECTED_SEEDLING_ITEM",
+      getters.selectedSeedlingItem === itemId ? null : itemId
+    );
+  },
 };
 
 export const getters = {
@@ -367,6 +421,20 @@ export const getters = {
   manufacturerList: (state) => {
     return state.manufacturerList;
   },
+
+  selectedPlantOfSeeds: (state) => {
+    return state.selectedPlantOfSeeds;
+  },
+  selectedPlantOfSeedlings: (state) => {
+    return state.selectedPlantOfSeedlings;
+  },
+  selectedSeedPack: (state) => {
+    return state.selectedSeedPack;
+  },
+  selectedSeedlingItem: (state) => {
+    return state.selectedSeedlingItem;
+  },
+
   loading: (state) => {
     return state.loading;
   },

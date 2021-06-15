@@ -78,14 +78,14 @@ export default {
 
   computed: {
     seedlingFamilyOfType() {
-      return this.family.find((item) => item.id === this.plantType.familyId);
+      return this.family.find((item) => item.id === this.plantType.family_id);
     },
     seedlingSpeciesOfType() {
-      return this.species.find((item) => item.id === this.plantType.speciesId);
+      return this.species.find((item) => item.id === this.plantType.species_id);
     },
     seedlingManufacturerOfType() {
       return this.manufacturer.find(
-        (item) => item.id === this.seedling.manufacturerId
+        (item) => item.id === this.seedling.manufacturer_id
       );
     },
   },

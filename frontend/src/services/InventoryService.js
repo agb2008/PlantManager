@@ -7,7 +7,7 @@ export default {
   postData(api, payload) {
     return API.apiClient.post(api, payload);
   },
-  changeData(api, payload, id) {
+  changeData(api, id, payload) {
     console.log(payload);
     return API.apiClient.patch(`${api}/${id}`, payload);
   },
