@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import * as auth from "@/store/modules/Auth";
 import * as user from "@/store/modules/User";
 import * as message from "@/store/modules/Message";
+import * as gardenbed from "@/store/modules/GardenBed"
 
 Vue.use(Vuex);
 
@@ -14,5 +15,6 @@ export default new Vuex.Store({
     auth,
     user,
     message,
+    gardenbed,
   },
 });

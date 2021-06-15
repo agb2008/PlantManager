@@ -12,7 +12,7 @@ const routes = [
   { //В итоге это нужно удалить, создано для разработки...
     path: "/testing",
     name: "home",
-    meta: { middleware: [guest] },
+    meta: { middleware: [auth] },
     component: () => import(/* webpackChunkName: "home" */ "../views/testing"),
   },
   {

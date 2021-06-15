@@ -2,14 +2,15 @@
     <div class="my-container">
         <main class="main">
             <div class="garden-bed-panel">
-                <div class="icon-doing" v-for="(item, k) of doingsArray" :key="k" v-on:click="chooseIconDoing(item.name, $event)">
+                <div class="icon-doing" v-for="(item, k) of doingsArray" :key="k" v-on:click="chooseIconDoing(item, $event)">
                     <img :src="item.img" alt="" class="icon-img">
                 </div>
             </div>
+            <div class="error" v-if="error">{{ error }}</div>
             <div class="garden-bed-table flex flex-col">
                 <div class="tabel-row flex" v-for="r of quantityRows" :key="r">
-                    <div class="table-cell" v-for="c of quantityColumns" :style="getBackground(r + '/' + c)"
-                    :key="c" :id="r + '/' + c" v-on:click="markCell"></div>
+                    <div class="table-cell" v-for="c of quantityColumns" :style="getBackground(r + '' + c)"
+                    :key="c" :id="r + '/' + c" :data-id="r + '' + c" v-on:click="markCell"></div>
                 </div>
                 <div class="btn-increase increase-columns" v-on:click="increaseCells('col')">
                     <p class="btn-increase-text">Добавить колонны</p>
@@ -23,11 +24,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
+
 export default {
     name: 'GardenBed',
     data(){
         return {
-            dataCellsSet: new Set(),
+            plantId: null,
             choseDoing: null,
             previousChoseDoing: null,
             gardenBedTable: null,
@@ -41,17 +45,24 @@ export default {
         columns: Number,
     },
     methods: {
-        chooseIconDoing(iconName, event){
-            if(iconName !== this.choseDoing){
-                this.choseDoing = iconName;
+        ...mapActions("gardenbed", [
+            "addNewDataToDataCells",
+            "deletingDataCellsEl",
+        ]),
+
+        chooseIconDoing(icon, event){
+            if(icon.id !== this.choseDoing){
+                this.choseDoing = icon.id;
                 if(this.previousChoseDoing !== null 
                 && this.previousChoseDoing.classList.contains("chose-icon")){
                     this.previousChoseDoing.classList.remove("chose-icon")
                 }
-                this.previousChoseDoing = event.target
+                this.previousChoseDoing = event.target;
+                this.plantId = icon.plantId;
                 event.target.classList.add("chose-icon");
             } else{
                 this.choseDoing = null;
+                this.plantId = null;
                 event.target.classList.remove("chose-icon");
                 this.previousChoseDoing = null;
             }
@@ -62,39 +73,43 @@ export default {
             if(this.choseDoing === null) return;
 
             for(let el of this.doingsArray){
-                if(el.name === this.choseDoing && this.isCellClear(event.target.style.background)){
+                if(el.id === this.choseDoing && this.isCellClear(event.target.style.background)){
                     event.target.style.background = el.background ? el.background :
                         `center / contain no-repeat url(${el.img})`;
 
-                    this.addCellInfoToSet(event, el);
+                    this.addCellInfoToArr(event);
                     return;
-                } else if(this.choseDoing === "clean"){
-                    this.removeCellInfoFromSet(event);
+                } else {
+                    this.removeCellInfoFromArr(event);
                     event.target.style.background = "none";
                     return;
                 }
             }
         },
 
-        addCellInfoToSet(e, doing){
-            if(!this.dataCellsSetHasId(e.target.id)){
-                let obj = {};
-                obj.coordinate = e.target.id;
-                obj.name = doing.name;
-                obj.background = doing.background ? doing.background : doing.img;
+        addCellInfoToArr(e){
+            let arrCoordinate = e.target.id.split("/")
+            if(!this.dataCellsHasId(e.target.id)){
+                this.addNewDataToDataCells({
+                    id: e.target.dataset.id,
+                    posX: arrCoordinate[1],
+                    posY: arrCoordinate[0],
+                    img_id: 1,// NEED TO CHANGE
+                    plant_id: this.plantId,
+                    user_id: 1,// NEED TO CHANGE
+                })
                 //возможно потом добавятся другие поля
-                this.dataCellsSet.add(obj);
             }
-            console.log(this.dataCellsSet);
+            console.log(this.dataCells, this.user);
         },
 
-        removeCellInfoFromSet(e){
-            for(let el of this.dataCellsSet){
-                if(el.coordinate === e.target.id){
-                    this.dataCellsSet.delete(el);
+        removeCellInfoFromArr(e){
+            for(let el of this.dataCells){
+                if(el.id === e.target.dataset.id){
+                    this.deletingDataCellsEl(e.target.dataset.id);
                 }
             }
-            console.log(this.dataCellsSet);
+            console.log(this.dataCells);
         },
 
         isCellClear(targetBackground){
@@ -104,34 +119,58 @@ export default {
             return false;
         },
 
-        dataCellsSetHasId(id){
+        dataCellsHasId(id){
             let existenceId = 0;
-            for(let el of this.dataCellsSet){
-                if(el.coordinate === id) existenceId = 1;
+            for(let el of this.dataCells){
+                if(el.id === id) existenceId = 1;
             }
             return existenceId;
         },
 
         increaseCells(direction){
-            if(direction === "rows"){
-                this.quantityRows += 5;
-                this.gardenBedTable.style.height = this.gardenBedTable.clientHeight + 150 + "px";
-            }
-            else{
-                this.quantityColumns += 5;
-                this.gardenBedTable.style.width = this.gardenBedTable.clientWidth + 150 + "px";
-            }
+            console.log(true, direction)
+            //На будущее
+            // if(direction === "rows"){
+            //     this.quantityRows += 5;
+            //     this.gardenBedTable.style.height = this.gardenBedTable.clientHeight + 150 + "px";
+            // }
+            // else{
+            //     this.quantityColumns += 5;
+            //     this.gardenBedTable.style.width = this.gardenBedTable.clientWidth + 150 + "px";
+            // }
         },
 
         getBackground(id){
-            let el = Array.from(this.dataCellsSet).filter(el => el.coordinate === id)
+            let el = this.dataCells.filter(el => el.id === id)[0]
             if(el){
-                return `background: center / contain no-repeat ${el.background}`;
+                for(let doing of this.doingsArray){
+                    if(doing.plantId === el.plant_id){
+                        return doing.background ? doing.background :
+                                `center / contain no-repeat url(${doing.img})`;
+                    }
+                }
             }
         }
     },
 
+    computed:{
+        ...mapGetters("gardenbed", [
+            "dataCells",
+            "plantTypeList",
+            "familyList",
+            "speciesList",
+            "loading",
+            "error",
+        ]),
+
+        ...mapGetters("auth", [
+            "authUser",
+        ]),
+    },
+
     mounted(){
+        this.$store.dispatch("gardenbed/getAllData");
+        // this.$store.dispatch("auth/getAuthUser");
         this.gardenBedTable = document.querySelector(".garden-bed-table");
     }
 

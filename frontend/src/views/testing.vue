@@ -1,54 +1,67 @@
 <template>
   <div id="app">
-    <!-- <GardenBed 
+    <GardenBed 
 		:doingsArray="doingsArray"
 		:rows="quantityRows"
 		:columns="quantityColumns"
-     /> -->
-    <CreateTask />
+     />
+    <!-- <CreateTask /> -->
   </div>
 </template>
 
 <script>
-// import GardenBed from '../components/GardenBed.vue';
-import CreateTask from '../components/tasks_components/CreateTask'
+import GardenBed from '../components/GardenBed.vue';
+// import CreateTask from '../components/tasks_components/CreateTask'
 
 export default {
   name: 'App',
   components: {
-    // GardenBed,
-    CreateTask
+    GardenBed,
+    // CreateTask
   },
   data(){
         return {
             doingsArray: [
                 {
-                    name: "tomato", 
+                    id: 1,
+                    plantId: 1,
+                    name: "помидор", 
                     img: "./images/44_tomato_food-tomato.svg", 
                 },
                 {
-                    name: "bell_pepper", 
+                    id: 2,
+                    plantId: 2,
+                    name: "перец", 
                     img: "./images/30_bell_pepper.svg", 
                 },
                 {
-                    name: "cucumber", 
+                    id: 3,
+                    plantId: 3,
+                    name: "огурец", 
                     img: "./images/8_cucumber-slice-publicdomainvectors.org.svg", 
                 },
                 {
-                    name: "chery_tomat", 
+                    id: 4,
+                    plantId: 4,
+                    name: "томат чери", 
                     img: "./images/173_cherryTomato-branch-publicdomainvectors.org.svg", 
                 },
                 {
-                    name: "blackberry", 
+                    id: 5,
+                    plantId: 5,
+                    name: "черника", 
                     img: "./images/221_blackberry.svg", 
                 },
                 {
-                    name: "deviding", 
+                    id: 6,
+                    plantId: 0,
+                    name: "разделение", 
                     img: "./images/deviding.jpg", 
                     background: "#5a5a5a", 
                 },
                 {
-                    name: "clean", 
+                    id: 7,
+                    name: "очистка", 
                     img: "./images/kisclean.jpg", 
                     background: "none", 
                 }
