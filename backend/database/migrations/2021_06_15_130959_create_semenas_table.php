@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeedsTable extends Migration
+class CreateSemenasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSeedsTable extends Migration
      */
     public function up()
     {
-        Schema::create('seeds', function (Blueprint $table) {
+        Schema::create('semenas', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->integer('number_of_seeds');
@@ -38,6 +38,6 @@ class CreateSeedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seeds');
+        Schema::dropIfExists('semenas');
     }
 }

@@ -59,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function seeds()
     {
-        return $this->hasMany(Seeds::class);
+        return $this->hasMany(Seed::class);
     }
 
     public function seedlings()
@@ -69,12 +69,17 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function plants()
     {
-        return $this->hasMany(Plants::class);
+        return $this->hasMany(Plant::class);
     }
 
     public function calendarTasks()
     {
-        return $this->hasMany(CalendarTasks::class);
+        return $this->hasMany(CalendarTask::class);
+    }
+
+    public function position()
+    {
+        return $this->hasMany(Position::class);
     }
 
 }

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Seedling;
+use App\Models\Plant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\SeedlingResource;
-use App\Http\Requests\StoreSeedlingRequest;
+use App\Http\Resources\PlantResource;
+use App\Http\Requests\StorePlantRequest;
 use Illuminate\Http\JsonResponse;
 
-class SeedlingController extends Controller
+class PlantController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,7 @@ class SeedlingController extends Controller
      */
     public function index()
     {
-        // return SeedsResource::collection(Seeds::all()->where('user_id',Auth::user()->id));
-        return SeedlingResource::collection(Seedling::all()->where('user_id',Auth::user()->id));
+        return PlantResource::collection(Plant::all()->where('user_id',Auth::user()->id));
     }
 
     /**
@@ -28,9 +27,9 @@ class SeedlingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSeedlingRequest $request)
+    public function store(StorePlantRequest $request)
     {
-        $seedling = new Seedling([
+        $plant = new Plant([
             'name' => $request->name,
             'type_id' => $request->type_id,
             'manufacturer_id' => $request->manufacturer_id,
@@ -43,35 +42,34 @@ class SeedlingController extends Controller
             'seeds_id' => $request->seeds_id,
             'user_id' => $request->user_id,
         ]);
-        $seedling->save();
+        $plant->save();
 
-        return SeedlingResource::collection(Seedling::all()->where('user_id',Auth::user()->id));
+        return PlantResource::collection(Plant::all()->where('user_id',Auth::user()->id));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Seedling  $seedling
+     * @param  \App\Models\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function show(Seedling $seedling)
+    public function show(Plant $plant)
     {
-//        ddd($seedling);
-        return new SeedlingResource($seedling);
+        return new PlantResource($plant);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Seedling  $seedling
+     * @param  \App\Models\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Seedling $seedling)
+    public function update(Request $request, Plant $plant)
     {
-        $seedling->update($request->all());
+        $plant->update($request->all());
 
-        if($seedling->save()){
+        if($plant->save()){
             return  response()->json(["message" => "Запись успешно обновлена"], 200);
         } else {
             return  response()->json(["message" => "Ошибка при обновлении записи"], 400);
@@ -81,12 +79,12 @@ class SeedlingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Seedling  $seedling
+     * @param  \App\Models\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Seedling $seedling) : JsonResponse
+    public function destroy(Plant $plant) : JsonResponse
     {
-        if($seedling->delete()){
+        if($plant->delete()){
             return  response()->json(["message" => "Запись успешно удалена"], 200);
         } else {
             return  response()->json(["message" => "Ошибка при удалении записи"], 400);
