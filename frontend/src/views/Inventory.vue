@@ -1,11 +1,14 @@
 <template>
   <div class="w-full p-5 m-auto">
-    <h1 class="text-3xl text-center">Инвентарь пользователя {{ authUser.name }}</h1>
+    <h1 class="text-3xl text-center">
+      Инвентарь пользователя {{ authUser.name }}
+    </h1>
     <div class="inventory flex justify-center py-2 mx-auto lg:mt-16">
-      <div class="flex flex-wrap justify-between w-80 sm:w-96 md:w-full lg:justify-evenly">
-
+      <div
+        class="flex flex-wrap justify-between w-80 sm:w-96 md:w-full lg:justify-evenly"
+      >
         <!-- Семена -->
-        <div class="seedsList w-80 lg:w-5/12 ">
+        <div class="seedsList w-80 lg:w-5/12">
           <div class="p-2 mb-2 bg-white border rounded shadow">
             <h2
               class="px-3 py-2 mb-2 mt-3 font-bold text-gray-800 bg-green-400 rounded-md"

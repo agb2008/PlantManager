@@ -32,7 +32,7 @@
       >
         <p>
           <span class="font-semibold">Производитель:</span>
-          {{ manufacturer.name }}
+          {{ seedlingManufacturerOfType.name }}
         </p>
         <p class="whitespace-normal">
           <span class="font-semibold">Адрес:</span>
@@ -40,17 +40,27 @@
         </p>
         <p>
           <span class="font-semibold">Email:</span>
-          {{ seedlingManufacturerOfType.email }}
+          <a
+            class="cursor-pointer underline"
+            :href="'mailto:' + seedlingManufacturerOfType.email"
+          >
+           {{ seedlingManufacturerOfType.email }}
+          </a>
+          
         </p>
-        <p>
+        <a :href="'tel:' + seedlingManufacturerOfType.phone" class="block">
           <span class="font-semibold">Phone:</span>
           {{ seedlingManufacturerOfType.phone }}
+        </a>
+        <p>
+          <span class="font-semibold no-underline">Наш вебсайт:</span>
+          <a
+            class="cursor-pointer underline"
+            :href="seedlingManufacturerOfType.website"
+          >
+            {{ seedlingManufacturerOfType.website }}
+          </a>
         </p>
-        <a
-          class="cursor-pointer underline"
-          :href="seedlingManufacturerOfType.website"
-          >Вебсайт</a
-        >
       </div>
     </div>
     <div class="w-full border-2 border-green-300 rounded p-1 mt-1">
