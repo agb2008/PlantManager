@@ -15,21 +15,21 @@ class CreateCompanionsTable extends Migration
     {
         Schema::create('companions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('species_id');
-            $table->foreignId('companion_id');
+            $table->foreignId('species_id')->constrained('species');
+            $table->foreignId('companion_id')->constrained('companions');
             $table->tinyInteger('type');
             $table->text('description');
             $table->timestamps();
 
-            $table->foreign('species_id')
-                ->references('id')
-                ->on('species')
-                ->onDelete('cascade');
-
-            $table->foreign('companion_id')
-                ->references('id')
-                ->on('species')
-                ->onDelete('cascade');
+//            $table->foreign('species_id')
+//                ->references('id')
+//                ->on('species')
+//                ->onDelete('cascade');
+//
+//            $table->foreign('companion_id')
+//                ->references('id')
+//                ->on('companions')
+//                ->onDelete('cascade');
         });
     }
 

@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Companion extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'species_id',
+        'companion_id',
+        'type',
+        'description',
+    ];
 }

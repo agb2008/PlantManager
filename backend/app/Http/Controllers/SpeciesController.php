@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Species;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\SpeciesResource;
+use App\Http\Requests\StoreSpeciesRequest;
+use Illuminate\Http\JsonResponse;
 
 class SpeciesController extends Controller
 {
@@ -14,7 +18,7 @@ class SpeciesController extends Controller
      */
     public function index()
     {
-        //
+        return SpeciesResource::collection(Species::all());
     }
 
     /**
@@ -23,9 +27,21 @@ class SpeciesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSpeciesRequest $request)
     {
-        //
+        //Todo - Добавить проверку на авторизацию пользователя и наличия у него статуса is_admin
+
+        $spec = new Species([
+            'name'    => $request->name,
+            'address' => $request->address,
+            'email'   => $request->email,
+            'phone'   => $request->phone,
+            'website' => $request->website,
+            'notes'   => $request->notes,
+        ]);
+        $spec->save();
+
+        return SpeciesResource::collection(Species::all());
     }
 
     /**
@@ -36,7 +52,7 @@ class SpeciesController extends Controller
      */
     public function show(Species $species)
     {
-        //
+        return new SpeciesResource($species);
     }
 
     /**
@@ -48,7 +64,13 @@ class SpeciesController extends Controller
      */
     public function update(Request $request, Species $species)
     {
-        //
+        $species->update($request->all());
+
+        if($species->save()){
+            return  response()->json(["message" => "Запись успешно обновлена"], 200);
+        } else {
+            return  response()->json(["message" => "Ошибка при обновлении записи"], 400);
+        }
     }
 
     /**
@@ -57,8 +79,12 @@ class SpeciesController extends Controller
      * @param  \App\Models\Species  $species
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Species $species)
+    public function destroy(Species $species) : JsonResponse
     {
-        //
+        if($species->delete()){
+            return  response()->json(["message" => "Запись успешно удалена"], 200);
+        } else {
+            return  response()->json(["message" => "Ошибка при удалении записи"], 400);
+        }
     }
 }
