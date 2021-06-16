@@ -11,11 +11,13 @@ use App\Http\Controllers\CompanionController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\PlantTypeController;
 use App\Http\Controllers\SpeciesController;
-use App\Http\Controllers\SeedsController;
+use App\Http\Controllers\SeedController;
 use App\Http\Controllers\SeedlingController;
-use App\Http\Controllers\PlantsController;
-use App\Http\Controllers\CalendarTasksController;
-use App\Http\Controllers\PositionsController;
+use App\Http\Controllers\PlantController;
+use App\Http\Controllers\CalendarTaskController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\SemenaController;
+use App\Http\Controllers\TaskController;
 
 
 /*
@@ -45,11 +47,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
       'family' => FamilyController::class,
       'plant_type' => PlantTypeController::class,
       'species' => SpeciesController::class,
-      'seeds' => SeedsController::class,
+      'seeds' => SeedController::class,
       'seedling' => SeedlingController::class,
-      'plants' => PlantsController::class,
-      'calendar_tasks' => CalendarTasksController::class,
-      'positions' => PositionsController::class,
+      'plants' => PlantController::class,
+      'calendar_task' => CalendarTaskController::class,
+      'tasks' => TaskController::class,
+      'positions' => PositionController::class,
+      'semena' => SemenaController::class,
   ]);
 
 });
