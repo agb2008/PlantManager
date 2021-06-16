@@ -1,5 +1,5 @@
 import { getError } from "@/utils/helpers";
-import GardenBedService from "../../services/GardenBedService";
+import GardenBedService from "../../services/RequestsToServerService";
 
 export const namespaced = true;
 

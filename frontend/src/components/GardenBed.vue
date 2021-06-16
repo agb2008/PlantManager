@@ -6,7 +6,7 @@
                     <img :src="item.img" alt="" class="icon-img">
                 </div>
             </div>
-            <div class="error" v-if="error">{{ error }}</div>
+            <FlashMessage :error="error" class="text-center mb-4"/>
             <div class="garden-bed-table flex flex-col">
                 <div class="tabel-row flex" v-for="r of quantityRows" :key="r">
                     <div class="table-cell" v-for="c of quantityColumns" :style="getBackground(r + '' + c)"
@@ -27,6 +27,8 @@
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 
+import FlashMessage from "@/components/FlashMessage";
+
 export default {
     name: 'GardenBed',
     data(){
@@ -38,6 +40,9 @@ export default {
             quantityRows: this.rows,
             quantityColumns: this.columns,
         }
+    },
+    components: {
+        FlashMessage,
     },
     props: {
         doingsArray: Array,
@@ -96,11 +101,11 @@ export default {
                     posY: arrCoordinate[0],
                     img_id: 1,// NEED TO CHANGE
                     plant_id: this.plantId,
-                    user_id: 1,// NEED TO CHANGE
+                    user_id: this.authUser.id,
                 })
                 //возможно потом добавятся другие поля
             }
-            console.log(this.dataCells, this.user);
+            console.log(this.dataCells, this.authUser);
         },
 
         removeCellInfoFromArr(e){

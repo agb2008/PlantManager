@@ -10,20 +10,26 @@
                 <button type="submit" v-bind:disabled="isDisabled" class="button outline-clear text-white shadow-md bg-gray-400 border-2 rounded-lg border-gray-500  hover:bg-white hover:border-green-400 hover:text-gray-400" 
                 v-bind:class="{'btn-disabled': isDisabled}">Создать</button>
             </form>
+            <FlashMessage :error="error" class="text-center mb-4"/>
       </div>
   </div>
 </template>
 
 <script>
-import DatePicker from './DatePicker'
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
+
+import FlashMessage from "@/components/FlashMessage";
+import DatePicker from './DatePicker';
+
 export default {
     name: 'GardenBed',
     components: {
-        DatePicker
+        DatePicker,
+        FlashMessage,
     },
     data(){
         return {
-            objectTasks: new Set(),
             title: "",
             desc: "",
             date: ""
@@ -31,13 +37,18 @@ export default {
     },
 
     methods: {
+        ...mapActions("tasks", [
+            "addNewDataToTasksArray",
+            "deletingTasksArrayEl",
+        ]),
+
         createTask(){
-            this.objectTasks.add({
-                id: this.objectTasks.size,
+            this.addNewDataToTasksArray({
                 title: this.title,
-                desc: this.desc,
-                comolete: false, 
-                date: this.date
+                description: this.desc,
+                active: true, 
+                due_date: this.date,
+                user_id: this.authUser.id
             })
             this.title = "";
             this.desc = "";
@@ -47,11 +58,11 @@ export default {
         // Перенести в компонент ОДНОЙ задачи
 
         removeTask(task){
-            this.objectTasks.delete(task);
+            this.deletingTasksArrayEl(task.id);
         },
 
         isTaskCompleted(task){
-            task.comolete = !task.comolete;
+            task.active = !task.active;
         },
 
         //////////////
@@ -64,7 +75,21 @@ export default {
     computed: {
         isDisabled(){
             return this.title ? false : "disabled";
-        }
+        },
+
+        ...mapGetters("tasks", [
+            "tasksArray",
+            "loading",
+            "error",
+        ]),
+
+        ...mapGetters("auth", [
+            "authUser",
+        ]),
+    },
+
+    mounted(){
+        this.$store.dispatch("tasks/getAllData");
     }
 }
 </script>

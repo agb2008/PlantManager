@@ -1,5 +1,5 @@
 <template>
-    <v-date-picker v-model="date" :min-date="new Date()">
+    <v-date-picker v-model="date" :min-date="new Date()" :model-config="modelConfig">
           <template v-slot="{ inputValue, inputEvents }">
             <input
             class="outline-clear bg-white px-2 py-1 border-2 rounded hover:border-green-400"
@@ -19,12 +19,16 @@ export default {
     data(){
         return {
             date: new Date(),
+             modelConfig: {
+                type: 'string',
+                mask: 'YYYY-MM-DD hh:mm:ss', 
+            },
         }
     },
 
     watch: {
         date: function (val) {
-            this.$emit("setDate", val)
+            this.$emit("setDate", val);
         }
     },
 
