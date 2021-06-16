@@ -5,7 +5,7 @@
       @click="openModal(true)"
     >
       <h3 class="px-3 py-2 text-gray-700 border-gray-300 cursor-pointer">
-        {{ "Добавить новый тип семян" }}
+        {{ "Добавить семяна" }}
       </h3>
     </div>
     <div

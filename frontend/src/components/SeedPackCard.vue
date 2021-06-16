@@ -13,22 +13,41 @@
         <p class="text-center">Цена: {{ seedPack.price }}</p>
       </div>
     </div>
-    <div class="flex w-full">
-      <div class="w-full border-2 border-green-300 rounded p-1 mr-1">
+    <div class="flex flex-wrap w-full text-sm text-left whitespace-nowrap">
+      <div class="w-full border-2 border-green-300 rounded p-1">
         <p class="card__date">
-          Дата проиводства: {{ seedPack.production_date }}
+          <span class="font-semibold">Дата про-ва:</span>
+          {{ seedPack.production_date }}
         </p>
-        <p class="card__date">Срок годности: {{ seedPack.expiration_date }}</p>
-        <p class="card__date">{{ seedPack.harvestYear }}</p>
+        <p class="card__date">
+          <span class="font-semibold">Срок год-сти:</span>
+          {{ seedPack.expiration_date }}
+        </p>
+        <p class="card__date">
+          <span class="font-semibold">Дата сбора:</span>
+          {{ seedPack.harvest_date }}
+        </p>
       </div>
       <div
-        class="w-full border-2 border-green-300 rounded p-1"
+        class="w-full border-2 border-green-300 rounded p-1 mt-1"
         :title="seedsManufacturerOfType.notes"
       >
-        <p>Производитель: {{ manufacturer.name }}</p>
-        <p>Адрес: {{ seedsManufacturerOfType.address }}</p>
-        <p>Email: {{ seedsManufacturerOfType.email }}</p>
-        <p>Phone: {{ seedsManufacturerOfType.phone }}</p>
+        <p>
+          <span class="font-semibold">Производитель:</span>
+          {{ manufacturer.name }}
+        </p>
+        <p class="whitespace-normal">
+          <span class="font-semibold">Адрес:</span>
+          {{ seedsManufacturerOfType.address }}
+        </p>
+        <p>
+          <span class="font-semibold">Email:</span>
+          {{ seedsManufacturerOfType.email }}
+        </p>
+        <p>
+          <span class="font-semibold">Phone:</span>
+          {{ seedsManufacturerOfType.phone }}
+        </p>
         <a
           class="cursor-pointer underline"
           :href="seedsManufacturerOfType.website"
@@ -38,10 +57,12 @@
     </div>
     <div class="w-full border-2 border-green-300 rounded p-1 mt-1">
       <p class="card__string" :title="seedsFamilyOfType.description">
-        Семейство: {{ seedsFamilyOfType.name }}
+        <span class="font-semibold">Семейство:</span>
+        {{ seedsFamilyOfType.name }}
       </p>
       <p class="card__string" :title="seedsSpeciesOfType.description">
-        Разновидность: {{ seedsSpeciesOfType.name }}
+        <span class="font-semibold"> Разновидность:</span> Разновидность:
+        {{ seedsSpeciesOfType.name }}
       </p>
     </div>
   </div>
@@ -89,7 +110,6 @@ export default {
   methods: {
     changeQuant() {
       this.changeAmount({
-        // seedPack: this.seedPack,
         newAmount: this.packAmount,
       });
     },

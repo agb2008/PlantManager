@@ -15,19 +15,37 @@
       </div>
     </div>
 
-    <div class="flex w-full">
-      <div class="w-full border-2 rounded p-1">
-        <p class="card__date">Дата приобретения: {{ seedling.purchaseDate }}</p>
-        <p class="card__date">Дата посадки сем: {{ seedling.plantDate }}</p>
+    <div class="flex flex-wrap w-full text-sm text-left whitespace-nowrap">
+      <div class="w-full border-2 border-green-300 rounded p-1">
+        <p class="card__date">
+          <span class="font-semibold">Дата приобретения:</span>
+          {{ seedling.purchase_date }}
+        </p>
+        <p class="card__date">
+          <span class="font-semibold">Дата посадки сем:</span>
+          {{ seedling.plant_date }}
+        </p>
       </div>
       <div
-        class="w-full border-2 rounded p-1"
+        class="w-full border-2 border-green-300 rounded p-1 mt-1"
         :title="seedlingManufacturerOfType.notes"
       >
-        <p>Производитель: {{ seedlingManufacturerOfType.name }}</p>
-        <p>Адрес: {{ seedlingManufacturerOfType.address }}</p>
-        <p>Email: {{ seedlingManufacturerOfType.email }}</p>
-        <p>Phone: {{ seedlingManufacturerOfType.phone }}</p>
+        <p>
+          <span class="font-semibold">Производитель:</span>
+          {{ manufacturer.name }}
+        </p>
+        <p class="whitespace-normal">
+          <span class="font-semibold">Адрес:</span>
+          {{ seedlingManufacturerOfType.address }}
+        </p>
+        <p>
+          <span class="font-semibold">Email:</span>
+          {{ seedlingManufacturerOfType.email }}
+        </p>
+        <p>
+          <span class="font-semibold">Phone:</span>
+          {{ seedlingManufacturerOfType.phone }}
+        </p>
         <a
           class="cursor-pointer underline"
           :href="seedlingManufacturerOfType.website"
@@ -35,12 +53,14 @@
         >
       </div>
     </div>
-    <div class="w-full border-2 rounded p-1">
+    <div class="w-full border-2 border-green-300 rounded p-1 mt-1">
       <p class="card__string" :title="seedlingFamilyOfType.notes">
-        Семейство: {{ seedlingFamilyOfType.name }}
+        <span class="font-semibold">Семейство:</span>
+        {{ seedlingFamilyOfType.name }}
       </p>
       <p class="card__string" :title="seedlingSpeciesOfType.notes">
-        Разновидность: {{ seedlingSpeciesOfType.name }}
+        <span class="font-semibold"> Разновидность:</span>
+        {{ seedlingSpeciesOfType.name }}
       </p>
     </div>
   </div>
@@ -86,7 +106,6 @@ export default {
   methods: {
     changeQuant() {
       this.changeAmount({
-        seedling: this.seedling,
         newAmount: this.seedlingAmount,
       });
     },
@@ -98,5 +117,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

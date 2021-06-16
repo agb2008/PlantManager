@@ -17,4 +17,4 @@ export default {
   getSeedlingsList() {
     return API.apiClient.get(`/seedling`);
   },
-}; 
+};
