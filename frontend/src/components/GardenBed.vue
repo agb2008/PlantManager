@@ -1,6 +1,6 @@
 <template>
     <div class="my-container">
-        <main class="main">
+        <main class="main" v-if="isDataGotten">
             <div class="garden-bed-panel">
                 <div class="icon-doing" v-for="(item, k) of doingsArray" :key="k" v-on:click="chooseIconDoing(item, $event)">
                     <img :src="item.img" alt="" class="icon-img">
@@ -9,7 +9,7 @@
             <FlashMessage :error="error" class="text-center mb-4"/>
             <div class="garden-bed-table flex flex-col">
                 <div class="tabel-row flex" v-for="r of quantityRows" :key="r">
-                    <div class="table-cell" v-for="c of quantityColumns" :style="getBackground(r + '' + c)"
+                    <div class="table-cell" v-for="c of quantityColumns" v-bind:style="getBackground(r + '' + c)"
                     :key="c" :id="r + '/' + c" :data-id="r + '' + c" v-on:click="markCell"></div>
                 </div>
                 <div class="btn-increase increase-columns" v-on:click="increaseCells('col')">
@@ -71,7 +71,7 @@ export default {
                 event.target.classList.remove("chose-icon");
                 this.previousChoseDoing = null;
             }
-            
+            console.log(this.choseDoing)
         },
 
         markCell(event){
@@ -81,10 +81,9 @@ export default {
                 if(el.id === this.choseDoing && this.isCellClear(event.target.style.background)){
                     event.target.style.background = el.background ? el.background :
                         `center / contain no-repeat url(${el.img})`;
-
                     this.addCellInfoToArr(event);
                     return;
-                } else {
+                } else if(this.choseDoing === 7){
                     this.removeCellInfoFromArr(event);
                     event.target.style.background = "none";
                     return;
@@ -93,28 +92,28 @@ export default {
         },
 
         addCellInfoToArr(e){
-            let arrCoordinate = e.target.id.split("/")
-            if(!this.dataCellsHasId(e.target.id)){
+            let arrCoordinate = e.target.id.split("/").map(el => Number(el))
+            if(!this.dataCellsHasId(e.target.dataset.id)){
                 this.addNewDataToDataCells({
-                    id: e.target.dataset.id,
                     posX: arrCoordinate[1],
                     posY: arrCoordinate[0],
-                    img_id: 1,// NEED TO CHANGE
+                    img_id: 1, // NEED TO CHANGE
                     plant_id: this.plantId,
                     user_id: this.authUser.id,
+                    notes: "111", // NEED TO CHANGE
+                    date: "2021-06-12 12:12:12", // NEED TO CHANGE
                 })
                 //возможно потом добавятся другие поля
+                console.log(111);
             }
-            console.log(this.dataCells, this.authUser);
         },
 
         removeCellInfoFromArr(e){
             for(let el of this.dataCells){
-                if(el.id === e.target.dataset.id){
+                if((el.posY + "" + el.posX)  === e.target.dataset.id){
                     this.deletingDataCellsEl(e.target.dataset.id);
                 }
             }
-            console.log(this.dataCells);
         },
 
         isCellClear(targetBackground){
@@ -127,7 +126,7 @@ export default {
         dataCellsHasId(id){
             let existenceId = 0;
             for(let el of this.dataCells){
-                if(el.id === id) existenceId = 1;
+                if((el.posY + "" + el.posX)  === id) existenceId = 1;
             }
             return existenceId;
         },
@@ -146,12 +145,12 @@ export default {
         },
 
         getBackground(id){
-            let el = this.dataCells.filter(el => el.id === id)[0]
+            let el = this.dataCells.filter(el => (el.posY + "" + el.posX)  === id)[0]
             if(el){
                 for(let doing of this.doingsArray){
                     if(doing.plantId === el.plant_id){
-                        return doing.background ? doing.background :
-                                `center / contain no-repeat url(${doing.img})`;
+                        return doing.background ? {background: doing.background} :
+                                {background: `center / contain no-repeat url(${doing.img})`};
                     }
                 }
             }
@@ -161,6 +160,7 @@ export default {
     computed:{
         ...mapGetters("gardenbed", [
             "dataCells",
+            "isDataGotten",
             "plantTypeList",
             "familyList",
             "speciesList",
@@ -173,9 +173,12 @@ export default {
         ]),
     },
 
-    mounted(){
+    beforeCreate(){
         this.$store.dispatch("gardenbed/getAllData");
-        // this.$store.dispatch("auth/getAuthUser");
+        // this.$store.dispatch("gardenbed/setPrimaryData");
+    },
+
+    mounted(){
         this.gardenBedTable = document.querySelector(".garden-bed-table");
     }
 

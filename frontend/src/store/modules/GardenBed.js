@@ -4,61 +4,62 @@ import GardenBedService from "../../services/RequestsToServerService";
 export const namespaced = true;
 
 export const state = {
+    isDataGotten: false,
     dataCells: [],
     //TEST
     plantTypeList: [
         {
           id: 1,
           name: "помидор",
-          familyId: 1,
-          speciesId: 1,
+          family_id: 1,
+          species_id: 1,
           notes: "морковь однолетнее растение",
         },
         {
             id: 2,
             name: "перец",
-            familyId: 1,
-            speciesId: 3,
+            family_id: 1,
+            species_id: 3,
             notes: "морковь однолетнее растение",
         },
         {
           id: 3,
           name: "огурец",
-          familyId: 2,
-          speciesId: 2,
+          family_id: 2,
+          species_id: 2,
           notes: "свекла mоднолетнее растение",
         },
         {
           id: 4,
           name: "черника",
-          familyId: 1,
-          speciesId: 4,
+          family_id: 1,
+          species_id: 4,
           notes: "кукуруза однолетнее растение",
         },
         {
           id: 5,
           name: "томат чери",
-          familyId: 2,
-          speciesId: 1,
+          family_id: 2,
+          species_id: 1,
           notes: "огурец mоднолетнее растение",
         },
         {
-            id: 0,
+            id: 6,
             name: "разделение",
-            familyId: 1,
-            speciesId: 1,
+            family_id: 1,
+            species_id: 1,
             notes: "огурец mоднолетнее растение",
         },
       ],
       familyList: [
-        { id: 1, name: "однолетнее", notes: " однолетнее растение" },
-        { id: 2, name: "многолетнее", notes: " mоднолетнее растение" },
+        { name: "однолетнее", description: " однолетнее растение" },
+        { name: "многолетнее", description: " mоднолетнее растение" },
       ],
       speciesList: [
-        { id: 1, name: "томатовые", notes: "семейство морковные" },
-        { id: 2, name: "огуречные", notes: "семейство свекловные" },
-        { id: 3, name: "перцевые", notes: "семейство кукурузновые" },
-        { id: 4, name: "черниковые", notes: "семейство огурецовые" },
+        {  name: "томатовые", description: "семейство морковные" },
+        {  name: "огуречные", description: "семейство свекловные" },
+        {  name: "перцевые", description: "семейство кукурузновые" },
+        {  name: "черниковые", description: "семейство огурецовые" },
       ],
     ///////////
     loading: false,
@@ -66,6 +67,9 @@ export const state = {
 };
 
 export const mutations = {
+    SET_DATA_IS_GOTTEN(state) {
+        state.isDataGotten = true;
+    },
     SET_PLANTTYPE_LIST(state, plantTypeList) {
         state.plantTypeList = plantTypeList;
     },
@@ -94,22 +98,41 @@ export const mutations = {
 };
 
 export const actions = {
+    //TEST
+    // async setPrimaryData({ commit }){
+    //     let response = null;
+    //     for(let i = 0; i < state.speciesList.length; i++){
+    //         response = await GardenBedService.postData("/species", state.speciesList[i]);
+    //     }
+    //     commit("SET_SPECIES_LIST", response.data.data);
+
+    //     for(let i = 0; i < state.familyList.length; i++){
+    //         response = await GardenBedService.postData("/family", state.familyList[i]);
+    //     }
+    //     commit("SET_FAMILY_LIST", response.data.data);
+
+    //     for(let i = 0; i < state.plantTypeList.length; i++){
+    //         response = await GardenBedService.postData("/plant_type", state.plantTypeList[i]);
+    //     }
+    //     commit("SET_PLANTTYPE_LIST", response.data.data);
+    // },
     async getAllData({ commit }) {
         commit("SET_LOADING", true);
         try {
-        let response = await GardenBedService.getData("/positions");
-        console.log(response);
-        commit("SET_DATACELLS", response.data.data);
-        response = await GardenBedService.getData("/plant_type");
-        commit("SET_PLANTTYPE_LIST", response.data.data);
-        response = await GardenBedService.getData("/family");
-        commit("SET_FAMILY_LIST", response.data.data);
-        response = await GardenBedService.getData("/species");
-        commit("SET_SPECIES_LIST", response.data.data);
-        commit("SET_LOADING", false);
+            let response = await GardenBedService.getData("/positions");
+            console.log(response);
+            commit("SET_DATACELLS", response.data.data);
+            commit("SET_DATA_IS_GOTTEN");
+            response = await GardenBedService.getData("/plant_type");
+            commit("SET_PLANTTYPE_LIST", response.data.data);
+            response = await GardenBedService.getData("/family");
+            commit("SET_FAMILY_LIST", response.data.data);
+            response = await GardenBedService.getData("/species");
+            commit("SET_SPECIES_LIST", response.data.data);
+            commit("SET_LOADING", false);
         } catch (error) {
-        commit("SET_LOADING", false);
-        commit("SET_ERROR", getError(error));
+            commit("SET_LOADING", false);
+            commit("SET_ERROR", getError(error));
         } 
     },
     async addNewDataToDataCells({ commit }, newDataCell) {
@@ -140,6 +163,9 @@ export const actions = {
 };
 
 export const getters = {
+    isDataGotten: (state) => {
+        return state.isDataGotten
+    },
     dataCells: (state) => {
         return state.dataCells;
     },

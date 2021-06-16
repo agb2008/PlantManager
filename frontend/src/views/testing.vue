@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <!-- <GardenBed 
+    <GardenBed 
 		:doingsArray="doingsArray"
 		:rows="quantityRows"
 		:columns="quantityColumns"
-     /> -->
-    <CreateTask />
+     />
+    <!-- <CreateTask /> -->
   </div>
 </template>
 
 <script>
-// import GardenBed from '../components/GardenBed.vue';
-import CreateTask from '../components/tasks_components/CreateTask'
+import GardenBed from '../components/GardenBed.vue';
+// import CreateTask from '../components/tasks_components/CreateTask'
 
 export default {
   name: 'App',
   components: {
-    // GardenBed,
-    CreateTask
+    GardenBed,
+    // CreateTask
   },
   data(){
         return {
@@ -54,7 +54,7 @@ export default {
                 },
                 {
                     id: 6,
-                    plantId: 0,
+                    plantId: 6,
                     name: "разделение", 
                     img: "./images/deviding.jpg", 
                     background: "#5a5a5a", 
