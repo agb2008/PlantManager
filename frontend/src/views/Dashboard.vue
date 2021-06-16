@@ -6,6 +6,7 @@
         <Messages />
       </article>
     </div>
+    <Inventory />
     <footer class="py-5 text-center">
       <p class="text-gray-400">
         Описание проекта доступно на GitHub'e
@@ -21,12 +22,14 @@
 import { mapGetters } from "vuex";
 import Messages from "@/components/Messages";
 import MessageForm from "@/components/MessageForm";
+import Inventory from "./Inventory";
 
 export default {
   name: "Dashboard",
   components: {
     Messages,
     MessageForm,
+    Inventory,
   },
   computed: {
     ...mapGetters("auth", ["authUser"]),
