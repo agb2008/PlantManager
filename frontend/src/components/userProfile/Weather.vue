@@ -20,7 +20,7 @@
         </p>
         <div v-if="visible">
           <div class="font-bold text-xl">{{ weather.cityName }}</div>
-          <div class="text-sm text-gray-500">{{ date }}</div>
+          <div class="text-sm text-gray-500">{{ date.getHours }}</div>
           <div
             class="mt-6 text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400 h-24 w-24"
           >
