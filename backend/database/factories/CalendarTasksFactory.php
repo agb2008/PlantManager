@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\CalendarTasks;
+use App\Models\CalendarTask;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CalendarTasksFactory extends Factory
@@ -12,7 +12,7 @@ class CalendarTasksFactory extends Factory
      *
      * @var string
      */
-    protected $model = CalendarTasks::class;
+    protected $model = CalendarTask::class;
 
     /**
      * Define the model's default state.
