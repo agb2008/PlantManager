@@ -37,7 +37,7 @@ class SpeciesController extends Controller
             'email'   => $request->email,
             'phone'   => $request->phone,
             'website' => $request->website,
-            'notes'   => $request->notes,
+            'description'   => $request->description,
         ]);
         $spec->save();
 

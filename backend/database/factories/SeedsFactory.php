@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Seeds;
+use App\Models\Seed;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SeedsFactory extends Factory
@@ -12,7 +12,7 @@ class SeedsFactory extends Factory
      *
      * @var string
      */
-    protected $model = Seeds::class;
+    protected $model = Seed::class;
 
     /**
      * Define the model's default state.

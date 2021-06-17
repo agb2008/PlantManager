@@ -16,9 +16,6 @@ use App\Http\Controllers\SeedlingController;
 use App\Http\Controllers\PlantController;
 use App\Http\Controllers\CalendarTaskController;
 use App\Http\Controllers\PositionController;
-use App\Http\Controllers\SemenaController;
-use App\Http\Controllers\TaskController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -51,9 +48,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
       'seedling' => SeedlingController::class,
       'plants' => PlantController::class,
       'calendar_task' => CalendarTaskController::class,
-      'tasks' => TaskController::class,
       'positions' => PositionController::class,
-      'semena' => SemenaController::class,
   ]);
 
 });
