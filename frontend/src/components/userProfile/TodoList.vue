@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div>
+      <TodoFiltered />
+      <TodoClearCompleted />
+      <TodoItemsRemaining />
+    </div>
+
     <ul>
       <TodoItem
         v-for="(todo, index) in todosFiltered"
@@ -11,22 +17,17 @@
     </ul>
     <div>
       <TodoCheckAll/>
-      <TodoItemsRemaining/>
-    </div>
-    <div>
-      <TodoFiltered/>
-      <TodoClearCompleted/>
     </div>
   </div>
 </template>
 
 <script>
 import TodoItem from "@/components/userProfile/TodoItem";
-import TodoCheckAll from "@/components/userProfile/TodoCheckAll"
-import TodoItemsRemaining from "@/components/userProfile/TodoItemsRemaining"
-import TodoFiltered from "@/components/userProfile/TodoFiltered"
-import TodoClearCompleted from "@/components/userProfile/TodoClearCompleted"
-import {mapGetters} from 'vuex'
+import TodoCheckAll from "@/components/userProfile/TodoCheckAll";
+import TodoItemsRemaining from "@/components/userProfile/TodoItemsRemaining";
+import TodoFiltered from "@/components/userProfile/TodoFiltered";
+import TodoClearCompleted from "@/components/userProfile/TodoClearCompleted";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -34,16 +35,19 @@ export default {
     TodoCheckAll,
     TodoItemsRemaining,
     TodoFiltered,
-    TodoClearCompleted
+    TodoClearCompleted,
+  },
+  props: {
+    todos: Array,
   },
   computed: {
-    ...mapGetters('todos', [
-      'remaining',
-      'anyRemaining',
-      'todosFiltered',
-      'showClearCompletedButtons'
-    ])
-  }
+    ...mapGetters("todos", [
+      "remaining",
+      "anyRemaining",
+      "todosFiltered",
+      "showClearCompletedButtons",
+    ]),
+  },
 };
 </script>
 

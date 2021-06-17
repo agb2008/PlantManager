@@ -1,5 +1,5 @@
 <template>
-  <div>{{ remaining }} items left</div>
+  <div>Отдыхать некогда! {{ remaining }} ещё осталось выполнить</div>
 </template>
 
 <script>

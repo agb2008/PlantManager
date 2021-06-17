@@ -9,12 +9,12 @@
       </div>
     </div>
     <div class="col-start-2 mt-5 justify-center text-center max-w-xs">
-      <h4>Список задач на ближайщие 5 (пять) дней:</h4>
-      <select v-model="filter">
+      <h4 class="justify-start text-green-500 font-bold">Список задач:</h4>
+      <!-- <select v-model="filter">
         <option value="all">Все задачи</option>
         <option value="completed">Законченные задачи</option>
         <option value="not-completed">Текущие задачи</option>
-      </select>
+      </select> -->
       <TodoList
       />
     </div>
@@ -29,6 +29,7 @@ import SideBar from "@/components/userProfile/SideBar";
 import Weather from "@/components/userProfile/Weather";
 import Calendar from "@/components/userProfile/Calendar";
 import TodoList from "@/components/userProfile/TodoList";
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -37,6 +38,12 @@ export default {
     Calendar,
     TodoList,
   },
+  method: {
+    ...mapActions('todos', ['getAllData'])
+  },
+  mounted() {
+    this.$store.dispatch('todos/getAllData')
+  }
 };
 </script>
 

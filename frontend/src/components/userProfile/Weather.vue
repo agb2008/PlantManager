@@ -20,11 +20,15 @@
         </p>
         <div v-if="visible">
           <div class="font-bold text-xl">{{ weather.cityName }}</div>
-          <div class="text-sm text-gray-500">{{ date.getHours }}</div>
+          <div class="text-sm text-gray-500">{{ date }}</div>
           <div
             class="mt-6 text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400 h-24 w-24"
           >
-            <!-- <img :src="`./components/userProfile/icons/${weatherIcon}.png`" alt="icon"> -->
+            <img
+              :src="`http://openweathermap.org/img/w/${weather.weatherIcon}.png`"
+              
+              alt="icon"
+            />
           </div>
           <div class="flex flex-row items-center justify-center mt-6">
             <div class="font-medium text-6xl">
@@ -89,7 +93,6 @@ export default {
   },
   methods: {
     getWeather: async function () {
-      console.log(this.citySearch);
       const key = "dcd5629b25f777681467ef325df6256c";
       const url = `http://api.openweathermap.org/data/2.5/find?q=${this.citySearch}&appid=${key}&units=metric`;
 
@@ -99,7 +102,9 @@ export default {
         console.log(data);
         this.citySearch = "";
         this.weather.cityName = data.list[0].name;
-        this.weather.weatherIcon = data.list[0].weather.icon;
+        this.weather.weatherIcon = data.list[0].weather[0].icon;
+        console.log(typeof this.weather.weatherIcon);
+
         this.weather.temperature = Math.round(data.list[0].main.temp);
         this.weather.description = data.list[0].weather[0].main;
         this.weather.highTemp = Math.round(data.list[0].main.temp_max);
@@ -118,12 +123,11 @@ export default {
   },
   mounted() {
     this.interval = setInterval(() => {
-      this.date = new Date()
-    }, 1000)
+      this.date = new Date();
+    }, 1000);
   },
   beforeDestroy() {
-    clearInterval(this.interval)
-  }
+    clearInterval(this.interval);
+  },
 };
 </script>
-

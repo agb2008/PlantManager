@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="flex justify-between">
     <button :class="{active: filter === 'all'}"
-    @click="changeFilter('all')">All</button>
+    @click="changeFilter('all')">Все задачи</button>
     <button :class="{active: filter === 'active'}" 
-    @click="changeFilter('active')">Active</button>
+    @click="changeFilter('active')">Незаконченные</button>
     <button :class="{active: filter === 'completed'}" 
-    @click="changeFilter('completed')">Completed</button>
+    @click="changeFilter('completed')">Законченные</button>
   </div>
 </template>
 

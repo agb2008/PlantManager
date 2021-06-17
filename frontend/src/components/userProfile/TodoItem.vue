@@ -4,8 +4,6 @@
       class="m-3 p-3 flex justify-between text-center rounded-md text-base font-medium hover:bg-gray-200"
     >
       <span
-        v-if="!editing"
-        @dbclick="editTodo"
         :class="{ completed: completed }"
       >
         <input
@@ -30,17 +28,7 @@
           {{ description }}
         </span>
       </span>
-      <!-- <input
-        v-else
-        type="text"
-        v-model="title"
-        @blur="doneEdit"
-        @key.enter="doneEdit"
-        @key.esc="cancelEdit"
-        v-focus
-      /> -->
       <div>
-        <!-- <button @click="pluralize">Pluralize</button> -->
         <span class="remove-item" @click="removeTodo(index)">&times;</span>
       </div>
     </li>
@@ -94,13 +82,6 @@ export default {
 
       this.updateTodo(data);
 
-      // const index = this.$store.state.todos.todos.findIndex(
-      //   (item) => item.id === data.id
-      // );
-      // console.log(index);
-
-      // this.$store.state.todos.todos.splice(index, 1, data);
-      // console.log("fjjf")
     },
     cancelEdit() {
       this.title = this.beforeEditCache;
