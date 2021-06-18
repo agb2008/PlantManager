@@ -1,7 +1,7 @@
 // Календарь: https://fullcalendar.io/
 
 <template>
-  <div>
+  <div id="full_calendar">
     <form action="" v-on:submit="addNewEvent" class="eventForm">
       <input type="date" name="event_date" v-model="newEventDate" />
       <input type="text" name="event_title" v-model="newEventTitle" />
@@ -65,7 +65,7 @@ export default {
 
 <style>
 #fullcalendar {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
 .eventForm {
