@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="flex flex-wrap w-full text-sm text-left whitespace-nowrap">
+    <div class="flex flex-wrap w-full text-sm text-left whitespace-pre-wrap">
       <div class="w-full border-2 border-green-300 rounded p-1">
         <p class="card__date">
           <span class="font-semibold">Дата приобретения:</span>

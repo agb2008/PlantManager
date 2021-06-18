@@ -8,7 +8,6 @@ export default {
     return API.apiClient.post(api, payload);
   },
   changeData(api, id, payload) {
-    console.log(payload);
     return API.apiClient.patch(`${api}/${id}`, payload);
   },
   deleteData(api, id) {
