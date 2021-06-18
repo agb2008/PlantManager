@@ -1,5 +1,5 @@
 <template>
-  <div class="w-auto">
+  <div class="w-auto font-green-500">
     <li
       class="m-3 p-3 flex justify-between text-left rounded-md text-base font-medium hover:bg-gray-200"
     >
@@ -12,27 +12,26 @@
             v-on:change="doneEdit"
           />
           <span
-            class="justify-between m-5 mb-10 items-center rounded-md text-base font-medium text-gray-900"
+            class="justify-between m-5 mb-10 items-center rounded-md text-base font-medium"
           >
             {{ date }}
           </span>
           <span
-            class="justify-between m-5 mb-10 items-center font-bold rounded-md text-base font-medium text-gray-900"
+            class="justify-between m-5 mb-10 items-center font-bold rounded-md text-base font-medium"
           >
             {{ title }}
           </span>
         </div>
 
         <span
-          class="justify-between m-5 mb-10 text-xs items-center rounded-md font-medium text-gray-900"
+          class="justify-between m-5 mb-10 text-xs items-center rounded-md font-medium text-green-500"
         >
           Для этого необходимо: {{ description }}
         </span>
       </span>
       <div>
         <button
-          class="font-bold text-center"
-          :class="remove - item"
+          class="font-bold text-6x1 text-red-800 text-center"
           @click="removeTodo(index)"
         >
           &times;
@@ -112,5 +111,8 @@ export default {
 <style scoped>
 .completed {
   text-decoration: line-through;
+}
+button :active {
+  outline: none
 }
 </style>

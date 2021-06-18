@@ -80,7 +80,6 @@ export const actions = {
 
     } catch (error) {
       commit("SET_LOADING", false)
-
       commit("SET_ERROR", getError(error));
     }
   },

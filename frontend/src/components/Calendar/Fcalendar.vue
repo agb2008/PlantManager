@@ -80,6 +80,7 @@ export default {
   border-color: #2c3e50;
   border: 1px solid transparent;
   padding: 0.4em 0.65em;
+  margin: 0.5em 0;
   font-size: 1em;
   line-height: 1.5;
   border-radius: 0.25em;

@@ -13,7 +13,7 @@
       <TodoList
       />
     </div>
-    <div class="col-start-4 col-span-2 row-start-1 row-span-1 mt-5 bg-purple-200 h-96">
+    <div class="col-start-4 col-span-2 row-start-1 row-span-1 mt-5 h-96">
       <Calendar />
     </div>
     <div class="row-start-3 col-start-1"></div>
@@ -22,7 +22,7 @@
 <script>
 import SideBar from "@/components/userProfile/SideBar";
 import Weather from "@/components/userProfile/Weather";
-import Calendar from "@/components/userProfile/Calendar";
+import Calendar from "@/components/Calendar/Fcalendar";
 import TodoList from "@/components/userProfile/TodoList";
 import { mapActions } from 'vuex'
 

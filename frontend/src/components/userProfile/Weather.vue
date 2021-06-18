@@ -98,7 +98,6 @@ export default {
       try {
         let response = await fetch(url);
         let data = await response.json();
-        console.log(data);
         this.citySearch = "";
         this.weather.cityName = data.list[0].name;
         this.weather.weatherIcon = data.list[0].weather[0].icon;
