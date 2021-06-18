@@ -1,8 +1,8 @@
-// О календаре: https://fullcalendar.io/docs/Calendar-addEvent
+// Календарь: https://fullcalendar.io/
 
 <template>
   <div>
-    <form action="" v-on:submit="addNewEvent">
+    <form action="" v-on:submit="addNewEvent" class="eventForm">
       <input type="date" name="event_date" v-model="newEventDate" />
       <input type="text" name="event_title" v-model="newEventTitle" />
       <button class="eventBtn">Добавить событие</button>
@@ -21,7 +21,7 @@ import ruLocale from "@fullcalendar/core/locales/ru";
 
 export default {
   components: {
-    FullCalendar, // make the <FullCalendar> tag available
+    FullCalendar,
   },
   data() {
     return {
@@ -45,7 +45,8 @@ export default {
         //   },
         // },
         headerToolbar: {
-          left: "today myCustomButton",
+          // left: "today myCustomButton",
+          left: "today",
           center: "title",
           right: "prev,next dayGridMonth",
         },
@@ -54,34 +55,9 @@ export default {
   },
   methods: {
     addNewEvent(event) {
-      // let eventDate = prompt("Введите дату в YYYY-MM-DD формате");
-      // if (!eventDate) {
-      //   alert("Вы ввели некорректную дату, попробуйте ещё раз");
-      // }
-
-      // let newEventTitle = prompt("Добавьте новую задачу");
-      // if (!newEventTitle) {
-      //   alert("Вы не ввели задачу, попробуйте ещё раз");
-      // }
       event.preventDefault();
       let newEvent = { title: this.newEventTitle, start: this.newEventDate };
       this.calendarOptions.events = [...this.calendarOptions.events, newEvent];
-    },
-    addEvStand() {
-      let dateStr = prompt("Enter a date in YYYY-MM-DD format");
-      let date = new Date(dateStr + "T00:00:00"); // will be in local time
-
-      if (!isNaN(date.valueOf())) {
-        // valid?
-        FullCalendar.addEvent({
-          title: "dynamic event",
-          start: date,
-          allDay: true,
-        });
-        alert("Great. Now, update your database...");
-      } else {
-        alert("Invalid date.");
-      }
     },
   },
 };
@@ -90,6 +66,12 @@ export default {
 <style>
 #fullcalendar {
   width: 80%;
+  margin: 0 auto;
+}
+.eventForm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .eventBtn {

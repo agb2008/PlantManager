@@ -117,7 +117,6 @@ export default {
             moon.month + Number(button.getAttribute("value") - 1),
             1
           );
-          //   const configMoon = moon.receivedconstiables;
           this.configMoon.month = date_to_show.getMonth() + 1;
           this.configMoon.year = date_to_show.getFullYear();
           this.render();
@@ -140,7 +139,8 @@ export default {
 
 <style>
 #ex3 {
-  max-width: 700px;
+  max-width: 90%;
+  min-width: 300px;
   margin: 20px auto;
   background-color: #333333;
   padding: 1%;
