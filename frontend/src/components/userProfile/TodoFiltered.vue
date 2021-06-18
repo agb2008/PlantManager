@@ -1,11 +1,11 @@
 <template>
-  <div class="flex justify-between">
-    <button :class="{active: filter === 'all'}"
-    @click="changeFilter('all')">Все задачи</button>
-    <button :class="{active: filter === 'active'}" 
-    @click="changeFilter('active')">Незаконченные</button>
-    <button :class="{active: filter === 'completed'}" 
+  <div class="flex justify-between mb-5">
+    <button  class="flex bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded" :class="{active: filter === 'all'}"
+    @click="changeFilter('all')">Все</button>
+    <button class="bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded" :class="{active: filter === 'active'}" 
     @click="changeFilter('completed')">Законченные</button>
+    <button class="bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded" :class="{active: filter === 'completed'}" 
+    @click="changeFilter('active')">Незаконченные</button>
   </div>
 </template>
 

@@ -6,7 +6,7 @@
       type="checkbox" 
       :checked="!anyRemaining" 
       @change="allChecked"
-      /> Check All
+      /> Отметить все задачи
     </label>
   </div>
 </template>

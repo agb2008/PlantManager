@@ -22,15 +22,14 @@
           <div class="font-bold text-xl">{{ weather.cityName }}</div>
           <div class="text-sm text-gray-500">{{ date }}</div>
           <div
-            class="mt-6 text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400 h-24 w-24"
+            class="text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400"
           >
-            <img
+            <img class="h-40 w-40"
               :src="`http://openweathermap.org/img/w/${weather.weatherIcon}.png`"
-              
-              alt="icon"
+              alt=""
             />
           </div>
-          <div class="flex flex-row items-center justify-center mt-6">
+          <div class="flex flex-row items-center justify-center">
             <div class="font-medium text-6xl">
               {{ weather.temperature }}&deg;
             </div>
@@ -103,15 +102,12 @@ export default {
         this.citySearch = "";
         this.weather.cityName = data.list[0].name;
         this.weather.weatherIcon = data.list[0].weather[0].icon;
-        console.log(typeof this.weather.weatherIcon);
-
         this.weather.temperature = Math.round(data.list[0].main.temp);
         this.weather.description = data.list[0].weather[0].main;
         this.weather.highTemp = Math.round(data.list[0].main.temp_max);
         this.weather.lowTemp = Math.round(data.list[0].main.temp_min);
         this.weather.wind = data.list[0].wind.speed;
         this.weather.humidity = data.list[0].main.humidity;
-        this.weatherIcon = data.list[0].weather[0].icon;
 
         this.visible = true;
         this.notCityFound = false;
@@ -131,3 +127,5 @@ export default {
   },
 };
 </script>
+
+

@@ -1,35 +1,42 @@
 <template>
-  <div>
+  <div class="w-auto">
     <li
-      class="m-3 p-3 flex justify-between text-center rounded-md text-base font-medium hover:bg-gray-200"
+      class="m-3 p-3 flex justify-between text-left rounded-md text-base font-medium hover:bg-gray-200"
     >
-      <span
-        :class="{ completed: completed }"
-      >
-        <input
-          type="checkbox"
-          class="flex-shrink-0 h-6 w-6 text-gray-400"
-          v-model="completed"
-          v-on:change="doneEdit"
-        />
+      <span class="" :class="{ completed: completed }">
+        <div>
+          <input
+            type="checkbox"
+            class="flex-shrink-0 h-6 w-6 text-gray-400"
+            v-model="completed"
+            v-on:change="doneEdit"
+          />
+          <span
+            class="justify-between m-5 mb-10 items-center rounded-md text-base font-medium text-gray-900"
+          >
+            {{ date }}
+          </span>
+          <span
+            class="justify-between m-5 mb-10 items-center font-bold rounded-md text-base font-medium text-gray-900"
+          >
+            {{ title }}
+          </span>
+        </div>
+
         <span
-          class="justify-between m-10 mb-10 p-3 items-center rounded-md text-base font-medium text-gray-900"
+          class="justify-between m-5 mb-10 text-xs items-center rounded-md font-medium text-gray-900"
         >
-          {{ date }}
-        </span>
-        <span
-          class="justify-between m-10 mb-10 p-3 items-center font-bold rounded-md text-base font-medium text-gray-900"
-        >
-          {{ title }}
-        </span>
-        <span
-          class="justify-between m-10 mb-10 p-3 items-center rounded-md text-base font-medium text-gray-900"
-        >
-          {{ description }}
+          Для этого необходимо: {{ description }}
         </span>
       </span>
       <div>
-        <span class="remove-item" @click="removeTodo(index)">&times;</span>
+        <button
+          class="font-bold text-center"
+          :class="remove - item"
+          @click="removeTodo(index)"
+        >
+          &times;
+        </button>
       </div>
     </li>
   </div>
@@ -56,7 +63,7 @@ export default {
     return {
       id: this.todo.id,
       title: this.todo.title,
-      date: this.todo.date,
+      date: this.todo.due_date,
       description: this.todo.description,
       completed: this.todo.completed,
       beforeEditCache: "",
@@ -81,26 +88,11 @@ export default {
       };
 
       this.updateTodo(data);
-
     },
     cancelEdit() {
       this.title = this.beforeEditCache;
       this.editing = false;
     },
-    // pluralize() {
-    //   eventBus.$emit('pluralize')
-    // },
-    // handlePluralize() {
-    //   this.title = this.title + 's'
-    //   const data = {
-    //     id: this.id,
-    //     title: this.title,
-    //     completed: this.completed,
-    //     editing: this.editing
-    //   }
-    //   const index = this.$store.state.todos.findIndex(item => item.id === data.id)
-    //   this.$store.state.todos.splice(index, 1, data)
-    // }
   },
   directives: {
     focus: {
@@ -114,12 +106,6 @@ export default {
       this.completed = this.checkAll ? true : this.todo.completed;
     },
   },
-  // beforeDestroy(){
-  //   eventBus.$off('pluralize', this.handlePluralize)
-  // },
-  // created(){
-  //   eventBus.$on('pluralize', this.handlePluralize)
-  // }
 };
 </script>
 

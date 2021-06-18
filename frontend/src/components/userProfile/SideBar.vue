@@ -1,5 +1,5 @@
 <template>
-  <div class="flex p-4 h-full justify-start text-green-500 font-bold">
+  <div class="flex p-4 h-full w-max justify-start text-green-500 font-bold">
     <ul>
       <li class="link px-4 py-2 rounded-md text-base">
         <router-link to="/inventory" exact>Инвентарный список</router-link>

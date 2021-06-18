@@ -1,15 +1,14 @@
 <template>
-  <button 
+  <button class="bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
   v-if="showClearCompletedButton" 
   @click="clearCompleted">
-  Clear Completed
+  Удалить выполненные задачи
   </button>
 </template>
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
 export default {
-  name: 'todo-clear-completed',
   computed: {
     ...mapGetters('todos', ['showClearCompletedButton'])
   },

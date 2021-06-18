@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container mx-auto text-green-500 grid grid-flow-col grid-rows-3 grid-cols-3 gap-3"
+    class="container mx-auto text-green-500 grid grid-rows-2 grid-cols-5 gap-6"
   >
     <div class="col-start-1">
       <div>
@@ -8,17 +8,12 @@
         <Weather />
       </div>
     </div>
-    <div class="col-start-2 mt-5 justify-center text-center max-w-xs">
-      <h4 class="justify-start text-green-500 font-bold">Список задач:</h4>
-      <!-- <select v-model="filter">
-        <option value="all">Все задачи</option>
-        <option value="completed">Законченные задачи</option>
-        <option value="not-completed">Текущие задачи</option>
-      </select> -->
+    <div class="col-start-2 col-span-2 mt-5 justify-center text-center">
+      <h4 class="mb-5 justify-start text-green-500 font-bold">Список задач:</h4>
       <TodoList
       />
     </div>
-    <div class="col-start-3 mt-5 bg-purple-200">
+    <div class="col-start-4 col-span-2 row-start-1 row-span-1 mt-5 bg-purple-200 h-96">
       <Calendar />
     </div>
     <div class="row-start-3 col-start-1"></div>
@@ -48,8 +43,8 @@ export default {
 </script>
 
 <style scoped>
-.container {
+/* .container {
   grid-template-rows: max-content;
   grid-template-columns: max-content;
-}
+} */
 </style>

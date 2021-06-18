@@ -11,24 +11,25 @@ export const state = {
   filter: 'all',
   loading: false,
   error: null,
-  todos: [{
-      id: 1,
-      title: 'Finish vue screencast',
-      date: '2021-06-18',
-      completedDate: '',
-      description: '2 litra vodi',
-      completed: false,
-      editing: false
-    },
-    {
-      id: 2,
-      title: 'Take over world',
-      date: '2021-06-19',
-      completedDate: '',
-      completed: false,
-      description: 'kakoe to udobrenie',
-      editing: false
-    }
+  todos: [
+    // {
+    //   id: 1,
+    //   title: 'Finish vue screencast',
+    //   date: '2021-06-18',
+    //   completedDate: '',
+    //   description: '2 litra vodi',
+    //   completed: false,
+    //   editing: false
+    // },
+    // {
+    //   id: 2,
+    //   title: 'Take over world',
+    //   date: '2021-06-19',
+    //   completedDate: '',
+    //   completed: false,
+    //   description: 'kakoe to udobrenie',
+    //   editing: false
+    // }
   ]
 }
 
@@ -36,14 +37,6 @@ export const mutations = {
   [types.SET_TODO](state, todos) {
     state.todos = todos
   },
-  // [types.ADD_TODO](state, todo){
-  //   state.todos.push({
-  //     id: todo.id,
-  //     title: todo.title,
-  //     completed: false,
-  //     editing: false
-  //   })
-  // },
   [types.CLEAR_COMPLETED](state) {
     state.todos = state.todos.filter(todo => !todo.completed)
   },
@@ -66,6 +59,7 @@ export const mutations = {
     const index = state.todos.findIndex(t => t.id === todo.id)
     state.todos.splice(index, 1, {
       id: todo.id,
+      date: todo.due_date,
       title: todo.title,
       completed: todo.completed,
       // editing: todo.editing

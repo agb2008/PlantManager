@@ -2,10 +2,8 @@
   <div>
     <div>
       <TodoFiltered />
-      <TodoClearCompleted />
       <TodoItemsRemaining />
     </div>
-
     <ul>
       <TodoItem
         v-for="(todo, index) in todosFiltered"
@@ -16,7 +14,8 @@
       />
     </ul>
     <div>
-      <TodoCheckAll/>
+      <TodoCheckAll />
+      <TodoClearCompleted />
     </div>
   </div>
 </template>
