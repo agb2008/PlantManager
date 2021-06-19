@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full">
+  <div class="h-content">
     <div class="flex items-center justify-start">
       <div class="flex flex-col rounded p-4 w-full max-w-xs">
         <h3 class="font-bold text-2xl">Погода в</h3>
@@ -9,7 +9,7 @@
         >
           <input
             type="text"
-            class="border border-gray-300 p-2 my-2 rounded-md focus:outline-none focus:ring-2 ring-blue-200"
+            class="h-content border border-gray-300 p-2 my-2 rounded-md focus:outline-none focus:ring-2 ring-blue-200"
             placeholder="Выберете город"
             v-model="citySearch"
             autocomplete="off"
@@ -24,7 +24,8 @@
           <div
             class="text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400"
           >
-            <img class="h-40 w-40"
+            <img
+              class="h-40 w-40 items-center"
               :src="`http://openweathermap.org/img/w/${weather.weatherIcon}.png`"
               alt=""
             />
@@ -126,5 +127,3 @@ export default {
   },
 };
 </script>
-
-

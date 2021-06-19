@@ -76,8 +76,8 @@ export default {
 
 .eventBtn {
   color: #fff;
-  background-color: #2c3e50;
-  border-color: #2c3e50;
+  background-color: #48bb78;
+  border-color: #48bb78;
   border: 1px solid transparent;
   padding: 0.4em 0.65em;
   margin: 0.5em 0;
@@ -88,6 +88,6 @@ export default {
 .eventBtn:active,
 .eventBtn:focus,
 .eventBtn:hover {
-  background-color: #1a252f;
+  background-color: #1aa052;
 }
 </style>

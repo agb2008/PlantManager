@@ -11,7 +11,6 @@
       <router-link to="/" v-else>
         <HomeIcon class="w-6 h-6 text-white" />
       </router-link>
-
       <div class="inline-flex items-center space-x-5" v-if="authUser">
         <router-link to="/user">{{ authUser.username }}</router-link>
         <div class="flex space-x-2">
@@ -24,7 +23,6 @@
         </div>
         <Logout />
       </div>
-
       <router-link
         v-else
         to="/login"

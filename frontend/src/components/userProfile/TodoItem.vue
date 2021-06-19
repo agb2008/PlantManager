@@ -24,7 +24,7 @@
         </div>
 
         <span
-          class="justify-between m-5 mb-10 text-xs items-center rounded-md font-medium text-green-500"
+          class="justify-between m-5 ml-12 mb-10 text-xs items-center rounded-md font-medium text-green-500"
         >
           Для этого необходимо: {{ description }}
         </span>

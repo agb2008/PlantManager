@@ -74,7 +74,6 @@ export const actions = {
     commit("SET_LOADING", true)
     try {
       let response = await TodoService.getData('/calendar_task');
-      console.log(response);
       commit("SET_TODO", response.data.data);
       commit("SET_LOADING", false)
 
@@ -109,8 +108,7 @@ export const actions = {
   }, todo) {
     commit("SET_LOADING", true)
     try {
-      let response = await TodoService.changeData('/calendar_task', todo.id, `active=${todo.completed ? 0 : 1}`);
-      console.log(response);
+      await TodoService.changeData('/calendar_task', todo.id, `active=${todo.completed ? 0 : 1}`);
       // commit("SET_TODO", response.data.data);
       commit('updateTodo', todo)
       commit("SET_LOADING", false)

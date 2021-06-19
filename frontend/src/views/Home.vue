@@ -11,14 +11,14 @@
         <router-link to="/register" class="base-link">здесь</router-link>.
       </p>
     </article>
-    <article class="p-5 mt-5 text-gray-600">
+    <!-- <article class="p-5 mt-5 text-gray-600">
       <p class="text-center">
         Информация о проекте PlantManager доступна на GitHub'е:
         <a href="https://github.com/agb2008/PlantManager" class="base-link"
           >https://github.com/agb2008/PlantManager</a
         >
       </p>
-    </article>
+    </article> -->
   </div>
 </template>
 

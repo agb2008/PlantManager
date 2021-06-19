@@ -1,7 +1,17 @@
 <template>
-  <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, delectus?
-    Quasi, enim rerum! Eum, ab ea magni quam excepturi, est harum ad voluptas
-    sapiente voluptatibus inventore, ipsum earum vel minus?
-  </p>
+  <footer>
+    <article class="p-5 mt-5 text-white bg-green-500">
+      <p class="text-center font-bold">
+        Информация о проекте PlantManager доступна на GitHub'е:
+        <a
+          href="https://github.com/agb2008/PlantManager"
+          class="base-link text-white underline"
+          >https://github.com/agb2008/PlantManager</a
+        >
+      </p>
+    </article>
+  </footer>
 </template>
+
+<style scoped>
+</style>
