@@ -21,14 +21,12 @@
 import { mapGetters } from "vuex";
 import Messages from "@/components/Messages";
 import MessageForm from "@/components/MessageForm";
-import Inventory from "./Inventory";
 
 export default {
   name: "Dashboard",
   components: {
     Messages,
     MessageForm,
-    Inventory,
   },
   computed: {
     ...mapGetters("auth", ["authUser"]),

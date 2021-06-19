@@ -43,7 +43,7 @@ const routes = [
   {
     path: '/inventory',
     meta: { middleware: [auth] },
-    component: () => import(/* webpackChunkName: "user" */ "../views/userProfile/Inventory"),
+    component: () => import(/* webpackChunkName: "user" */ "../views/Inventory"),
   },
   {
     path: '/seedling',

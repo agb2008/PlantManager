@@ -17,7 +17,7 @@ export default new Vuex.Store({
     auth,
     user,
     message,
-    todos
+    todos,
     inventory,
   },
 });
