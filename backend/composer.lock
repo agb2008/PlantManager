@@ -64,16 +64,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.184.5",
+            "version": "3.184.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c833d965cb5f5241a04748b313953335409d0f06"
+                "reference": "78fe691ab466fecf195209672f6c00c5d4ed219a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c833d965cb5f5241a04748b313953335409d0f06",
-                "reference": "c833d965cb5f5241a04748b313953335409d0f06",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/78fe691ab466fecf195209672f6c00c5d4ed219a",
+                "reference": "78fe691ab466fecf195209672f6c00c5d4ed219a",
                 "shasum": ""
             },
             "require": {
@@ -148,9 +148,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.184.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.184.2"
             },
-            "time": "2021-06-16T18:13:45+00:00"
+            "time": "2021-06-11T18:20:15+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -1153,16 +1153,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.47.0",
+            "version": "v8.46.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "93db226946453f4285558b7c3166ddb6e7ea5400"
+                "reference": "a18266c612e0e6aba5e0174b3c873d2d217dccfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/93db226946453f4285558b7c3166ddb6e7ea5400",
-                "reference": "93db226946453f4285558b7c3166ddb6e7ea5400",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a18266c612e0e6aba5e0174b3c873d2d217dccfb",
+                "reference": "a18266c612e0e6aba5e0174b3c873d2d217dccfb",
                 "shasum": ""
             },
             "require": {
@@ -1317,20 +1317,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-06-15T14:00:32+00:00"
+            "time": "2021-06-08T13:36:46+00:00"
         },
         {
             "name": "laravel/sanctum",
-            "version": "v2.11.2",
+            "version": "v2.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sanctum.git",
-                "reference": "b21e65cbe13896946986cb0868180cd69e1bd5d3"
+                "reference": "5de9d0ced8ae50dacb00c16077115f32e94d13f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sanctum/zipball/b21e65cbe13896946986cb0868180cd69e1bd5d3",
-                "reference": "b21e65cbe13896946986cb0868180cd69e1bd5d3",
+                "url": "https://api.github.com/repos/laravel/sanctum/zipball/5de9d0ced8ae50dacb00c16077115f32e94d13f2",
+                "reference": "5de9d0ced8ae50dacb00c16077115f32e94d13f2",
                 "shasum": ""
             },
             "require": {
@@ -1381,7 +1381,7 @@
                 "issues": "https://github.com/laravel/sanctum/issues",
                 "source": "https://github.com/laravel/sanctum"
             },
-            "time": "2021-06-15T15:56:21+00:00"
+            "time": "2021-05-25T16:43:06+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2969,16 +2969,16 @@
         },
         {
             "name": "spatie/laravel-ray",
-            "version": "1.20.1",
+            "version": "1.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ray.git",
-                "reference": "1ecabbea3166fe098edc3b3a1314bcd5045d1833"
+                "reference": "5afa1c020a61637f6f1f8c660ab7702e7bbc4d3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/1ecabbea3166fe098edc3b3a1314bcd5045d1833",
-                "reference": "1ecabbea3166fe098edc3b3a1314bcd5045d1833",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/5afa1c020a61637f6f1f8c660ab7702e7bbc4d3d",
+                "reference": "5afa1c020a61637f6f1f8c660ab7702e7bbc4d3d",
                 "shasum": ""
             },
             "require": {
@@ -3034,7 +3034,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-ray/issues",
-                "source": "https://github.com/spatie/laravel-ray/tree/1.20.1"
+                "source": "https://github.com/spatie/laravel-ray/tree/1.19.1"
             },
             "funding": [
                 {
@@ -3046,7 +3046,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-06-15T11:40:39+00:00"
+            "time": "2021-06-11T18:10:35+00:00"
         },
         {
             "name": "spatie/macroable",
@@ -6466,16 +6466,16 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v4.5.0",
+            "version": "v4.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "b61cf696a339301fb71439c54f6ec88a8ac78fa4"
+                "reference": "04c9883c9ad8453e58207eb010e37153d13d26f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/b61cf696a339301fb71439c54f6ec88a8ac78fa4",
-                "reference": "b61cf696a339301fb71439c54f6ec88a8ac78fa4",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/04c9883c9ad8453e58207eb010e37153d13d26f6",
+                "reference": "04c9883c9ad8453e58207eb010e37153d13d26f6",
                 "shasum": ""
             },
             "require": {
@@ -6524,9 +6524,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/telescope/issues",
-                "source": "https://github.com/laravel/telescope/tree/v4.5.0"
+                "source": "https://github.com/laravel/telescope/tree/v4.4.10"
             },
-            "time": "2021-06-15T16:03:35+00:00"
+            "time": "2021-06-01T17:35:45+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -8360,16 +8360,16 @@
         },
         {
             "name": "sebastian/type",
-            "version": "2.3.4",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/type.git",
-                "reference": "b8cd8a1c753c90bc1a0f5372170e3e489136f914"
+                "reference": "0d1c587401514d17e8f9258a27e23527cb1b06c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/b8cd8a1c753c90bc1a0f5372170e3e489136f914",
-                "reference": "b8cd8a1c753c90bc1a0f5372170e3e489136f914",
+                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/0d1c587401514d17e8f9258a27e23527cb1b06c1",
+                "reference": "0d1c587401514d17e8f9258a27e23527cb1b06c1",
                 "shasum": ""
             },
             "require": {
@@ -8404,7 +8404,7 @@
             "homepage": "https://github.com/sebastianbergmann/type",
             "support": {
                 "issues": "https://github.com/sebastianbergmann/type/issues",
-                "source": "https://github.com/sebastianbergmann/type/tree/2.3.4"
+                "source": "https://github.com/sebastianbergmann/type/tree/2.3.2"
             },
             "funding": [
                 {
@@ -8412,7 +8412,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-15T12:49:02+00:00"
+            "time": "2021-06-04T13:02:07+00:00"
         },
         {
             "name": "sebastian/version",
@@ -8529,5 +8529,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

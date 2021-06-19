@@ -29,6 +29,38 @@ const routes = [
     component: () => import(/* webpackChunkName: "user" */ "../views/User"),
   },
   {
+    path: "/user/options",
+    name: "options",
+    meta: { middleware: [auth] },
+    component: () => import(/* webpackChunkName: "user" */ "../views/userProfile/Account"),
+  },
+  {
+    path: "/user/support",
+    name: "support",
+    meta: { middleware: [auth] },
+    component: () => import(/* webpackChunkName: "user" */ "../views/userProfile/Support"),
+  },
+  {
+    path: '/inventory',
+    meta: { middleware: [auth] },
+    component: () => import(/* webpackChunkName: "user" */ "../views/Inventory"),
+  },
+  {
+    path: '/seedling',
+    meta: { middleware: [auth] },
+    component: () => import(/* webpackChunkName: "user" */ "../views/userProfile/Seedling"),
+  },
+  {
+    path: '/garden',
+    meta: { middleware: [auth] },
+    component: () => import(/* webpackChunkName: "user" */ "../views/userProfile/GardenBeds"),
+  },
+  {
+    path: '/stats',
+    meta: { middleware: [auth] },
+    component: () => import(/* webpackChunkName: "user" */ "../views/userProfile/Stats"),
+  },
+  {
     path: "/users",
     name: "users",
     meta: { middleware: [auth, admin] },

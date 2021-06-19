@@ -1,19 +1,22 @@
 <template>
   <div id="app">
     <Header />
-    <main class="container mx-auto">
+    <main class="container h-auto min-h-screen m-auto">
       <router-view />
     </main>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default {
   name: "app",
   components: {
     Header,
+    Footer
   },
 };
 </script>

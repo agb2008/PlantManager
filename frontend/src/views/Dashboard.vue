@@ -6,14 +6,14 @@
         <Messages />
       </article>
     </div>
-    <footer class="py-5 text-center">
+    <!-- <footer class="py-5 text-center">
       <p class="text-gray-400">
         Описание проекта доступно на GitHub'e
         <a href="https://github.com/agb2008/PlantManager" class="base-link"
           >https://github.com/agb2008/PlantManager</a
         >
       </p>
-    </footer>
+    </footer> -->
   </div>
 </template>
 

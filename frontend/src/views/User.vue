@@ -1,39 +1,43 @@
 <template>
-  <div class="p-5 xl:px-0">
-    <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
-      <AuthUser class="p-5 bg-white border rounded shadow" />
-      <AuthUserForm class="p-5 bg-white border rounded shadow" />
-      <UpdatePassword class="p-5 bg-white border rounded shadow" />
-<!--      Загрузка аватарок временно отключена.-->
-      <FileUpload
-        label="Upload Avatar"
-        :fileTypes="['image/*']"
-        endpoint="/users/auth/avatar"
-        @fileUploaded="updateUser"
-        class="p-5 bg-white border rounded shadow invisible"
-      />
+  <div
+    class="container h-auto text-green-500 grid grid-rows-1 grid-cols-5 gap-6"
+  >
+    <div class="col-start-1">
+      <div>
+        <SideBar />
+        <Weather />
+      </div>
     </div>
+    <div class="col-start-2 col-span-2 mt-5 justify-center text-center">
+      <h4 class="mb-5 justify-start text-green-500 font-bold">Список задач:</h4>
+      <TodoList />
+    </div>
+    <div class="col-start-4 col-span-2 row-start-1 row-span-1 mt-5 h-96">
+      <Calendar />
+    </div>
+    <div class="row-start-3 col-start-1"></div>
   </div>
 </template>
-
 <script>
-import AuthUser from "@/components/AuthUser";
-import FileUpload from "@/components/FileUpload";
-import AuthUserForm from "@/components/AuthUserForm";
-import UpdatePassword from "@/components/UpdatePassword";
+import SideBar from "@/components/userProfile/SideBar";
+import Weather from "@/components/userProfile/Weather";
+import Calendar from "@/components/Calendar/Fcalendar";
+import TodoList from "@/components/userProfile/TodoList";
+import { mapActions } from "vuex";
 
 export default {
-  name: "UserView",
   components: {
-    AuthUser,
-    FileUpload,
-    AuthUserForm,
-    UpdatePassword,
+    SideBar,
+    Weather,
+    Calendar,
+    TodoList,
   },
-  methods: {
-    updateUser() {
-      this.$store.dispatch("auth/getAuthUser");
-    },
+  method: {
+    ...mapActions("todos", ["getAllData"]),
+  },
+  mounted() {
+    this.$store.dispatch("todos/getAllData");
   },
 };
 </script>
+
