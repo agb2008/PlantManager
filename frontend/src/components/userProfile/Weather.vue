@@ -74,6 +74,7 @@
 export default {
   data() {
     return {
+      citySearch: "",
       visible: false,
       notCityFound: false,
       date: new Date(),
