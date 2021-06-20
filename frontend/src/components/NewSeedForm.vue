@@ -144,6 +144,7 @@ export default {
     newData: Function,
     plantTypeList: Array,
     manufacturerList: Array,
+    user_id: Number,
   },
 
   data() {
@@ -186,7 +187,7 @@ export default {
         price: this.price,
         notes: "Описание",
         img_id: 1,
-        user_id: 1,
+        user_id: this.user_id,
         manufacturer_id: this.manufacturerId,
         production_date: this.prodDate,
         expiration_date: this.expirDate,

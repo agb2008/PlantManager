@@ -122,6 +122,7 @@ export default {
     newData: Function,
     plantTypeList: Array,
     manufacturerList: Array,
+    user_id: Number,
   },
 
   data() {
@@ -165,7 +166,7 @@ export default {
         purchase_date: this.purchaseDate,
         plant_date: this.plantDate,
         seeds_id: 1,
-        user_id: 1,
+        user_id: this.user_id,
       });
       this.openModal(false);
     },

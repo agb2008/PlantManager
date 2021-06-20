@@ -87,6 +87,7 @@
                     :newData="addNewSeedsPack"
                     :plantTypeList="plantTypeList"
                     :manufacturerList="manufacturerList"
+                    :user_id="authUser.id"
                   ></NewSeedForm>
                 </li>
               </ul>
@@ -176,6 +177,7 @@
                     :newData="addNewSeedling"
                     :plantTypeList="plantTypeList"
                     :manufacturerList="manufacturerList"
+                    :user_id="authUser.id"
                   ></NewSeedlingForm>
                 </li>
               </ul>
@@ -209,10 +211,7 @@ export default {
     Tab,
   },
 
-  props: {
-    // user: { String, required: true },
-    // seedsList: Object,
-  },
+  props: {},
 
   data() {
     return {};

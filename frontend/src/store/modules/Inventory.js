@@ -14,145 +14,12 @@ const storeApis = {
 };
 
 export const state = {
-  seedsList: [
-    {
-      id: 1,
-      name: "carrot",
-      typePlant: 5,
-      numberOfSeeds: 100,
-      amount: 2,
-      price: 100,
-      manufacturerId: 1,
-      prodDate: "2020.03.11",
-      expirDate: "2020.03.12",
-      harvestYear: "2020.02.12",
-    },
-    {
-      id: 2,
-      name: "carrotca",
-      typePlant: 5,
-      numberOfSeeds: 50,
-      amount: 5,
-      price: 100,
-      manufacturerId: 3,
-      prodDate: "2020.03.11",
-      expirDate: "2020.03.12",
-      harvestYear: "2020.02.12",
-    },
-    {
-      id: 3,
-      name: "tomato",
-      typePlant: 8,
-      numberOfSeeds: 99,
-      amount: 3,
-      price: 100,
-      manufacturerId: 2,
-      prodDate: "2020.03.11",
-      expirDate: "2020.03.12",
-      harvestYear: "2020.02.12",
-    },
-  ],
-  seedlingsList: [
-    {
-      id: 1,
-      name: "corn",
-      typePlant: 1,
-      amount: 2,
-      price: 100,
-      manufacturerId: 1,
-      purchaseDate: "2020.03.11",
-      plantDate: "2020.03.12",
-    },
-    {
-      id: 2,
-      name: "cornotca",
-      typePlant: 1,
-      amount: 5,
-      price: 100,
-      manufacturerId: 3,
-      purchaseDate: "2020.03.11",
-      plantDate: "2020.03.12",
-    },
-    {
-      id: 3,
-      name: "cyber cucumber",
-      typePlant: 2,
-      amount: 3,
-      price: 100,
-      manufacturerId: 2,
-      purchaseDate: "2020.03.11",
-      plantDate: "2020.03.12",
-    },
-  ],
-  plantTypeList: [
-    {
-      id: 5,
-      name: "морковь",
-      familyId: 1,
-      speciesId: 1,
-      notes: "морковь однолетнее растение",
-    },
-    {
-      id: 8,
-      name: "свекла",
-      familyId: 2,
-      speciesId: 2,
-      notes: "свекла mоднолетнее растение",
-    },
-    {
-      id: 1,
-      name: "кукуруза",
-      familyId: 1,
-      speciesId: 3,
-      notes: "кукуруза однолетнее растение",
-    },
-    {
-      id: 2,
-      name: "огурец",
-      familyId: 2,
-      speciesId: 4,
-      notes: "огурец mоднолетнее растение",
-    },
-  ],
-  familyList: [
-    { id: 1, name: "однолетнее", notes: " однолетнее растение" },
-    { id: 2, name: "многолетнее", notes: " mоднолетнее растение" },
-  ],
-  speciesList: [
-    { id: 1, name: "морковные", notes: "семейство морковные" },
-    { id: 2, name: "свекловные", notes: "семейство свекловные" },
-    { id: 3, name: "кукурузновые", notes: "семейство кукурузновые" },
-    { id: 4, name: "огурецовые", notes: "семейство огурецовые" },
-  ],
-  manufacturerList: [
-    {
-      id: 1,
-      name: "агроФ",
-      address: "lorem ipsum",
-      email: "lorem ipsum@lorem",
-      phone: "2384238",
-      website: "lorem ipsum",
-      notes: "бла бла бла бла",
-    },
-    {
-      id: 2,
-      name: "агроE",
-      address: "lorem ipsum",
-      email: "lorem ipsum@lorem",
-      phone: "2384238",
-      website: "lorem ipsum",
-      notes: "бла бла бла бла",
-    },
-    {
-      id: 3,
-      name: "агроS",
-      address: "lorem ipsum",
-      email: "lorem ipsum@lorem",
-      phone: "2384238",
-      website: "lorem ipsum",
-      notes: "бла бла бла бла",
-    },
-  ],
+  seedsList: [],
+  seedlingsList: [],
+  plantTypeList: [],
+  familyList: [],
+  speciesList: [],
+  manufacturerList: [],
   selectedPlantOfSeeds: null,
   selectedPlantOfSeedlings: null,
   selectedSeedPack: null,
@@ -256,13 +123,10 @@ export const actions = {
     try {
       const response = await InventoryService.getData("/seeds");
       commit("SET_SEEDS_LIST", response.data.data);
-      console.log(response.data.data);
       commit("SET_LOADING", false);
       return response.data.data;
     } catch (error) {
       commit("SET_LOADING", false);
-      console.log(error);
-      //commit("SET_SEEDS_LIST", null);
       commit("SET_ERROR", getError(error));
     }
   },
@@ -275,7 +139,6 @@ export const actions = {
       return response.data.data;
     } catch (error) {
       commit("SET_LOADING", false);
-      commit("SET_SEEDLINGS_LIST", null);
       commit("SET_ERROR", getError(error));
     }
   },
@@ -346,7 +209,6 @@ export const actions = {
     if (+payload.newAmount) {
       commit("SET_LOADING", true);
       try {
-        console.log(typeof payload.newAmount);
         await InventoryService.changeData(
           "/seedling",
           getters.selectedSeedlingItem,
@@ -363,7 +225,6 @@ export const actions = {
     } else {
       commit("SET_LOADING", true);
       try {
-        console.log(typeof payload.newAmount);
         await InventoryService.deleteData(
           "/seedling",
           getters.selectedSeedlingItem

@@ -102,11 +102,9 @@ export default {
 
   computed: {
     seedsFamilyOfType() {
-      //let familyId = this.plantTypeList.find( item => item.id === this.selectedPlantOfSeeds).familyId;
       return this.family.find((item) => item.id === this.plantType.family_id);
     },
     seedsSpeciesOfType() {
-      //let speciesId = this.plantTypeList.find( item => item.id === this.selectedPlantOfSeeds).speciesId;
       return this.species.find((item) => item.id === this.plantType.species_id);
     },
     seedsManufacturerOfType() {
