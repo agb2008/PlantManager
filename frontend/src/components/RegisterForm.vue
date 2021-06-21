@@ -1,20 +1,20 @@
 <template>
   <form @submit.prevent="registerUser">
     <BaseInput
-        type="text"
-        label="Фамилия"
-        name="lastname"
-        v-model="lastname"
-        placeholder="Фамилия"
-        class="mb-2"
+      type="text"
+      label="Фамилия"
+      name="lastname"
+      v-model="lastname"
+      placeholder="Фамилия"
+      class="mb-2"
     />
     <BaseInput
-        type="text"
-        label="Имя"
-        name="name"
-        v-model="name"
-        placeholder="Имя"
-        class="mb-2"
+      type="text"
+      label="Имя"
+      name="name"
+      v-model="name"
+      placeholder="Имя"
+      class="mb-2"
     />
     <BaseInput
       type="text"
@@ -33,12 +33,12 @@
       class="mb-2"
     />
     <BaseInput
-        type="text"
-        label="Имя пользователя"
-        name="username"
-        v-model="username"
-        placeholder="Имя пользователя"
-        class="mb-2"
+      type="text"
+      label="Имя пользователя"
+      name="username"
+      v-model="username"
+      placeholder="Имя пользователя"
+      class="mb-2"
     />
     <BaseInput
       type="password"

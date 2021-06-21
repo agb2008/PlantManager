@@ -29,6 +29,10 @@ class SeedController extends Controller
      */
     public function store(StoreSeedRequest $request)
     {
+//        var_dump("Request user_id : ");
+//        var_dump($request->user_id);
+//        var_dump("Auth:user()->id : ");
+//        var_dump(Auth::user()->id);
         // Добавлена проверка на соответствие записи id пользователя
         if ($request->user_id == Auth::user()->id) {
 
@@ -52,7 +56,7 @@ class SeedController extends Controller
             return SeedResource::collection(Seed::all()->where('user_id', Auth::user()->id));
 
         }
-        return  response()->json(["message" => "Forbidden"], 403);
+        return  response()->json(["message" => "Forbidden совсем " . $request->user_id], 403);
     }
 
     /**

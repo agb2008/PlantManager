@@ -30,6 +30,7 @@ pnpm-debug.log*
 /backend/public/hot
 /backend/public/storage
 /backend/storage/*.key
+/backend/storage/logs/*.log
 /backend/vendor
 .env
 .env.backup

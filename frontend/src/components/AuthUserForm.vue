@@ -1,36 +1,36 @@
 <template>
   <form @submit.prevent="updateUser">
     <BaseInput
-        type="text"
-        label="Фамилия"
-        name="lastname"
-        v-model="lastname"
-        placeholder="Фамилия"
-        class="mb-2"
+      type="text"
+      label="Фамилия"
+      name="lastname"
+      v-model="lastname"
+      placeholder="Фамилия"
+      class="mb-2"
     />
     <BaseInput
-        type="text"
-        label="Имя"
-        name="name"
-        v-model="name"
-        placeholder="Имя"
-        class="mb-2"
+      type="text"
+      label="Имя"
+      name="name"
+      v-model="name"
+      placeholder="Имя"
+      class="mb-2"
     />
     <BaseInput
-        type="text"
-        label="Отчество"
-        name="midname"
-        v-model="midname"
-        placeholder="Отчество (опционально)"
-        class="mb-2"
+      type="text"
+      label="Отчество"
+      name="midname"
+      v-model="midname"
+      placeholder="Отчество (опционально)"
+      class="mb-2"
     />
     <BaseInput
-        type="text"
-        label="Отчество"
-        name="username"
-        v-model="username"
-        placeholder="Имя пользователя"
-        class="mb-2"
+      type="text"
+      label="Имя пользователя"
+      name="username"
+      v-model="username"
+      placeholder="Имя пользователя"
+      class="mb-2"
     />
     <BaseInput
       type="email"

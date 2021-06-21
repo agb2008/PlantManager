@@ -1,9 +1,7 @@
 <template>
   <form @submit.prevent="updatePassword">
     <div class="mb-2">
-      <label for="password" class="text-sm text-gray-500"
-        >Текущий пароль</label
-      >
+      <label for="password" class="text-sm text-gray-500">Текущий пароль</label>
       <input
         type="password"
         id="current-password"

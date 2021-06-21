@@ -37,7 +37,9 @@ export default {
         user: this.authUser.id,
       };
       AuthService.sendVerification(payload)
-        .then(() => (this.message = "E-mail для подтверждения акквунта отправлен."))
+        .then(
+          () => (this.message = "E-mail для подтверждения акквунта отправлен.")
+        )
         .catch((error) => (this.error = getError(error)));
     },
   },

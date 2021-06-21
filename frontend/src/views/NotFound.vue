@@ -8,7 +8,9 @@
       </h1>
       <p class="font-bold text-center">
         Такой страницы здесь нет.
-        <router-link to="/dashboard" class="base-link">Вернуться на домашнюю страницу</router-link>.
+        <router-link to="/dashboard" class="base-link"
+          >Вернуться на домашнюю страницу</router-link
+        >.
       </p>
     </article>
   </div>
